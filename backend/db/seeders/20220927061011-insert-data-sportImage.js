@@ -13,17 +13,17 @@ module.exports = {
     */
   return queryInterface.bulkInsert("SpotImages", [
     {
-      spotId:4,
+      spotId:1,
       url:'dsda.png',
       preview:true
     },
     {
-      spotId:6,
+      spotId:2,
       url:'dsdaasd.jpag',
       preview:false
     },
     {
-      spotId:4,
+      spotId:3,
       url:'asdd.png',
       preview:true
     }
