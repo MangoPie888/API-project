@@ -214,6 +214,34 @@ router.post('/', restoreUser,requireAuth,validationCheck, async (req, res)=>{
         res.json(newSpot)
     }else return res.json({})
 
+});
+
+
+
+//Add an Image to a Spot based on the Spot's id
+
+router.post('/:spotId/images',restoreUser,requireAuth, async (req,res)=>{
+    const{user} = req;
+    if(user) {
+        const spot = await Spot.findByPk(req.params.spotId);
+        if(!spot) {
+            res.status(404);
+            res.json({
+                "message": "Spot couldn't be found",
+                "statusCode": 404
+            })
+        }
+        if(spot.ownerId === user.id) {
+            const{url, preview} = req.body;
+            const spotId = req.params.spotId
+            const newImage = await SpotImage.create({spotId,url,preview});
+            res.json({
+                id:newImage.id,
+                url:newImage.url,
+                preview:newImage.preview,
+            })
+        }
+    }
 })
 
 
