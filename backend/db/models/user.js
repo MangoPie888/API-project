@@ -52,19 +52,20 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       User.hasMany(
-        models.Spot,
-        {foreignKey:'ownerId', onDelete:"CASCADE",hooks:true}
+        models.Booking,
+        {foreignKey:'userId',onDelete:'CASCADE',hooks:true}
       );
 
-      User.belongsToMany(
-        models.Spot,
-        {through:models.Booking}
+      User.hasMany(
+        models.Review,
+        {foreignKey:'userId',onDelete:'CASCADE',hooks:true}
       );
 
-      User.belongsToMany(
+      User.hasMany(
         models.Spot,
-        {through:models.Review}
+        {foreignKey:'ownerId',onDelete:"CASCADE",hooks:true}
       )
+
     }
   }
   User.init({
