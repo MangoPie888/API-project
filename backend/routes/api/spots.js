@@ -242,6 +242,28 @@ router.post('/:spotId/images',restoreUser,requireAuth, async (req,res)=>{
             })
         }
     }
+});
+
+
+//Edit a Spot
+router.put('/:spotId', restoreUser,requireAuth, async(req,res)=>{
+    const{user} = req;
+    if(user) {
+        const spot = await Spot.findByPk(req.params.spotId);
+        if(!spot) {
+            res.status(404);
+            return res.json({
+                "message": "Spot couldn't be found",
+                "statusCode": 404
+            })
+        }
+        if(spot.ownerId === user.id) {
+            const{address,city,state,country,lat,lng,name,description,price} = req.body;
+            spot.update({address,city,state,country,lat,lng,name,description,price});
+            return res.json(spot)
+        }
+    }
+
 })
 
 
