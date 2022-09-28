@@ -1,7 +1,10 @@
 const express = require('express');
 // const sequelize = require('sequelize')
-const {Spot, SpotImage, Review, Sequelize, sequelize} = require('../../db/models');
+const {User,Spot, SpotImage, Review, Sequelize, sequelize} = require('../../db/models');
+const user = require('../../db/models/user');
 const{setTokenCookie, restoreUser,requireAuth} = require('../../utils/auth');
+const { handleValidationErrors } = require('../../utils/validation');
+const { check } = require('express-validator');
 
 const router = express.Router();
 
@@ -107,6 +110,111 @@ router.get('/current', restoreUser,requireAuth,async(req,res,next) =>{
     }else return res.json({})
 
 });
+
+
+//Get details of a Spot from an id (how to rename the "User" table?reviews[0].avgRating)
+router.get('/:spotId', async (req, res)=>{
+    let spot = await Spot.findOne({
+        where:{id:req.params.spotId},
+        include:[
+            {
+                model:SpotImage,
+                attributes:{
+                    exclude:['createdAt','updatedAt','spotId']
+                }
+            },
+            {
+                model:User, as: 'Owner',
+                attributes:{
+                    exclude:['username','hashedPassword','email','createdAt','updatedAt']
+                }
+
+            }
+        ]
+    }
+        );
+        console.log(spot)
+    
+    if(!spot) {
+        res.status(404),
+        res.json(
+            {
+                "message": "Spot couldn't be found",
+                "statusCode": 404
+            }
+        )
+    };
+
+    
+    const reviews = await Review.findAll({
+        where:{spotId:spot.id},
+            attributes:[
+                [
+                    sequelize.fn("AVG", sequelize.col('stars')), 
+                    "avgRating"
+                ],
+                [
+                    sequelize.fn("COUNT", sequelize.col('id')),
+                    "numReviews"
+                ]
+            ],
+                raw:true
+            });
+    spot.dataValues.numReviews = reviews[0].numReviews;
+    spot.dataValues.avgStarRating = reviews[0].avgRating;
+
+    res.json(spot)
+
+});
+
+
+//Create a Spot
+const validationCheck = [
+    check('address')
+    .exists({ checkFalsy: true })
+    .withMessage("Street address is required"),
+    check('city')
+    .exists({ checkFalsy: true })
+    .withMessage("City is required"),
+    check('state')
+    .exists({ checkFalsy: true })
+    .withMessage( "State is required"),
+    check('country')
+    .exists({ checkFalsy: true })
+    .withMessage("Country is required"),
+    check('lat')
+    .exists({ checkFalsy: true })
+    .isDecimal({})
+    .withMessage("Latitude is not valid"),
+    check('lng')
+    .exists({ checkFalsy: true })
+    .isDecimal({})
+    .withMessage("Longitude is not valid"),
+    check('name')
+    .exists({ checkFalsy: true })
+    .isLength({max:50})
+    .withMessage("Name must be less than 50 characters"),
+    check('description')
+    .exists({ checkFalsy: true })
+    .withMessage("Description is required"),
+    check('price')
+    .exists({ checkFalsy: true })
+    .withMessage("Price per day is required"),
+    handleValidationErrors
+];
+
+
+router.post('/', restoreUser,requireAuth,validationCheck, async (req, res)=>{
+    const {user} = req;
+    if(user){
+        const {address,city,state,country,lat,lng,name,description,price} = req.body;
+        const ownerId = user.id
+        const newSpot = await Spot.create({ownerId,address,city,state,country,lat,lng,name,description,price});
+
+        res.json(newSpot)
+    }else return res.json({})
+
+})
 
 
 module.exports = router;
