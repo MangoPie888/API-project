@@ -39,7 +39,7 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey:true,
       allowNull:false
     },
-    owerId: DataTypes.INTEGER,
+    ownerId: DataTypes.INTEGER,
     address: DataTypes.STRING,
     city: DataTypes.STRING,
     state: DataTypes.STRING,

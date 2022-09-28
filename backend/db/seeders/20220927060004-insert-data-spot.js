@@ -13,7 +13,7 @@ module.exports = {
     */
     return queryInterface.bulkInsert('Spots',[
       {
-        owerId:1,
+        ownerId:1,
         address:'1345 silva Road',
         city:'Los Angeles',
         state:'California',
@@ -25,7 +25,7 @@ module.exports = {
         price:129
       },
       {
-        owerId:2,
+        ownerId:2,
         address:'346 Disney Land',
         city:'Los Angeles',
         state:'California',
@@ -37,7 +37,7 @@ module.exports = {
         price:369
       },
       {
-        owerId:3,
+        ownerId:3,
         address:'4555 velly Drive',
         city:'San Francisco',
         state:'California',
