@@ -50,8 +50,41 @@ router.get('/current',restoreUser,async(req,res)=>{
 
 
 
-//Get all Reviews by a Spot's id
-router.get('')
+//Add an Image to a Review based on the Review's id
+router.post('/:reviewId/images', restoreUser,requireAuth,async(req,res)=>{
+    const {user} = req;
+    if(user) {
+        const review = await Review.findByPk(req.params.reviewId);
+        if(review) {
+            const reviewImages = await ReviewImage.findAll({
+                where:{reviewId:req.params.reviewId}
+            });
+            if(reviewImages.length >= 10) {
+                res.status(403);
+                res.json({
+                    "message": "Maximum number of images for this resource was reached",
+                    "statusCode": 403
+                })
+            };
+            const reviewId = req.params.reviewId;
+            const {url} = req.body
+            const newImage = await ReviewImage.create({reviewId,url})
+            let body = {
+                id:newImage.id,
+                url:newImage.url  
+            };
+            res.json(body)
+        }else{
+            res.status(404);
+            res.json({
+                "message": "Review couldn't be found",
+                "statusCode": 404
+              })
+        };
+
+    }
+
+})
 
 
 

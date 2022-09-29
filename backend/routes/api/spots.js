@@ -401,7 +401,10 @@ router.post('/:spotId/reviews',restoreUser,requireAuth,reviewValidation,async(re
         
     }
 
-})
+});
+
+
+
 
 
 module.exports = router;
