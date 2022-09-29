@@ -3,6 +3,7 @@ const {User,Spot, SpotImage, Review,ReviewImage, Sequelize, sequelize} = require
 const{setTokenCookie, restoreUser,requireAuth} = require('../../utils/auth');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
+const { ResultWithContext } = require('express-validator/src/chain');
 
 const router = express.Router();
 
@@ -118,6 +119,30 @@ router.put('/:reviewId',restoreUser,requireAuth,reviewValidation,async(req,res)=
             res.json(reviews)
         }
     } 
+} );
+
+
+
+//Delete a Review
+router.delete('/:reviewId',restoreUser,requireAuth,async(req,res)=>{
+    const review = await Review.findByPk(req.params.reviewId);
+    if(!review) {
+        res.status(404);
+        res.json({
+            "message": "Review couldn't be found",
+            "statusCode": 404
+        })
+    }
+    const {user} = req;
+    if(user) {
+        if(review.userId = user.id) {
+            review.destroy();
+            res.json({
+                "message": "Successfully deleted",
+                "statusCode": 200
+            })
+        }
+    }
 } )
 
 
