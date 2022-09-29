@@ -1,3 +1,14 @@
+const express = require('express');
+// const sequelize = require('sequelize')
+const {User,Spot, SpotImage, Review, ReviewImage,Booking,Sequelize, sequelize} = require('../../db/models');
+const user = require('../../db/models/user');
+const{setTokenCookie,requireAuth} = require('../../utils/auth');
+const { handleValidationErrors } = require('../../utils/validation');
+const { check } = require('express-validator');
+const { json } = require('sequelize');
+
+
+
 const router = require('express').Router();
 const sessionRouter = require('./session.js');
 const usersRouter = require('./users.js')
@@ -18,12 +29,54 @@ router.use('/spots',spotsRouter);
 
 router.use('/reviews',reviewsRouter);
 
-router.use('/bookings',bookingsRouter)
+router.use('/bookings',bookingsRouter);
+
+
 
 
 router.post('/test',(req,res)=>{
     res.json({requestBody: req.body});
 });
+
+
+//Delete a Spot Image
+router.delete('/spot-images/:imageId',restoreUser,requireAuth,async(req,res)=>{
+    const images = await SpotImage.findByPk(req.params.imageId);
+    if(!images) {
+        res.status(404);
+        res.json({
+            "message": "Spot Image couldn't be found",
+            "statusCode": 404
+        })
+    };
+     
+    const spotId = images.spotId
+    const spot = await Spot.findByPk(spotId);
+    const{user} = req;
+    if(user) {
+        if(user.id === spot.ownerId) {
+            images.destroy();
+            res.json({
+                "message": "Successfully deleted",
+                "statusCode": 200
+            })
+        }else{
+            res.status(403);
+            res.json({
+                "message":'Forbidden',
+                "statusCode":403
+            })
+
+        }
+    }else{
+        res.status(401);
+        res.json({
+            "message": "Authentication required",
+            "statusCode": 401
+        })
+    }
+
+} );
 
 
 
