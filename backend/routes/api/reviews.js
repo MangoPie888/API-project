@@ -46,7 +46,12 @@ router.get('/current',restoreUser,async(req,res)=>{
         res.json({Reviews:reviews})
     }
 
-})
+});
+
+
+
+//Get all Reviews by a Spot's id
+router.get('')
 
 
 
