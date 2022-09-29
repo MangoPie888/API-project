@@ -143,7 +143,7 @@ router.delete('/:reviewId',restoreUser,requireAuth,async(req,res)=>{
             })
         }
     }
-} )
+} );
 
 
 
