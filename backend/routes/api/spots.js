@@ -13,9 +13,14 @@ router.get('/', async(req,res,next) =>{
     const spots = await Spot.findAll({
         include:{
             model:SpotImage,
+            where:{preview:true},
             attributes:['url']
         }
     });
+    let previewImage
+    if(!SpotImage) {
+        previewImage=null
+    }
 
     const Spots = [];
 
@@ -292,6 +297,9 @@ router.delete('/:spotId',restoreUser,requireAuth,async(req,res)=>{
     }else return res.json({});
 
 });
+
+
+
 
 
 
