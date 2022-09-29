@@ -76,10 +76,20 @@ router.put('/:bookingId', restoreUser,requireAuth,dateValidation, async(req,res)
     };
 
 
-    
-    booking.update({startDate,endDate});
-    res.json(booking)
-})
+    const {user} = req;
+    if(user) {
+        if(user.id === booking.userId) {
+            booking.update({startDate,endDate});
+            res.json(booking)    
+        }else{
+            res.status(403)
+            res.json({
+            "message":'Forbidden',
+            "statusCode":403
+        })}
+    }
+
+});
 
 
 
