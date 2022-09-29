@@ -11,16 +11,16 @@ const router = express.Router();
 //Get all spots
 router.get('/', async(req,res,next) =>{
     const spots = await Spot.findAll({
-        include:{
-            model:SpotImage,
-            where:{preview:true},
-            attributes:['url']
-        }
+        // include:{
+        //     model:SpotImage,
+        //     where:{preview:true},
+        //     attributes:['url']
+        // },
     });
-    let previewImage
-    if(!SpotImage) {
-        previewImage=null
-    }
+    // let previewImage
+    // if(!SpotImage) {
+    //     previewImage=null
+    // }
 
     const Spots = [];
 
@@ -35,6 +35,17 @@ router.get('/', async(req,res,next) =>{
             ],
             raw:true
         });
+
+        let previewImage = null;
+        
+        const image = await SpotImage.findOne({
+            where:{spotId:spot.id, preview:true},
+            attributes:['url']
+        });
+
+        if(image){
+            previewImage=image.url
+        }
 
         const spotsBody = {
             id:spot.id,
@@ -51,7 +62,7 @@ router.get('/', async(req,res,next) =>{
             createdAt:spot.createdAt,
             updatedAt:spot.updatedAt,
             aveRating:average[0].avgRating,
-            previewImage:spot.SpotImages[0].url
+            previewImage
         };
         Spots.push(spotsBody)
     };
