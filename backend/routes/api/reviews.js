@@ -1,6 +1,8 @@
 const express = require('express');
 const {User,Spot, SpotImage, Review,ReviewImage, Sequelize, sequelize} = require('../../db/models');
 const{setTokenCookie, restoreUser,requireAuth} = require('../../utils/auth');
+const { check } = require('express-validator');
+const { handleValidationErrors } = require('../../utils/validation');
 
 const router = express.Router();
 
@@ -79,12 +81,44 @@ router.post('/:reviewId/images', restoreUser,requireAuth,async(req,res)=>{
             res.json({
                 "message": "Review couldn't be found",
                 "statusCode": 404
-              })
+            })
         };
 
     }
 
-})
+});
+
+
+
+//Edit a Review
+const reviewValidation= [
+    check('review')
+    .exists({ checkFalsy: true })
+    .withMessage("Review text is required"),
+    check('stars')
+    .exists({ checkFalsy: true })
+    .isInt({min:1, max:5})
+    .withMessage("Stars must be an integer from 1 to 5"),
+    handleValidationErrors
+];
+router.put('/:reviewId',restoreUser,requireAuth,reviewValidation,async(req,res)=>{
+    const {user} = req;
+    if(user) {
+        const reviews= await Review.findByPk(req.params.reviewId);
+        if(!reviews) {
+            res.status(404);
+            res.json({
+                "message": "Review couldn't be found",
+                "statusCode": 404
+            });
+        }
+        if(reviews.userId === user.id) {
+            const{review,stars} = req.body
+            reviews.update({review,stars});
+            res.json(reviews)
+        }
+    } 
+} )
 
 
 
