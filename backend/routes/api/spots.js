@@ -294,7 +294,13 @@ router.post('/', restoreUser,requireAuth,validationCheck, async (req, res)=>{
         const newSpot = await Spot.create({ownerId,address,city,state,country,lat,lng,name,description,price});
 
         res.json(newSpot)
-    }else return res.json({})
+    }else {
+        res.status(401),
+        res.json({
+            "message": "Authentication required",
+            "statusCode": 401
+        })
+    }
 
 });
 
@@ -393,9 +399,21 @@ router.delete('/:spotId',restoreUser,requireAuth,async(req,res)=>{
                     "statusCode": 200
                 }
             )
+        }else{
+            res.status(403),
+            res.json({
+                "message": "Forbidden",
+                "statusCode": 403
+            })
         }
 
-    }else return res.json({});
+    }else{
+        res.status(401);
+        res.json({
+            "message": "Authentication required",
+            "statusCode": 401
+        })
+    }
 
 });
 
@@ -488,6 +506,12 @@ router.post('/:spotId/reviews',restoreUser,requireAuth,reviewValidation,async(re
             })
         }
         
+    }else{
+        res.status(401);
+        res.json({
+            "message": "Authentication required",
+            "statusCode": 401
+        })
     }
 
 });
@@ -529,6 +553,12 @@ router.get("/:spotId/bookings", restoreUser,requireAuth, async(req,res)=>{
 
             }
 
+        }else{
+            res.status(401),
+            res.json({
+                "message": "Authentication required",
+                "statusCode": 401
+            })
         }
     }
 });
@@ -589,6 +619,12 @@ router.post('/:spotId/bookings', restoreUser,requireAuth,dateValidation,async (r
             const newBooking = await Booking.create({spotId,userId,startDate,endDate});
             res.json(newBooking)
         }
+    }else{
+        res.status(401);
+        res.json({
+            "message": "Authentication required",
+            "statusCode": 401
+        })
     }
 
 } )
