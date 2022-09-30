@@ -134,15 +134,21 @@ router.get('/current', restoreUser,requireAuth,async(req,res,next) =>{
     if(user) {
         const spots = await Spot.findAll({
             where:{ownerId:user.id},
-            include:{
-                model:SpotImage,
-                attributes:['url']
-            }
+
         });
-    
+
+        let previewImage = null;
         const Spots = [];
     
         for(let spot of spots) {
+            const spotImage = await SpotImage.findOne({
+                where:{spotId:spot.id}
+            });
+
+            if(spotImage) {
+                previewImage = spotImage.url
+            }
+        
             const average = await Review.findAll({
                 where:{spotId:spot.id},
                 attributes:[
@@ -169,7 +175,7 @@ router.get('/current', restoreUser,requireAuth,async(req,res,next) =>{
                 createdAt:spot.createdAt,
                 updatedAt:spot.updatedAt,
                 aveRating:average[0].avgRating,
-                previewImage:spot.SpotImages[0].url
+                previewImage
             };
             Spots.push(spotsBody)
         };
@@ -178,7 +184,12 @@ router.get('/current', restoreUser,requireAuth,async(req,res,next) =>{
         Spots
         })
 
-    }else return res.json({})
+    }else{ res.status(401)
+        res.json({
+        "message": "Authentication required",
+        "statusCode": 401
+    })}
+
 
 });
 
