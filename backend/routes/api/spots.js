@@ -322,8 +322,20 @@ router.post('/:spotId/images',restoreUser,requireAuth, async (req,res)=>{
                 url:newImage.url,
                 preview:newImage.preview,
             })
+        }else{
+            res.status(403)
+            res.json({
+                "message": "Forbidden",
+                "statusCode": 403
+            })
         }
-    }else return res.json({});
+    }else return res.json(
+        res.status(401),
+        res.json({
+            "message": "Authentication required",
+            "statusCode": 401
+        })
+    );
 });
 
 
