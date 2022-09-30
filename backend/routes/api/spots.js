@@ -355,8 +355,20 @@ router.put('/:spotId', restoreUser,requireAuth, async(req,res)=>{
             const{address,city,state,country,lat,lng,name,description,price} = req.body;
             spot.update({address,city,state,country,lat,lng,name,description,price});
             return res.json(spot)
+        }else{
+            res.status(403),
+            res.json({
+                "message": "Forbidden",
+                "statusCode": 403
+            })
         }
-    }else return res.json({});
+    }else {
+        res.status(401);
+        res.json({
+            "message": "Authentication required",
+            "statusCode": 401
+        })
+    }
 
 });
 
