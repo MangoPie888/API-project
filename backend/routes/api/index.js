@@ -79,5 +79,44 @@ router.delete('/spot-images/:imageId',restoreUser,requireAuth,async(req,res)=>{
 } );
 
 
+//Delete a Review Image
+router.delete('/review-images/:imageId',restoreUser,requireAuth,async(req,res)=>{
+    const reviewImage = await ReviewImage.findByPk(req.params.imageId);
+    if(!reviewImage) {
+        res.status(404);
+        res.json({
+            "message": "Review Image couldn't be found",
+            "statusCode": 404
+        })
+    };
+
+    const review = await Review.findOne({
+        where:{id:reviewImage.reviewId}
+    });
+    const {user} = req;
+    if(user) {
+        if(user.id === review.userId) {
+            reviewImage.destroy();
+            res.json({
+                "message": "Successfully deleted",
+                "statusCode": 200
+            })
+        }else{
+            res.status(403);
+            res.json({
+                "message":'Forbidden',
+                "statusCode":403
+            })
+        }
+    }else{
+        res.status(401);
+        res.json({
+            "message": "Authentication required",
+            "statusCode": 401
+        })
+    }
+} )
+
+
 
 module.exports = router;
