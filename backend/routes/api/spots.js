@@ -6,22 +6,76 @@ const{setTokenCookie, restoreUser,requireAuth} = require('../../utils/auth');
 const { handleValidationErrors } = require('../../utils/validation');
 const { check } = require('express-validator');
 const { json } = require('sequelize');
+const {Op} = require('sequelize')
+
 
 const router = express.Router();
 
+
 //Get all spots
-router.get('/', async(req,res,next) =>{
-    const spots = await Spot.findAll({
-        // include:{
-        //     model:SpotImage,
-        //     where:{preview:true},
-        //     attributes:['url']
-        // },
-    });
-    // let previewImage
-    // if(!SpotImage) {
-    //     previewImage=null
-    // }
+//Add Query Filters to Get All Spots
+const queryValidation = [
+    check('page')
+    .optional()
+    .isInt({min:1,max:10})
+    .withMessage("Page must be greater than or equal to 1"),
+    check('size')
+    .optional()
+    .isInt({min:1, max:20})
+    .withMessage("Size must be greater than or equal to 1"),
+    check('minLat')
+    .optional()
+    .isDecimal()
+    // .isLatLong()
+    .withMessage("Minimum latitude is invalid"),
+    check('maxLat')
+    .optional()
+    .isDecimal()
+    // .isLatLong()
+    .withMessage( "Maximum latitude is invalid"),
+    check('minLng')
+    .optional()
+    .isDecimal()
+    // .isLatLong()
+    .withMessage("Minimum longitude is invalid"),
+    check('maxLng')
+    .optional()
+    .isDecimal()
+    // .isLatLong()
+    .withMessage("Maximum longitude is invalid"),
+    check('minPrice')
+    .optional()
+    .isFloat({min:0})
+    .withMessage("Minimum price must be greater than or equal to 0"),
+    check('maxPrice')
+    .optional()
+    .isFloat({min:0})
+    .withMessage("Maximum price must be greater than or equal to 0"),
+    handleValidationErrors
+];
+
+router.get('/', queryValidation, async(req,res,next) =>{
+    let query = {
+        where:{},
+        include:[]
+    }
+    let {page,size, minLat,maxLat,minLng,maxLng,minPrice,maxPrice} = req.query;
+    page === undefined ? 1 : parseInt(req.query.page);
+    size === undefined ? 20 : parseInt(req.query.size);
+    if(page >= 1 && size >=1) {
+        query.limit = size,
+        query.offset = size * (page - 1);
+    };
+
+    if(minLat) {query.where.lat = {[Op.gte]:minLat}};
+    if(maxLat) {query.where.lat = {[Op.lte]:maxLat}};
+    if(minLng) {query.where.lng = {[Op.gte]:minLng}};
+    if(maxLng) {query.where.lng = {[Op.lte]:maxLng}};
+    if(minPrice) {query.where.price = {[Op.gte]:minPrice}};
+    if(maxPrice) {query.where.price = {[Op.lte]:maxPrice}};
+
+
+    const spots = await Spot.findAll(query);
 
     const Spots = [];
 
