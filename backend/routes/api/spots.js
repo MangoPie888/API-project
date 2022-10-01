@@ -432,11 +432,11 @@ router.delete('/:spotId',restoreUser,requireAuth,async(req,res)=>{
 router.get('/:spotId/reviews', async(req,res)=>{
     const spot = await Spot.findByPk(req.params.spotId);
     if(!spot) {
-        res.status(404);
-        res.json({
+        return ( res.status(404),
+                res.json({
             "message": "Spot couldn't be found",
             "statusCode": 404
-        })
+        }))
     };
     const Reviews = await Review.findAll({
         where:{spotId:req.params.spotId},
