@@ -45,7 +45,12 @@ router.post(
       const exitEmail = await User.findOne({
         where:{email}
       });
-      if(exitEmail) {
+
+      const exitUserName = await User.findOne({
+        where:{username}
+      });
+
+      if(exitEmail || exitUserName) {
         res.status(403),
         res.json({
           "message": "User already exists",
@@ -54,26 +59,10 @@ router.post(
             "email": "User with that email already exists"
           }
         })
-      };
-
-      const exitUserName = await User.findOne({
-        where:{username}
-      });
-      if(exitUserName) {
-        res.status(403),
-        res.json(
-          {
-            "message": "User already exists",
-            "statusCode": 403,
-            "errors": {
-              "username": "User with that username already exists"
-            }
-          }
-        )
-      }
+      }else{
       const user = await User.signup({ firstName,lastName,email, username, password });
 
-     let token = await setTokenCookie(res, user);
+      let token = await setTokenCookie(res, user);
 
       return res.json({
         id:user.id,
@@ -83,7 +72,8 @@ router.post(
         username:user.username,
         token
       });
-    }
+    }}
+      
   );
 
 
