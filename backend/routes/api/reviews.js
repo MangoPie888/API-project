@@ -85,11 +85,12 @@ router.post('/:reviewId/images', restoreUser,requireAuth,async(req,res)=>{
                 where:{reviewId:req.params.reviewId}
             });
             if(reviewImages.length >= 10) {
-                res.status(403);
+            return  (
+                res.status(403),
                 res.json({
                     "message": "Maximum number of images for this resource was reached",
                     "statusCode": 403
-                })
+                }))
             };
             const reviewId = req.params.reviewId;
             const {url} = req.body
