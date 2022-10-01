@@ -394,11 +394,12 @@ router.delete('/:spotId',restoreUser,requireAuth,async(req,res)=>{
     if(user) {
         const spot = await Spot.findByPk(req.params.spotId);
         if(!spot) {
-            res.status(404);
-            return res.json({
-                "message": "Spot couldn't be found",
-                "statusCode": 404
-            })
+            return (
+                res.status(404),
+                res.json({
+                    "message": "Spot couldn't be found",
+                    "statusCode": 404
+            }))
         }
         if(spot.ownerId === user.id){
             spot.destroy();
@@ -409,19 +410,21 @@ router.delete('/:spotId',restoreUser,requireAuth,async(req,res)=>{
                 }
             )
         }else{
-            res.status(403),
-            res.json({
-                "message": "Forbidden",
-                "statusCode": 403
-            })
+            return (
+                res.status(403),
+                res.json({
+                    "message": "Forbidden",
+                    "statusCode": 403
+            }))
         }
 
     }else{
-        res.status(401);
-        res.json({
-            "message": "Authentication required",
-            "statusCode": 401
-        })
+        return ( 
+            res.status(401),
+            res.json({
+                "message": "Authentication required",
+                "statusCode": 401
+        }))
     }
 
 });

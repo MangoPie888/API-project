@@ -43,37 +43,40 @@ router.post('/test',(req,res)=>{
 router.delete('/spot-images/:imageId',restoreUser,requireAuth,async(req,res)=>{
     const images = await SpotImage.findByPk(req.params.imageId);
     if(!images) {
-        res.status(404);
-        res.json({
-            "message": "Spot Image couldn't be found",
-            "statusCode": 404
-        })
+        return (
+            res.status(404),
+            res.json({
+                "message": "Spot Image couldn't be found",
+                "statusCode": 404
+        }))
     };
-     
+    
     const spotId = images.spotId
     const spot = await Spot.findByPk(spotId);
     const{user} = req;
     if(user) {
         if(user.id === spot.ownerId) {
             images.destroy();
-            res.json({
+            return (res.json({
                 "message": "Successfully deleted",
                 "statusCode": 200
-            })
+            }))
         }else{
-            res.status(403);
-            res.json({
-                "message":'Forbidden',
-                "statusCode":403
-            })
+            return (
+                res.status(403),
+                res.json({
+                    "message":'Forbidden',
+                    "statusCode":403
+            }))
 
         }
     }else{
-        res.status(401);
-        res.json({
-            "message": "Authentication required",
-            "statusCode": 401
-        })
+        return (
+            res.status(401),
+            res.json({
+                "message": "Authentication required",
+                "statusCode": 401
+        }))
     }
 
 } );
@@ -83,11 +86,12 @@ router.delete('/spot-images/:imageId',restoreUser,requireAuth,async(req,res)=>{
 router.delete('/review-images/:imageId',restoreUser,requireAuth,async(req,res)=>{
     const reviewImage = await ReviewImage.findByPk(req.params.imageId);
     if(!reviewImage) {
-        res.status(404);
-        res.json({
-            "message": "Review Image couldn't be found",
-            "statusCode": 404
-        })
+        return (
+            res.status(404),
+            res.json({
+                "message": "Review Image couldn't be found",
+                "statusCode": 404
+        }))
     };
 
     const review = await Review.findOne({
@@ -97,23 +101,25 @@ router.delete('/review-images/:imageId',restoreUser,requireAuth,async(req,res)=>
     if(user) {
         if(user.id === review.userId) {
             reviewImage.destroy();
-            res.json({
+            return (res.json({
                 "message": "Successfully deleted",
                 "statusCode": 200
-            })
+            }))
         }else{
-            res.status(403);
-            res.json({
-                "message":'Forbidden',
-                "statusCode":403
-            })
+            return (
+                res.status(403),
+                res.json({
+                    "message":'Forbidden',
+                    "statusCode":403
+            }))
         }
     }else{
-        res.status(401);
-        res.json({
-            "message": "Authentication required",
-            "statusCode": 401
-        })
+        return (
+            res.status(401),
+            res.json({
+                "message": "Authentication required",
+                "statusCode": 401
+        }))
     }
 } )
 
