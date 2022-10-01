@@ -7,7 +7,7 @@ const {User} = require('../../db/models');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 
-
+//Log In a User
 const validateLogin = [
   check('credential')
     .exists({ checkFalsy: true })

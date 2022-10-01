@@ -139,8 +139,20 @@ router.put('/:reviewId',restoreUser,requireAuth,reviewValidation,async(req,res)=
             const{review,stars} = req.body
             reviews.update({review,stars});
             res.json(reviews)
+        }else{
+            res.status(403),
+            res.json({
+                "message": "Forbidden",
+                "statusCode": 403
+            })
         }
-    } 
+    }else{
+        res.status(401);
+        res.json({
+            "message": "Authentication required",
+            "statusCode": 401
+        })
+    }
 } );
 
 
