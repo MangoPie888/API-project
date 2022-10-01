@@ -27,6 +27,9 @@ router.get('/current',restoreUser,async(req,res)=>{
                     model:Spot,
                     attributes:{
                         exclude:['createdAt','updatedAt','OwnerId','description']
+                    },
+                    include:{
+                        model:SpotImage
                     }
 
                 },
@@ -38,15 +41,34 @@ router.get('/current',restoreUser,async(req,res)=>{
                 },
             ]
         });
+        // console.log(reviews)
 
-        for(let spot of Spot) {
-            const spotImage = await SpotImage.findAll({
-                where:{spotId:spot.id}
+        let reviewList = [];
+        reviews.forEach(review => {
+            reviewList.push(review.toJSON())
+        });
+        // console.log("这是reviewList",reviewList)
+        reviewList.forEach(review=>{
+            review.Spot.SpotImages.forEach(img =>{
+                if(img.preview === true && !review.Spot.previewImage) {
+                    review.Spot.previewImage = img.url
+                }
             });
-            
-        }
+            if(!review.Spot.previewImage) {
+                review.Spot.previewImage = 'No available preview images.'
+            }
+            delete review.Spot.SpotImages
+        });
+
+
         
-        res.json({Reviews:reviews})
+        res.json({Review:reviewList})
+    }else{
+        res.status(401),
+        res.json({
+            "message": "Authentication required",
+            "statusCode": 401
+        })
     }
 
 });
