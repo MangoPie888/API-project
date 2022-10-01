@@ -34,13 +34,14 @@ router.get('/current', restoreUser,requireAuth, async(req,res)=>{
         }
     }
 
-        res.json(bookings)
+        res.json({Bookings:bookings})
     }else{
-        res.status(401);
-        res.json({
-            "message": "Authentication required",
-            "statusCode": 401
-        })
+        return (
+            res.status(401),
+            res.json({
+                "message": "Authentication required",
+                "statusCode": 401
+        }))
     }
 
 });
