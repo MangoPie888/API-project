@@ -8,19 +8,39 @@ const { json } = require('sequelize');
 const router = express.Router();
 
 
-//Get all of the Current User's Bookings  还没有完成
+//Get all of the Current User's Bookings  
 router.get('/current', restoreUser,requireAuth, async(req,res)=>{
     const {user} = req;
     if(user) {
-        const bookings = await Booking.findAll({
+        let bookings = await Booking.findAll({
             where:{userId:user.id},
             include:{
-                model:Spot
+                model:Spot,
+                attributes:{
+                    exclude:['createdAt','updatedAt']
+                },
             }
         
         });
 
+    for (let booking of bookings) {
+        const img = await SpotImage.findOne({
+            where:{spotId:booking.Spot.id,preview:true}
+        });
+        if(img) {
+            booking.dataValues.Spot.dataValues.previewImage = img.url
+        }else{
+            booking.dataValues.Spot.dataValues.previewImage ='No available preview images.'
+        }
+    }
+
         res.json(bookings)
+    }else{
+        res.status(401);
+        res.json({
+            "message": "Authentication required",
+            "statusCode": 401
+        })
     }
 
 });
