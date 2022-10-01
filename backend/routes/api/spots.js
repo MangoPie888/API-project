@@ -76,6 +76,8 @@ router.get('/', queryValidation, async(req,res,next) =>{
 
 
     const spots = await Spot.findAll(query);
+    spots.page = page;
+    spots.size = size;
 
     const Spots = [];
 
@@ -117,13 +119,17 @@ router.get('/', queryValidation, async(req,res,next) =>{
             createdAt:spot.createdAt,
             updatedAt:spot.updatedAt,
             aveRating:average[0].avgRating,
-            previewImage
+            previewImage,
         };
-        Spots.push(spotsBody)
+        Spots.push(spotsBody);
+
+    
     };
 
     res.json({
-    Spots
+    Spots,
+    page:parseInt(page),
+    size:parseInt(size)
     })
 });
 
