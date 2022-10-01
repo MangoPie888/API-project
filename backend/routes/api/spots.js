@@ -299,6 +299,7 @@ router.post('/', restoreUser,requireAuth,validationCheck, async (req, res)=>{
         const ownerId = user.id
         const newSpot = await Spot.create({ownerId,address,city,state,country,lat,lng,name,description,price});
 
+        res.status(201),
         res.json(newSpot)
     }else {
         res.status(401),
