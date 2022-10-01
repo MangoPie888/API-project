@@ -492,11 +492,12 @@ router.post('/:spotId/reviews',restoreUser,requireAuth,reviewValidation,async(re
 
             for(let review of reviews) {
                 if(review.userId === user.id) {
-                    res.status(403);
+                return ( 
+                    res.status(403),
                     res.json({
                         "message": "User already has a review for this spot",
                         "statusCode": 403
-                    })
+                    }))
                 }
             };
             
