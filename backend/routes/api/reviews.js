@@ -130,11 +130,12 @@ router.put('/:reviewId',restoreUser,requireAuth,reviewValidation,async(req,res)=
     if(user) {
         const reviews= await Review.findByPk(req.params.reviewId);
         if(!reviews) {
-            res.status(404);
+           return ( 
+            res.status(404),
             res.json({
                 "message": "Review couldn't be found",
                 "statusCode": 404
-            });
+            }))
         }
         if(reviews.userId === user.id) {
             const{review,stars} = req.body
