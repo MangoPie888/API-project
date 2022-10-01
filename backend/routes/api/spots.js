@@ -221,16 +221,15 @@ router.get('/:spotId', async (req, res)=>{
         ]
     }
         );
-        console.log(spot)
-    
+
     if(!spot) {
-        res.status(404),
+        return (res.status(404),
         res.json(
             {
                 "message": "Spot couldn't be found",
                 "statusCode": 404
             }
-        )
+        ))
     };
 
     
@@ -252,6 +251,9 @@ router.get('/:spotId', async (req, res)=>{
     spot.dataValues.avgStarRating = reviews[0].avgRating;
 
     res.json(spot)
+
+
+
 
 });
 
