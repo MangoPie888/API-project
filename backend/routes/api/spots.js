@@ -326,11 +326,11 @@ router.post('/:spotId/images',restoreUser,requireAuth, async (req,res)=>{
                 "statusCode": 404
             })
         }
-        if(spot.ownerId === user.id) {
+        else if(spot.ownerId === user.id) {
             const{url, preview} = req.body;
             const spotId = req.params.spotId
             const newImage = await SpotImage.create({spotId,url,preview});
-            res.json({
+            return res.json({
                 id:newImage.id,
                 url:newImage.url,
                 preview:newImage.preview,
