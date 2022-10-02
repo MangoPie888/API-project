@@ -654,6 +654,14 @@ router.post('/:spotId/bookings', restoreUser,requireAuth,dateValidation,async (r
             const userId = user.id
             const newBooking = await Booking.create({spotId,userId,startDate,endDate});
             return (res.json(newBooking))
+        }else{
+            return(
+                res.status(403),
+                res.json({
+                    "message": "Forbidden",
+                    "statusCode": 403
+                })
+                )
         }
     }else{
         return (
