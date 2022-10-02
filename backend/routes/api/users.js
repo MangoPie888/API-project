@@ -51,23 +51,24 @@ router.post(
       });
 
       if(exitEmail) {
-        res.status(403),
+        return (res.status(403),
         res.json({
           "message": "User already exists",
           "statusCode": 403,
           "errors": {
             "email": "User with that email already exists"
           }
-        })
+        }))
       }else if(exitUserName){
-        res.status(403),
-        res.json({
-          "message": "User already exists",
-          "statusCode": 403,
-          "errors": {
-          "username":"User with that username already exists"
+        return (
+          res.status(403),
+          res.json({
+            "message": "User already exists",
+            "statusCode": 403,
+            "errors": {
+            "username":"User with that username already exists"
           }
-        })
+        }))
 
       }else{
       const user = await User.signup({ firstName,lastName,email, username, password });

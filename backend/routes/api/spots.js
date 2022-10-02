@@ -256,7 +256,7 @@ router.get('/:spotId', async (req, res)=>{
     spot.dataValues.numReviews = reviews[0].numReviews;
     spot.dataValues.avgStarRating = reviews[0].avgRating;
 
-    res.json(spot)
+    return(res.json(spot));
 
 
 
@@ -307,14 +307,15 @@ router.post('/', restoreUser,requireAuth,validationCheck, async (req, res)=>{
         const ownerId = user.id
         const newSpot = await Spot.create({ownerId,address,city,state,country,lat,lng,name,description,price});
 
-        res.status(201),
-        res.json(newSpot)
+        return (res.status(201),
+            res.json(newSpot))
     }else {
-        res.status(401),
-        res.json({
-            "message": "Authentication required",
-            "statusCode": 401
-        })
+        return (
+            res.status(401),
+            res.json({
+                "message": "Authentication required",
+                "statusCode": 401
+        }))
     }
 
 });
@@ -366,29 +367,32 @@ router.put('/:spotId', restoreUser,requireAuth,validationCheck, async(req,res)=>
     if(user) {
         const spot = await Spot.findByPk(req.params.spotId);
         if(!spot) {
-            res.status(404);
-            return res.json({
-                "message": "Spot couldn't be found",
-                "statusCode": 404
-            })
+           return (
+                res.status(404),
+                res.json({
+                    "message": "Spot couldn't be found",
+                    "statusCode": 404
+            }))
         }
         if(spot.ownerId === user.id) {
             const{address,city,state,country,lat,lng,name,description,price} = req.body;
             spot.update({address,city,state,country,lat,lng,name,description,price});
             return res.json(spot)
         }else{
-            res.status(403),
-            res.json({
-                "message": "Forbidden",
-                "statusCode": 403
-            })
+            return (
+                res.status(403),
+                res.json({
+                    "message": "Forbidden",
+                    "statusCode": 403
+            }))
         }
     }else {
-        res.status(401);
-        res.json({
-            "message": "Authentication required",
-            "statusCode": 401
-        })
+        return (
+            res.status(401),
+            res.json({
+                "message": "Authentication required",
+                "statusCode": 401
+        }))
     }
 
 });
@@ -441,10 +445,11 @@ router.delete('/:spotId',restoreUser,requireAuth,async(req,res)=>{
 router.get('/:spotId/reviews', async(req,res)=>{
     const spot = await Spot.findByPk(req.params.spotId);
     if(!spot) {
-        return ( res.status(404),
-                res.json({
-            "message": "Spot couldn't be found",
-            "statusCode": 404
+        return ( 
+            res.status(404),
+            res.json({
+                "message": "Spot couldn't be found",
+                "statusCode": 404
         }))
     };
     const Reviews = await Review.findAll({
@@ -515,22 +520,24 @@ router.post('/:spotId/reviews',restoreUser,requireAuth,reviewValidation,async(re
                 const userId = user.id;
                 const spotId = req.params.spotId
                 const newReview = await Review.create({userId,spotId,review,stars});
-                res.status(201);
-                res.json(newReview)
+                return (res.status(201),
+                res.json(newReview))
         }else{
-            res.status(404);
-            res.json({
-                "message": "Spot couldn't be found",
-                "statusCode": 404
-            })
+            return (
+                res.status(404),
+                res.json({
+                    "message": "Spot couldn't be found",
+                    "statusCode": 404
+            }))
         }
         
     }else{
-        res.status(401);
-        res.json({
-            "message": "Authentication required",
-            "statusCode": 401
-        })
+        return (
+            res.status(401),
+            res.json({
+                "message": "Authentication required",
+                "statusCode": 401
+        }))
     }
 
 });
@@ -540,11 +547,12 @@ router.post('/:spotId/reviews',restoreUser,requireAuth,reviewValidation,async(re
 router.get("/:spotId/bookings", restoreUser,requireAuth, async(req,res)=>{
     const spot = await Spot.findByPk(req.params.spotId);
     if(!spot) {
-        res.status(404);
-        res.json({
-            "message": "Spot couldn't be found",
-            "statusCode": 404
-        })
+        return (
+            res.status(404),
+            res.json({
+                "message": "Spot couldn't be found",
+                "statusCode": 404
+        }))
     }else{
         const {user} = req;
         if(user) {
@@ -560,7 +568,7 @@ router.get("/:spotId/bookings", restoreUser,requireAuth, async(req,res)=>{
 
                 });
 
-                res.json({Bookings:bookings})
+                return (res.json({Bookings:bookings}))
             } else{
                 const bookings = await Booking.findAll({
                     where:{spotId:req.params.spotId},
@@ -568,16 +576,17 @@ router.get("/:spotId/bookings", restoreUser,requireAuth, async(req,res)=>{
                         exclude:['id','userId','createdAt','updatedAt']
                     }
                 });
-                res.json({Bookings:bookings})
+                return (res.json({Bookings:bookings}))
 
             }
 
         }else{
-            res.status(401),
-            res.json({
-                "message": "Authentication required",
-                "statusCode": 401
-            })
+            return (
+                res.status(401),
+                res.json({
+                    "message": "Authentication required",
+                    "statusCode": 401
+            }))
         }
     }
 });
@@ -638,7 +647,7 @@ router.post('/:spotId/bookings', restoreUser,requireAuth,dateValidation,async (r
             const spotId = req.params.spotId;
             const userId = user.id
             const newBooking = await Booking.create({spotId,userId,startDate,endDate});
-            res.json(newBooking)
+            return (res.json(newBooking))
         }
     }else{
         return (

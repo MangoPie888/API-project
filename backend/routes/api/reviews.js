@@ -81,7 +81,8 @@ router.post('/:reviewId/images', restoreUser,requireAuth,async(req,res)=>{
     if(user) {
         const review = await Review.findByPk(req.params.reviewId);
         if(review) {
-            const reviewImages = await ReviewImage.findAll({
+            if(review.userId === user.id){
+                const reviewImages = await ReviewImage.findAll({
                 where:{reviewId:req.params.reviewId}
             });
             if(reviewImages.length >= 10) {
@@ -99,7 +100,15 @@ router.post('/:reviewId/images', restoreUser,requireAuth,async(req,res)=>{
                 id:newImage.id,
                 url:newImage.url  
             };
-            res.json(body)
+            res.json(body)}else{
+                return (
+                    res.status(403),
+                    res.json({
+                        "message": "Forbidden",
+                        "statusCode": 403
+                    })
+                )
+            }
         }else{
             res.status(404);
             res.json({
@@ -108,6 +117,13 @@ router.post('/:reviewId/images', restoreUser,requireAuth,async(req,res)=>{
             })
         };
 
+    }else{
+        return ( 
+            res.status(401),
+            res.json({
+            "message": "Authentication required",
+            "statusCode": 401
+        }))
     }
 
 });
@@ -142,18 +158,20 @@ router.put('/:reviewId',restoreUser,requireAuth,reviewValidation,async(req,res)=
             reviews.update({review,stars});
             res.json(reviews)
         }else{
-            res.status(403),
-            res.json({
-                "message": "Forbidden",
-                "statusCode": 403
-            })
+        return ( 
+                res.status(403),
+                res.json({
+                    "message": "Forbidden",
+                    "statusCode": 403
+            }))
         }
     }else{
-        res.status(401);
-        res.json({
-            "message": "Authentication required",
-            "statusCode": 401
-        })
+        return (
+            res.status(401),
+            res.json({
+                "message": "Authentication required",
+                "statusCode": 401
+        }))
     }
 } );
 
@@ -179,7 +197,13 @@ router.delete('/:reviewId',restoreUser,requireAuth,async(req,res)=>{
                     "message": "Successfully deleted",
                     "statusCode": 200
             }))
-        }
+        }else{
+            res.status(403),
+            res.json({
+                "message": "Forbidden",
+                "statusCode": 403
+            })
+        };
     }else{
         return (
             res.status(401),
