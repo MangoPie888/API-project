@@ -120,7 +120,8 @@ router.post('/:reviewId/images', restoreUser,requireAuth,urlCheck,async(req,res)
                 id:newImage.id,
                 url:newImage.url  
             };
-            res.json(body)}else{
+            res.json(body)}
+            else{
                 return (
                     res.status(403),
                     res.json({
