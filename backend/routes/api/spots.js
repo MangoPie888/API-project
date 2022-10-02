@@ -323,8 +323,14 @@ router.post('/', restoreUser,requireAuth,validationCheck, async (req, res)=>{
 
 
 //Add an Image to a Spot based on the Spot's id
+const urlCheck = [
+    check('url')
+    .exists({ checkFalsy: true })
+    .withMessage("url is required"),
+    handleValidationErrors
+];
 
-router.post('/:spotId/images',restoreUser,requireAuth, async (req,res)=>{
+router.post('/:spotId/images',restoreUser,requireAuth,urlCheck, async (req,res)=>{
     const{user} = req;
     if(user) {
         const spot = await Spot.findByPk(req.params.spotId);
