@@ -367,7 +367,7 @@ router.put('/:spotId', restoreUser,requireAuth,validationCheck, async(req,res)=>
     if(user) {
         const spot = await Spot.findByPk(req.params.spotId);
         if(!spot) {
-           return (
+        return (
                 res.status(404),
                 res.json({
                     "message": "Spot couldn't be found",

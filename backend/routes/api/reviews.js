@@ -76,7 +76,27 @@ router.get('/current',restoreUser,async(req,res)=>{
 
 
 //Add an Image to a Review based on the Review's id
-router.post('/:reviewId/images', restoreUser,requireAuth,async(req,res)=>{
+const urlCheck = [
+    check('url')
+    .exists({ checkFalsy: true })
+    .withMessage("url is required"),
+    handleValidationErrors
+];
+
+//check if url is validate?
+// function urlValidation(req,res,next) {
+//     const{url} = req.body;
+//     if(isValidUrl(url)===false) {
+//         return(
+//             res.status(400),
+//             res.json({
+//                 "message":"url is not valid",
+//                 "statusCode":400
+//             })
+//         )
+//     }else{next()}
+// }
+router.post('/:reviewId/images', restoreUser,requireAuth,urlCheck,async(req,res)=>{
     const {user} = req;
     if(user) {
         const review = await Review.findByPk(req.params.reviewId);
