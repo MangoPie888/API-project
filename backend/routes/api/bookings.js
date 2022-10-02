@@ -49,8 +49,62 @@ router.get('/current', restoreUser,requireAuth, async(req,res)=>{
 
 
 //Edit a Booking
+function dateIsValid(dateStr) {
+    const regex = /^\d{4}-\d{2}-\d{2}$/;
+
+    if (dateStr.match(regex) === null) {
+    return false;
+    }
+
+    const date = new Date(dateStr);
+
+    const timestamp = date.getTime();
+
+    if (typeof timestamp !== 'number' || Number.isNaN(timestamp)) {
+    return false;
+    }
+
+    return date.toISOString().startsWith(dateStr);
+}
+
 function dateValidation(req,res,next) {
     const {startDate, endDate} = req.body;
+    if(!startDate) {
+        return (
+            res.status(400),
+            res.json({
+                "message": "Validation error",
+                "statusCode": 400,
+                "errors": {
+                "startDate": "startDate is required"
+            }
+            }))
+    };
+    if(!endDate) {
+        return (
+            res.status(400),
+            res.json({
+                "message": "Validation error",
+                "statusCode": 400,
+                "errors": {
+                "endDate": "endDate is required"
+            }
+            }))
+
+    };
+
+    if(dateIsValid(startDate)===false || dateIsValid(endDate)=== false) {
+        return (
+            res.status(400),
+            res.json({
+                "message": "Validation error",
+                "statusCode": 400,
+                "errors": {
+                "DateFormat": "Date must follow the correct format 'YYYY-MM-DD'"
+            }
+            }))
+    };
+
     if(Date.parse(startDate) >= Date.parse(endDate)) {
         return (res.status(400),
         res.json({
