@@ -74,8 +74,8 @@ app.use((err, _req, res, _next)=>{
   res.status(err.status || 500);
   console.error(err);
   res.json({
-    "messgae":err.title,
-    "statusCode": err.status,
+    "messgae":err.title || 'Server Error',
+    "statusCode": err.status || 500,
     "errors":err.errors,
 
     // title:err.title || 'Server Error',
