@@ -60,8 +60,14 @@ router.get('/', queryValidation, async(req,res,next) =>{
         include:[]
     }
     let {page,size, minLat,maxLat,minLng,maxLng,minPrice,maxPrice} = req.query;
-    page === undefined ? 1 : parseInt(req.query.page);
-    size === undefined ? 20 : parseInt(req.query.size);
+    // page === undefined ? 1 : parseInt(page);
+    // size === undefined ? 20 : parseInt(size);
+    if(page === undefined || page === null) {
+        page = 1;
+    }else{parseInt(page)};
+    if(size === undefined || size === null) {
+        size = 20
+    }else{parseInt(size)}
     if(page >= 1 && size >=1) {
         query.limit = size,
         query.offset = size * (page - 1);
@@ -591,7 +597,7 @@ function dateValidation(req,res,next) {
             "endDate": "endDate cannot be on or before startDate"
             }})
     )
-    }else{next()}   
+    }else{next()}
 };
 
 router.post('/:spotId/bookings', restoreUser,requireAuth,dateValidation,async (req,res)=>{
