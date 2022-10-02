@@ -612,7 +612,7 @@ function dateValidation(req,res,next) {
             "endDate": "endDate cannot be on or before startDate"
             }})
     )
-    }
+    }else(next())
 };
 
 router.post('/:spotId/bookings', restoreUser,requireAuth,dateValidation,async (req,res)=>{
