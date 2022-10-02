@@ -361,7 +361,7 @@ router.post('/:spotId/images',restoreUser,requireAuth, async (req,res)=>{
 
 
 //Edit a Spot
-router.put('/:spotId', restoreUser,requireAuth, async(req,res)=>{
+router.put('/:spotId', restoreUser,requireAuth,validationCheck, async(req,res)=>{
     const{user} = req;
     if(user) {
         const spot = await Spot.findByPk(req.params.spotId);

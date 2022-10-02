@@ -52,7 +52,7 @@ router.get('/current', restoreUser,requireAuth, async(req,res)=>{
 function dateValidation(req,res,next) {
     const {startDate, endDate} = req.body;
     if(Date.parse(startDate) >= Date.parse(endDate)) {
-        return (res.status(403),
+        return (res.status(400),
         res.json({
             "message": "Validation error",
             "statusCode": 400,
