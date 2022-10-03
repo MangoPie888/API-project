@@ -124,7 +124,7 @@ router.get('/', queryValidation, async(req,res,next) =>{
             price:spot.price,
             createdAt:spot.createdAt,
             updatedAt:spot.updatedAt,
-            aveRating:average[0].avgRating,
+            avgRating:average[0].avgRating,
             previewImage,
         };
         Spots.push(spotsBody);
