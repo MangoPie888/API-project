@@ -60,7 +60,6 @@ router.delete(
   //Get the Current User
   router.get(
     '/',
-    restoreUser,
     (req, res) => {
       const { user } = req;
       if (user) {
@@ -71,13 +70,7 @@ router.delete(
           email:user.email,
           username:user.username,
         });
-      } else return res.json(
-        res.status(401),
-        res.json({
-          "message": "Authentication required",
-          "statusCode": 401
-        })
-      );
+      } else { res.json(null) }
     }
   );
 
