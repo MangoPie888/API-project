@@ -14,7 +14,6 @@ router.get("/api/csrf/restore", (req, res) => {
 });
 
 
-
 // Static routes
 // Serve React build files in production
 if (process.env.NODE_ENV === 'production') {
