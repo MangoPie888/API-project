@@ -1,52 +1,30 @@
 import React from 'react';
+import { createRoot } from 'react-dom/client';
+
+import {BrowserRouter} from 'react-router-dom';
+import {Provider} from 'react-redux';
 
 import './index.css';
-
-import { createRoot } from 'react-dom/client';
-// import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
-import { BrowserRouter } from 'react-router-dom';
-import { restoreCSRF, csrfFetch } from './store/csrf';
 import App from './App';
 
-import configureStore from './store';
-import * as sessionActions from './store/session';
-
+import configureStore from './store/index'
 
 const store = configureStore();
 
-if (process.env.NODE_ENV !== 'production') {
-  restoreCSRF();
-
-  window.csrfFetch = csrfFetch;
-  window.store = store;
-  window.sessionActions = sessionActions;
+if(process.env.NODE_ENV !== 'production') {
+  window.store = store
 }
 
-
-function Root(){
-  return(
+const Root = ()=>{
+  return (
     <Provider store={store}>
       <BrowserRouter>
-        <App />
+      <App />
       </BrowserRouter>
     </Provider>
   )
 }
 
-
 const container = document.getElementById('root');
 const root = createRoot(container);
-root.render( 
-<React.StrictMode>
-  <Root />
-</React.StrictMode>);
-
-// ReactDOM.render(
-//   <React.StrictMode>
-//     <Root />
-//   </React.StrictMode>,
-//   document.getElementById('root')
-// );
-
-
+root.render(<Root />);
