@@ -60,7 +60,7 @@ router.delete(
   //Get the Current User
   router.get(
     '/',
-    restoreUser,
+    // restoreUser, (frontend phase0 and 1 changed)
     (req, res) => {
       const { user } = req;
       if (user) {
@@ -70,14 +70,15 @@ router.delete(
           lastName:user.lastName,
           email:user.email,
           username:user.username,
-        });
-      } else return res.json(
-        res.status(401),
-        res.json({
-          "message": "Authentication required",
-          "statusCode": 401
-        })
-      );
+        })}else { res.json(null) }
+      //(frontend phase0 and 1 changed)
+      // } else return res.json(
+      //   res.status(401),
+      //   res.json({
+      //     "message": "Authentication required",
+      //     "statusCode": 401
+      //   })
+      // );
     }
   );
 
