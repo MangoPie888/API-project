@@ -16,6 +16,9 @@ const removeUser = () => {
   };
 };
 
+
+//thunk
+//login an user
 export const login = (user) => async (dispatch) => {
   const { credential, password } = user;
   const response = await csrfFetch('/api/session', {
@@ -30,6 +33,8 @@ export const login = (user) => async (dispatch) => {
   return response;
 };
 
+
+//restore an user
 export const restoreUser = () => async dispatch => {
   const response = await csrfFetch('/api/session');
   const data = await response.json();
@@ -38,6 +43,37 @@ export const restoreUser = () => async dispatch => {
 };
 
 
+//signup an user
+                  //get user information from client
+export const signup =(user) => async (dispatch) =>{
+  const {firstName, lastName, username, email, password} = user; // destructuring info from user
+  const response = await csrfFetch('/api/users', {   //send user info from client to back server and get the answer back
+    method:"POST",
+    body: JSON.stringify({
+      firstName,
+      lastName,
+      username,
+      email,
+      password
+    })
+  })
+
+  const data = await response.json(); //wait data to send back to client
+  dispatch(setUser(data)) //dispatch  setUser action to reducer
+  return response;
+
+
+}
+
+
+//if doesn't have client(frontend yet, below is the code can be tested in windows to see if signup is succused)
+// window.store.dispatch(window.sessionActions.signup({
+//   firstName:'vivi',
+//   lastName: 'Dan',
+//   username: 'NewUser',
+//   email: 'new@user.io',
+//   password: 'password'
+// }));
 
 
 //reducers
