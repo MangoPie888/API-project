@@ -66,6 +66,16 @@ export const signup =(user) => async (dispatch) =>{
 }
 
 
+//logout an user
+export const logout = () => async (dispatch) => {
+  const response = await csrfFetch('/api/session', {
+    method: 'DELETE',
+  });
+  dispatch(removeUser());
+  return response;
+};
+
+
 //if doesn't have client(frontend yet, below is the code can be tested in windows to see if signup is succused)
 // window.store.dispatch(window.sessionActions.signup({
 //   firstName:'vivi',
