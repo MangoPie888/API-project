@@ -48,6 +48,18 @@ module.exports = {
         description:'Single room',
         price:60
       },
+      {
+        ownerId:1,
+        address:'4523 green valley',
+        city:'Los Angeles',
+        state:'California',
+        country:'USA',
+        lat:31.09784,
+        lng:-28.2983,
+        name:'mounatin house',
+        description:'this house has a great mounatin view',
+        price:338
+      },
     ])
   },
 

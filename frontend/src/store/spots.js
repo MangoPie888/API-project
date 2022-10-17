@@ -11,6 +11,15 @@ const addSpot = (spot)=>{
 }
 
 
+const REMOVE_SPOT = "spot/REMOVE_SPOT"
+const removeSpot = (spotId)=>{
+    return({
+        type:REMOVE_SPOT,
+        payload:spotId
+    })
+}
+
+
 //thunk
 
 export const displaySpot = () => async (dispatch) =>{
@@ -19,6 +28,14 @@ export const displaySpot = () => async (dispatch) =>{
     console.log(data)
     dispatch(addSpot(data.Spots));
     return response
+}
+
+export const deleteSpot = (id)=> async (dispatch) =>{
+    const response = await csrfFetch(`/api/spots/${id}`, {
+        method:"DELETE",
+    });
+    dispatch(removeSpot(id));
+    return response;
 }
 
 // export const displayCurrentUserSpot = (user)=>async(dispatch)=>{
@@ -50,6 +67,10 @@ const spotsReducer = (state=intialState, action) =>{
             })
             // newState = action.payload
             return newState; 
+        case REMOVE_SPOT:
+            newState = Object.assign({},state);
+            newState.spots[action.payload] = null;
+            return newState;
         default:
             return state
     }

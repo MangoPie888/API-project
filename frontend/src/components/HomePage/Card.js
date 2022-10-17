@@ -17,7 +17,7 @@ function Card({allSpots}){
         <>
         {objArr.map((spot=>(
             <Link to ={`/spots/${spot.id}`}>
-            <div className="container">
+            <div className="container" key={spot.id}>
             <div className="photo">
             <img src={spot.previewImage} alt="house photo" />
             </div>
