@@ -20,7 +20,6 @@ function SpotDetailPage(){
         <div>
             <h1>{singleSpot.name}</h1>
             <p>{singleSpot.avgRating}</p>
-            <img>{singleSpot.previewImage}</img>
             <p>house descriptin</p>
         </div>
         <div>
