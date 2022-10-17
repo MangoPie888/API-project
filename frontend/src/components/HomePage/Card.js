@@ -5,9 +5,9 @@ import {Link} from 'react-router-dom';
 
 function Card({allSpots}){
     // const allSpot = useSelector(state=>(state.spots))
-    console.log(allSpots)
+    // console.log(allSpots)
     const objArr = Object.values(allSpots)
-    console.log("objArr",objArr)
+    // console.log("objArr",objArr)
     
     // objArr.map((spot)=>{console.log(spot.id)})
 

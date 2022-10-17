@@ -21,7 +21,23 @@ export const displaySpot = () => async (dispatch) =>{
     return response
 }
 
+// export const displayCurrentUserSpot = (user)=>async(dispatch)=>{
+//     const response = await csrfFetch('/current',{
+//         method:"GET",
+//         body: JSON.stringify({user})
+//     });
 
+//     const data = await response.json();
+//     dispatch(addSpot(data))
+//     return response;
+
+// }
+
+
+
+
+
+//reducer
 const intialState = {}
 
 const spotsReducer = (state=intialState, action) =>{
@@ -38,6 +54,8 @@ const spotsReducer = (state=intialState, action) =>{
             return state
     }
 }
+
+
 
 
 

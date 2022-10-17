@@ -8,9 +8,9 @@ function SpotDetailPage(){
     
 
     const allSpots = useSelector(state=>(state.spots))
-    console.log(allSpots)
+    // console.log(allSpots)
     const singleSpot = allSpots[spotId];
-    console.log(singleSpot)
+    // console.log(singleSpot)
 
 
 
