@@ -1,5 +1,6 @@
 import HomePage from ".";
 import './Card.css';
+import {Link} from 'react-router-dom';
 
 
 function Card({allSpots}){
@@ -7,12 +8,15 @@ function Card({allSpots}){
     console.log(allSpots)
     const objArr = Object.values(allSpots)
     console.log("objArr",objArr)
+    
+    // objArr.map((spot)=>{console.log(spot.id)})
+
 
     if(allSpots){
     return(
         <>
         {objArr.map((spot=>(
-            <>
+            <Link to ={`/spots/${spot.id}`}>
             <div className="container">
             <div className="photo">
             <img src={spot.previewImage} alt="house photo" />
@@ -25,7 +29,7 @@ function Card({allSpots}){
                 <p>⭐ {spot.avgRating}</p>
             </div>
             </div>
-            </>
+            </Link>
         )))}
         </>
 
