@@ -19,21 +19,19 @@ function HostingHomePage(){
     useEffect(()=>{
         dispatch(spotActions.getSpotsOfCurrentUser())
     },[])
-    const spots = useSelector((state)=>{return(state.spots)})
+    const spots = useSelector((state)=>{return(state.spots.Spots)})
     console.log(spots)
 
 
-    const removeSpot = (e)=>{
+    const removeSpot = ()=>{
         dispatch(spotActions.deleteSpot(spotId))
 
     }
 
-
+    if(spots) {
     return(
         <>
-            <div>
-            <p>Hello</p>
-            {/* {spots.map(spot=>{return(
+            {spots.map(spot=>{return(
                 <div key={spot.id}>
                 <p>{spot.name}</p>
                 <p>{spot.address}</p>
@@ -43,11 +41,12 @@ function HostingHomePage(){
                 </form>
                 </div>
             )})}
-         */}
-            </div>
-        </>
-    )
+
+        </> 
+    )}
 }
+
+
 
 
 
