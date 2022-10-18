@@ -16,16 +16,16 @@ function Card({allSpots}){
     return(
         <>
         {objArr.map((spot=>(
-            <Link to ={`/${spot.id}`} style={{ color: 'inherit', textDecoration: 'inherit'}}>
+            <Link to ={`/${spot.id}`} style={{ color: 'inherit', textDecoration: 'inherit'}} >
             <div className="container" key={spot.id}>
-            <div className="photo">
+            <div className="photo"  key={spot.id}>
             <img src={spot.previewImage} alt="house photo" />
             </div>
             <div className="info">
             <h3>{spot.name}</h3>
             <p>${spot.price} night</p>
             </div>
-            <div className="rating">
+            <div className="rating"  key={spot.name}>
                 <p>⭐ {spot.avgRating}</p>
             </div>
             </div>
