@@ -8,6 +8,7 @@ import HomePage from "./components/HomePage";
 import SpotDetailPage from "./components/SpotDetailPage";
 import HostingHomePage from "./components/HostingHomePage";
 
+
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
@@ -23,14 +24,14 @@ function App() {
         <Route path='/' exact>
           <HomePage />
         </Route>
-          <Route path="/signup">
+          <Route path="/signup" exact>
             <SignupFormPage />
           </Route>
-          <Route path='/spots/:spotId'>
-            <SpotDetailPage />
-          </Route>
-          <Route path='/current'>
+          <Route path='/current' exact>
             <HostingHomePage />
+          </Route>
+          <Route path='/:spotId' >
+            <SpotDetailPage />
           </Route>
         </Switch>
       )}

@@ -4,13 +4,14 @@ import {useSelector, useDispatch} from "react-redux";
 
 import * as spotActions from '../../store/spots'
 import Card from './Card';
+import './index.css'
 
 
 
 
 function HomePage(){
     const allSpots = useSelector(state=>(state.spots))
-    console.log(allSpots)
+    // console.log(allSpots)
 
     const dispatch = useDispatch()
 
@@ -21,7 +22,7 @@ useEffect(()=>{
 
 
     return(
-        <div>
+        <div className='homeContainer'>
         <Card allSpots={allSpots}/>
         </div>
 

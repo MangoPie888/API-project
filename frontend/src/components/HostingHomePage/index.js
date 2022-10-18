@@ -10,35 +10,21 @@ import * as spotActions from '../../store/spots'
 
 
 function HostingHomePage(){
-    const history = useHistory()
     const dispatch = useDispatch();
-
     const [spotId, setSpotId] = useState(0);
 
-    const sessionUser = useSelector(state => state.session.user);
-    const userId = sessionUser.id;
-    // console.log(userId, typeof(userId))
-    // console.log(sessionUser)
-    const allSpots = useSelector(state=>state.spots)
-    // console.log(allSpots)
-    const objArr = Object.values(allSpots)
-    // console.log(objArr)
-
-    const userSpots= objArr.filter(spot=>{return(spot.ownerId == userId)})
-    console.log(userSpots)
-
+    
 
 
     useEffect(()=>{
-        dispatch(spotActions.displaySpot())
+        dispatch(spotActions.getSpotsOfCurrentUser())
     },[])
+    const spots = useSelector((state)=>{return(state.spots)})
+    console.log(spots)
 
 
     const removeSpot = (e)=>{
-        // e.preventDefault();
         dispatch(spotActions.deleteSpot(spotId))
-        // history.push('/current')
-
 
     }
 
@@ -46,7 +32,8 @@ function HostingHomePage(){
     return(
         <>
             <div>
-            {userSpots.map(spot=>{return(
+            <p>Hello</p>
+            {/* {spots.map(spot=>{return(
                 <div key={spot.id}>
                 <p>{spot.name}</p>
                 <p>{spot.address}</p>
@@ -56,7 +43,7 @@ function HostingHomePage(){
                 </form>
                 </div>
             )})}
-        
+         */}
             </div>
         </>
     )

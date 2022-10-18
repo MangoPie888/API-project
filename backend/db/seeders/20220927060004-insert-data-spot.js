@@ -56,7 +56,7 @@ module.exports = {
         country:'USA',
         lat:31.09784,
         lng:-28.2983,
-        name:'mounatin house',
+        name:'big house',
         description:'this house has a great mounatin view',
         price:338
       },

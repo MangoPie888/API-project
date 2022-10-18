@@ -1,4 +1,4 @@
-import HomePage from ".";
+
 import './Card.css';
 import {Link} from 'react-router-dom';
 
@@ -16,13 +16,13 @@ function Card({allSpots}){
     return(
         <>
         {objArr.map((spot=>(
-            <Link to ={`/spots/${spot.id}`}>
+            <Link to ={`/${spot.id}`} style={{ color: 'inherit', textDecoration: 'inherit'}}  key={spot.id}>
             <div className="container" key={spot.id}>
             <div className="photo">
             <img src={spot.previewImage} alt="house photo" />
             </div>
             <div className="info">
-            <h5>{spot.name}</h5>
+            <h3>{spot.name}</h3>
             <p>${spot.price} night</p>
             </div>
             <div className="rating">
