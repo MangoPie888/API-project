@@ -10,8 +10,7 @@ import './index.css'
 
 
 function HomePage(){
-    const allSpots = useSelector(state=>(state.spots))
-    // console.log(allSpots)
+    const allSpots = useSelector(state=>(state.spots)) || []
 
     const dispatch = useDispatch()
 
@@ -23,7 +22,7 @@ useEffect(()=>{
 
     return(
         <div className='homeContainer'>
-        <Card allSpots={allSpots}/>
+        {!!allSpots.length && allSpots.map(spot => <Card key={spot.id} spot={spot} />)}
         </div>
 
 

@@ -55,7 +55,7 @@ const handleSubmit = (e) => {
         <input type="text" value={price} onChange={(e)=>{setPrice(e.target.value)}} ></input>
         </label>
         <button onClick={()=>{ModalClose(false)}} >Cancel</button>
-        <button type="submit">Submit</button>
+        <button type="submit">Create</button>
         </form>
     )
 };

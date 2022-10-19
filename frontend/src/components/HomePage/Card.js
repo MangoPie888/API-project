@@ -3,22 +3,22 @@ import './Card.css';
 import {Link} from 'react-router-dom';
 
 
-function Card({allSpots}){
+function Card({spot}){
     // const allSpot = useSelector(state=>(state.spots))
     // console.log(allSpots)
-    const objArr = Object.values(allSpots)
+    // const objArr = Object.values(allSpots)
     // console.log("objArr",objArr)
     
     // objArr.map((spot)=>{console.log(spot.id)})
 
+    // console.log('setClicked:', allSpots);
 
-    if(allSpots){
+
     return(
-        <>
-        {objArr.map((spot=>(
+       
             <Link to ={`/${spot.id}`} style={{ color: 'inherit', textDecoration: 'inherit'}} >
-            <div className="container" key={spot.id}>
-            <div className="photo"  key={spot.id}>
+            <div className="container" >
+            <div className="photo">
             <img src={spot.previewImage} alt="house photo" />
             </div>
             <div className="info">
@@ -30,15 +30,11 @@ function Card({allSpots}){
             </div>
             </div>
             </Link>
-        )))}
-        </>
 
 
 
 
     )}
-    else return null;
-}
 
 
 

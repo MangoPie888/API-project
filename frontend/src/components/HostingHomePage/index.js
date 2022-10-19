@@ -14,7 +14,7 @@ import CreateNewSpot from "../CreateNewSpot";
 function HostingHomePage(){
     const dispatch = useDispatch();
     const [spotId, setSpotId] = useState(0);
-    const [clicked, setClicked] = useState(false)
+    const [clicked, setClicked] = useState({})
     const [newSpotOpened, setNewSpotOpened] = useState(false)
 
     
@@ -32,6 +32,11 @@ function HostingHomePage(){
 
     }
 
+    const handleEditClick = (id) => {
+        console.log('id:', id);
+        setClicked({ [id]: !clicked[id] });
+    }
+
     if(spots) {
     return(
         <>
@@ -47,9 +52,15 @@ function HostingHomePage(){
                 <p>{spot.aveRating}</p>
                 <form onSubmit={removeSpot}>
                 <button type="submit" id={spot.id} onClick={e=>setSpotId(e.target.id)}>Delete</button>
-                <button type="button" onClick={()=>{setClicked(!clicked)}}>Edit</button>
                 </form>
-                {clicked === true && <EditFormModal closeModal={setClicked}/>}
+                <span>
+                    <button onClick={() => handleEditClick(spot.id)}>Edit</button>
+                    {clicked[spot.id] === true && <EditFormModal closeModal={() => setClicked({ ...clicked, [spot.id]: false })}/>}
+                </span>
+                
+                <button type="submit" id={spot.id}>Add Image</button>
+            
+               
                 </div>
             )})}
 
