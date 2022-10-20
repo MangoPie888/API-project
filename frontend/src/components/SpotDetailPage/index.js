@@ -2,6 +2,7 @@ import React, {useEffect,useState,useMemo}from "react";
 import {useSelector,useDispatch} from 'react-redux';
 import {useParams} from 'react-router-dom';
 import * as spotActions from '../../store/spots'
+import { getReviewsBySpotId } from "../../store/reviews";
 
 
 
@@ -15,13 +16,17 @@ function SpotDetailPage(){
     
 
 useEffect(()=>{
-    // console.log(4)
+    console.log(4)
 dispatch(spotActions.displaySpotWithId(spotId))
-    // console.log(5)
+dispatch(getReviewsBySpotId(spotId))
+    console.log(5)
 
 },[])
 
 const spot = useSelector(state=>{return(state.spots)})
+const reviews = useSelector(state=>state.reviews.Reviews)
+console.log(reviews)
+if(!Object.values(reviews).length) return null;
 // console.log(spot)
 
 
@@ -43,16 +48,6 @@ const spot = useSelector(state=>{return(state.spots)})
             <img key={image.id}src={image.url}/>
         )})}
         </div> }
-        {/* <div>
-        {spot.SpotImages.map((image)=>{return(
-            <img src={image.url}/>
-        )})}
-        </div>
-        <div>
-            {spot.Owner.firstName} {
-                spot.Owner.lastName
-            }
-        </div> */}
         {spot.Owner &&  <div>
             {spot.Owner.firstName} {
                 spot.Owner.lastName
@@ -60,6 +55,14 @@ const spot = useSelector(state=>{return(state.spots)})
         </div>}
         <div>
             <h4>Reviews</h4>
+            <p></p>
+            {reviews.map(review=>{return(<div>
+            <p>{review.User.firstName} {review.User.lastName}</p>
+            <p>{review.review}</p>
+            </div>
+
+            )})}
+        
         </div>
         </div>
     )} else return null
