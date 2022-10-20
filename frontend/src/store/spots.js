@@ -19,6 +19,15 @@ const addOneSpot = (spot) =>{
 }
 
 
+const UPDATE_SPOT= 'spot/UPDATE_SPOT'
+const updateSpot = (spot) =>{
+    return{
+        type:UPDATE_SPOT,
+        payload:spot
+    }
+}
+
+
 
 const REMOVE_SPOT = "spot/REMOVE_SPOT"
 const removeSpot = (spotId)=>{
@@ -80,8 +89,22 @@ export const createNewSpot = (info)=> async(dispatch)=>{
 
 
 
-export const editSpot = () => async(dispatch) => {
-    
+export const editSpot = (data) => async(dispatch) => {
+    // console.log("checked")
+    // console.log(data)
+    const response = await csrfFetch(`/api/spots/${data.spot.id}`, {
+        method:'put',
+        headers:{
+            'Content-Type':'application/json'
+        },
+        body:JSON.stringify(data)
+    });
+
+
+    const updatedSpot = await response.json();
+    console.log(updatedSpot)
+    dispatch(updateSpot(updatedSpot))
+    return response
 }
 
 
@@ -105,6 +128,9 @@ const spotsReducer = (state=intialState, action) =>{
             // newState
             newState=action.payload
             return newState;
+        case UPDATE_SPOT:
+            newState= {...state}
+            newState[action.payload.id] = action.payload
         case REMOVE_SPOT:
             newState = Object.assign({},state);
             newState.spots[action.payload] = null;

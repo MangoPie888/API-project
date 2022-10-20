@@ -55,7 +55,7 @@ function HostingHomePage(){
                 </form>
                 <span>
                     <button onClick={() => handleEditClick(spot.id)}>Edit</button>
-                    {clicked[spot.id] === true && <EditFormModal closeModal={() => setClicked({ ...clicked, [spot.id]: false })}/>}
+                    {clicked[spot.id] === true && <EditFormModal closeModal={() => setClicked({ ...clicked, [spot.id]: false })} spot={spot}/>}
                 </span>
                 
                 <button type="submit" id={spot.id}>Add Image</button>
