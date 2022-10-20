@@ -8,7 +8,7 @@ import { getReviewsBySpotId } from "../../store/reviews";
 
 function SpotDetailPage(){
 
-//  console.log(1)
+ console.log(1)
 
     const dispatch = useDispatch()
     const {spotId} = useParams();
@@ -26,11 +26,12 @@ dispatch(getReviewsBySpotId(spotId))
 const spot = useSelector(state=>{return(state.spots)})
 const reviews = useSelector(state=>state.reviews.Reviews)
 console.log(reviews)
+if(reviews === undefined) return null
 if(!Object.values(reviews).length) return null;
 // console.log(spot)
 
 
-    // console.log(6)
+    console.log(6)
     if(spot) {
     return (
         <div>
@@ -56,7 +57,7 @@ if(!Object.values(reviews).length) return null;
         <div>
             <h4>Reviews</h4>
             <p></p>
-            {reviews.map(review=>{return(<div>
+            {reviews.map(review=>{return(<div key={review.id}>
             <p>{review.User.firstName} {review.User.lastName}</p>
             <p>{review.review}</p>
             </div>
