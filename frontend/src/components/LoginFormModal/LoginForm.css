@@ -1,0 +1,12 @@
+.login {
+    margin-top: 10%;
+    display: grid;
+    grid-template-rows: auto;
+    grid-template-columns: 1fr,1fr,1fr,1fr;
+
+}
+
+.demoUser {
+    display:flex;
+    
+}

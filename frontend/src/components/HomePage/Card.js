@@ -15,9 +15,8 @@ function Card({spot}){
 
 
     return(
-       
-            <Link to ={`/${spot.id}`} style={{ color: 'inherit', textDecoration: 'inherit'}} >
             <div className="container" >
+            <Link to ={`/${spot.id}`} style={{ color: 'inherit', textDecoration: 'inherit'}} >
             <div className="photo">
             <img src={spot.previewImage} alt="house photo" />
             </div>
@@ -28,8 +27,8 @@ function Card({spot}){
             <div className="rating"  key={spot.name}>
                 <p>⭐ {spot.avgRating}</p>
             </div>
-            </div>
             </Link>
+            </div>
 
 
 

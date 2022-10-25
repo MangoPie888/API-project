@@ -1,0 +1,17 @@
+.navigation-container {
+    display: flex;
+    overflow: hidden;
+    background-color: #fefefe;
+    border-bottom:solid #ebebeb 1.5px;
+    position: fixed; /* Set the navbar to fixed position */
+    top: 0; /* Position the navbar at the top of the page */
+    width: 100%;
+    justify-content: space-between
+}
+
+
+.home-icon {
+    height: 30px;
+    width: 60px;
+    
+}
