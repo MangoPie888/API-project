@@ -8,6 +8,11 @@ function LoginForm() {
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState([]);
 
+  const demoUser=()=>{
+    setCredential("demo@user.io")
+    setPassword("password")
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault();
     setErrors([]);
@@ -19,7 +24,9 @@ function LoginForm() {
     );
   };
 
+
   return (
+    <>
     <form onSubmit={handleSubmit}>
       <ul>
         {errors.map((error, idx) => (
@@ -45,7 +52,11 @@ function LoginForm() {
         />
       </label>
       <button type="submit">Log In</button>
+     
     </form>
+    <button onClick={demoUser} type="submit">Demo User</button>
+    
+    </>
   );
 }
 
