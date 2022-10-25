@@ -24,7 +24,7 @@ function HostingHomePage(){
         dispatch(spotActions.getSpotsOfCurrentUser())
     },[])
     const spots = useSelector((state)=>{return(state.spots.Spots)})
-    console.log(spots)
+    // console.log(spots)
 
 
     const removeSpot = ()=>{

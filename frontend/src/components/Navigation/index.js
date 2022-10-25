@@ -9,7 +9,7 @@ import {Modal} from '../../context/Modal'
 
 function Navigation({ isLoaded }){
   const sessionUser = useSelector(state => state.session.user);
-  console.log(isLoaded)
+  // console.log(isLoaded)
 
   const [signUpClicked, setSignUpClicked] = useState(false)
 

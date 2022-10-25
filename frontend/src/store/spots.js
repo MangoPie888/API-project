@@ -51,7 +51,7 @@ export const displaySpot = () => async (dispatch) =>{
 export const getSpotsOfCurrentUser=()=>async(dispatch)=>{
     const response = await csrfFetch('api/spots/current');
     const data = await response.json();
-    console.log(data)
+    // console.log(data)
     dispatch(loadSpot(data))
 }
 
@@ -73,6 +73,7 @@ export const deleteSpot = (id)=> async (dispatch) =>{
 }
 
 export const createNewSpot = (info)=> async(dispatch)=>{
+    console.log('hited createNewSpot')
     const response = await csrfFetch('/api/spots', {
         method:"post",
         headers:{
@@ -82,10 +83,32 @@ export const createNewSpot = (info)=> async(dispatch)=>{
     });
 
     const newSpot = await response.json();
-    console.log(newSpot)
-    dispatch(addOneSpot(newSpot));
-    return newSpot
+    console.log("This is newSpot",newSpot)
+
+    const imageResponse = await csrfFetch(`/api/spots/${newSpot.id}/images`, {
+                method:'post',
+                headers:{
+                    'Content-Type':'application/json'
+                },
+                body: JSON.stringify(info)
+            }); 
+
+    const newImage = await imageResponse.json();
+    dispatch(loadSpot());
 }
+
+// export const addNewImage = (info) => async(dispatch) =>{
+//     const response = await csrfFetch('/api/spots/:spotId/images', {
+//         method:'post',
+//         headers:{
+//             'Content-Type':'application/json'
+//         },
+//         body: JSON.stringify(info)
+//     });
+
+
+
+// } 
 
 
 

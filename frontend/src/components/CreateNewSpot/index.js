@@ -16,12 +16,13 @@ function CreateNewSpot({ModalClose}){
     const [name, setName] = useState('')
     const [description, setDescription] = useState('')
     const [price, setPrice] = useState('')
+    const [url, setUrl] = useState('')
 
     
     const dispatch = useDispatch()
 const handleSubmit = (e) => {
-    // e.preventDefault();
-    return dispatch(spotActions.createNewSpot({address,city,state,country,lat,lng,name,description,price}))
+    e.preventDefault();
+    return dispatch(spotActions.createNewSpot({address,city,state,country,lat,lng,name,description,price,url}))
 
 }
 
@@ -53,6 +54,9 @@ const handleSubmit = (e) => {
         </label>
         <label>price
         <input type="text" value={price} onChange={(e)=>{setPrice(e.target.value)}} ></input>
+        </label>
+        <label>Image Url
+        <input type='url' value={url} onChange={(e)=>{setUrl(e.target.value)}}></input>
         </label>
         <button onClick={()=>{ModalClose(false)}} >Cancel</button>
         <button type="submit">Create</button>
