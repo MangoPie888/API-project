@@ -36,4 +36,4 @@ function Root() {
 
 const container = document.getElementById('root');
 const root = createRoot(container);
-root.render(<Root />);
+root.render(<Root/>);
