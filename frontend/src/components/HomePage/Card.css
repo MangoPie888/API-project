@@ -1,14 +1,11 @@
 .container {
     display: flex;
-    justify-content: center;
+    justify-content:end;
 }
 
-.photo {
-    height: 100%;
-
-}
 
 img {
     height: 200px;
+    border-radius: 15px;
 
 }

@@ -21,10 +21,9 @@ useEffect(()=>{
 
 
     return(
-        <div className='homeContainer'>
+        <div className='content-container'>
         {!!allSpots.length && allSpots.map(spot => <Card key={spot.id} spot={spot} />)}
         </div>
-
 
     )
 }

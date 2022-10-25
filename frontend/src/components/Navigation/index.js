@@ -23,7 +23,7 @@ function Navigation({ isLoaded }){
       <>
       <div>
         <LoginFormModal />
-        <button onClick={()=>{setSignUpClicked(true)}}>Sign Up</button>
+        <button className='signup-button' onClick={()=>{setSignUpClicked(true)}}>Sign Up</button>
         {signUpClicked && (
           <Modal onClose={()=>setSignUpClicked(false)}>
             <SignupFormPage/>

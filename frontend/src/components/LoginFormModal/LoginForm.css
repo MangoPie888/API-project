@@ -10,3 +10,18 @@
     display:flex;
     
 }
+
+.login-button {
+    font-family: 'Playfair Display', serif;
+    border: solid;
+    border-color: #ebebeb;
+    margin-right: 20px;
+    border-radius: 20px;
+    background-color: white;
+    padding: 5px 15px 5px 15px;
+}
+
+.login-button:hover {
+    background-color:#ff5a60;
+    transition: 0.7s;
+}

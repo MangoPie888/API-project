@@ -1,17 +1,45 @@
 .navigation-container {
     display: flex;
-    overflow: hidden;
-    background-color: #fefefe;
-    border-bottom:solid #ebebeb 1.5px;
-    position: fixed; /* Set the navbar to fixed position */
-    top: 0; /* Position the navbar at the top of the page */
-    width: 100%;
-    justify-content: space-between
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: solid;
+    border-color: #ebebeb;
 }
 
 
 .home-icon {
-    height: 30px;
-    width: 60px;
-    
+    height: 50px;
+    width: 100px;
+}
+
+.signup-button {
+    font-family: 'Playfair Display', serif;
+    border: solid;
+    border-color: #ebebeb;
+    margin-right: 20px;
+    border-radius: 20px;
+    background-color: white;
+    padding: 5px 15px 5px 15px;
+}
+
+.signup-button:hover {
+    background-color:#ff5a60;
+    transition: 0.7s;
+}
+
+
+.dropdown {
+    position: relative;
+}
+
+.dropdown-menu {
+    font-family: 'Playfair Display', serif;
+    position: absolute;
+    background-color:white;
+    right: 10px;
+    top:50px ;
+    padding: .75rem;
+    border-radius: .25rem;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .3);
+    border-radius: 15px;
 }
