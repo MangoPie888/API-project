@@ -4,6 +4,9 @@ import {useHistory} from 'react-router-dom';
 import * as spotActions from '../../store/spots'
 import EditFormModal from "../EditFormModal";
 import CreateNewSpot from "../CreateNewSpot";
+import { Modal } from '../../context/Modal';
+
+import "./index.css"
 
 
 
@@ -15,7 +18,8 @@ function HostingHomePage(){
     const dispatch = useDispatch();
     const [spotId, setSpotId] = useState(0);
     const [clicked, setClicked] = useState({})
-    const [newSpotOpened, setNewSpotOpened] = useState(false)
+
+    const [showModal, setShowModal] = useState(false);
 
     
 
@@ -39,15 +43,20 @@ function HostingHomePage(){
 
     if(spots) {
     return(
-        <>
-        <button onClick={()=>{setNewSpotOpened(true)}}>Create a New Spot</button>
-       { newSpotOpened && <CreateNewSpot ModalClose={setNewSpotOpened}/>}
+        <div className="hosting-container">
+        <button onClick={() => setShowModal(true)}>Create a New Spot</button>
+        {showModal && (
+        <Modal >
+        <CreateNewSpot setShowModal={setShowModal}/>
+        </Modal>
+      )}
             {spots.map(spot=>{return(
                 <div key={spot.id}>
                 <h3>{spot.name}</h3>
-                {spot.prevewImage && <img src={spot.prevewImage} />}
+                <img src={spot.prevewImage}></img>
                 <p>{spot.address}</p>
                 <p>{spot.city}</p>
+                <p>{spot.country}</p>
                 <p>{spot.price}</p>
                 <p>{spot.aveRating}</p>
                 <form onSubmit={removeSpot}>
@@ -58,15 +67,12 @@ function HostingHomePage(){
                     {clicked[spot.id] === true && <EditFormModal closeModal={() => setClicked({ ...clicked, [spot.id]: false })} spot={spot}/>}
                 </span>
                 
-                <button type="submit" id={spot.id}>Add Image</button>
-            
-               
                 </div>
             )})}
 
             
 
-        </> 
+        </div> 
     )}
 }
 

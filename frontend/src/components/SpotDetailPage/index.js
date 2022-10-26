@@ -1,8 +1,8 @@
 import React, {useEffect,useState,useMemo}from "react";
 import {useSelector,useDispatch} from 'react-redux';
 import {useParams} from 'react-router-dom';
-import * as spotActions from '../../store/spots'
 import { getReviewsBySpotId } from "../../store/reviews";
+import { displaySpotWithId } from "../../store/singleSpot";
 
 
 
@@ -17,13 +17,14 @@ function SpotDetailPage(){
 
 useEffect(()=>{
     console.log(4)
-dispatch(spotActions.displaySpotWithId(spotId))
+dispatch(displaySpotWithId(spotId))
 dispatch(getReviewsBySpotId(spotId))
     console.log(5)
 
 },[])
 
-const spot = useSelector(state=>{return(state.spots)})
+const spot = useSelector(state=>{return(state.singleSpot)})
+console.log(spot)
 const reviews = useSelector(state=>state.reviews.Reviews)
 console.log(reviews)
 if(reviews === undefined) return null

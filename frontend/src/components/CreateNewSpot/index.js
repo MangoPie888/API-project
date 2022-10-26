@@ -6,7 +6,7 @@ import * as spotActions from '../../store/spots'
 
 
 
-function CreateNewSpot({ModalClose}){
+function CreateNewSpot({setShowModal}){
     const [address, setAddress] = useState('')
     const [city, setCity] = useState('')
     const [state, setState] = useState('')
@@ -21,45 +21,43 @@ function CreateNewSpot({ModalClose}){
     
     const dispatch = useDispatch()
 const handleSubmit = (e) => {
-    e.preventDefault();
+    // e.preventDefault();
     return dispatch(spotActions.createNewSpot({address,city,state,country,lat,lng,name,description,price,url}))
 
 }
 
     return (
         <form onSubmit={handleSubmit} >
-        <label>address
-        <input type="text" value={address} onChange={(e)=>{setAddress(e.target.value)}} required></input>
-        </label>
-        <label>city
-        <input type="text" value={city} onChange={(e)=>{setCity(e.target.value)}} required ></input>
-        </label>
-        <label>state
-        <input type="text" value={state} onChange={(e)=>{setState(e.target.value)}} required></input>
-        </label>
-        <label>country
-        <input type="text" value={country} onChange={(e)=>{setCountry(e.target.value)}} required></input>
-        </label>
-        <label>lat
-        <input type="text" value={lat} onChange={(e)=>{setLat(e.target.value)}} required></input>
-        </label>
-        <label>lng
-        <input type="text" value={lng} onChange={(e)=>{setLng(e.target.value)}} required></input>
-        </label>
-        <label>name
-        <input type="text" value={name} onChange={(e)=>{setName(e.target.value)}}required ></input>
-        </label>
-        <label>description
-        <input type="text" value={description} onChange={(e)=>{setDescription(e.target.value)}} ></input>
-        </label>
-        <label>price
-        <input type="text" value={price} onChange={(e)=>{setPrice(e.target.value)}} ></input>
-        </label>
-        <label>Image Url
-        <input type='url' value={url} onChange={(e)=>{setUrl(e.target.value)}}></input>
-        </label>
-        <button onClick={()=>{ModalClose(false)}} >Cancel</button>
+        <input type="text" placeholder="address" value={address} onChange={(e)=>{setAddress(e.target.value)}} required></input>
+      
+        <input type="text" placeholder="city" value={city} onChange={(e)=>{setCity(e.target.value)}} required ></input>
+      
+      
+        <input type="text" placeholder="state" value={state} onChange={(e)=>{setState(e.target.value)}} required></input>
+        
+     
+        <input type="text" placeholder="country" value={country} onChange={(e)=>{setCountry(e.target.value)}} required></input>
+      
+       
+        <input type="text" placeholder="lat" value={lat} onChange={(e)=>{setLat(e.target.value)}} required></input>
+     
+        
+        <input type="text" placeholder="lng" value={lng} onChange={(e)=>{setLng(e.target.value)}} required></input>
+     
+       
+        <input type="text" placeholder="name" value={name} onChange={(e)=>{setName(e.target.value)}}required ></input>
+        
+   
+        <input type="text" placeholder="description" value={description} onChange={(e)=>{setDescription(e.target.value)}} ></input>
+       
+      
+        <input type="text" placeholder="price" value={price} onChange={(e)=>{setPrice(e.target.value)}} ></input>
+     
+        <input type='url'  placeholder="image url" value={url} onChange={(e)=>{setUrl(e.target.value)}}></input>
+     <div>
+        <button onClick={()=>{setShowModal(false)}} >Cancel</button>
         <button type="submit">Create</button>
+    </div>
         </form>
     )
 };
