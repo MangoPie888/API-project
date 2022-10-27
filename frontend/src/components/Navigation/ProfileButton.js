@@ -11,7 +11,7 @@ function ProfileButton({ user }) {
   
   const openMenu = () => {
     // debugger
-    // if (showMenu) return;
+    if (showMenu) return;
     setShowMenu(!showMenu);
   };
   

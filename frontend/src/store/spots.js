@@ -10,6 +10,14 @@ const loadSpot = (spot)=>{
     }
 }
 
+// const LOAD_CURRENT_SPOTS = 'spots/LOAD_CURRENT_SPOTS'
+// const loadCurrentSpots = (spot) =>{
+//     return {
+//         type:LOAD_CURRENT_SPOTS,
+//         payload:spot
+//     }
+// }
+
 const ADD_ONE_SPOT= 'spot/ADD_ONE_SPOT'
 const addOneSpot = (spot) =>{
     return{
@@ -52,8 +60,8 @@ export const displaySpot = () => async (dispatch) =>{
 export const getSpotsOfCurrentUser=()=>async(dispatch)=>{
     const response = await csrfFetch('api/spots/current');
     const data = await response.json();
-    // console.log(data)
-    dispatch(loadSpot(data))
+    console.log(data.Spots)
+    dispatch(loadSpot(data.Spots))
 }
 
 
@@ -125,7 +133,7 @@ export const editSpot = (data) => async(dispatch) => {
 const intialState = {}
 
 const spotsReducer = (state=intialState, action) =>{
-    let newState ={...state};
+    let newState;
     switch(action.type) {
         case LOAD_SPOT:
             newState = Object.assign({},state);

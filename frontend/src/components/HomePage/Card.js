@@ -4,20 +4,12 @@ import {Link} from 'react-router-dom';
 
 
 function Card({spot}){
-    // const allSpot = useSelector(state=>(state.spots))
-    // console.log(allSpots)
-    // const objArr = Object.values(allSpots)
-    // console.log("objArr",objArr)
-    
-    // objArr.map((spot)=>{console.log(spot.id)})
 
-    // console.log('setClicked:', allSpots);
 
 
     return(
             <Link to ={`/${spot.id}`} style={{ color: 'inherit', textDecoration: 'inherit'}} >
             {/* <div className="container" > */}
-    
             <img src={spot.previewImage} alt="house photo" />
         
             <div className="info">

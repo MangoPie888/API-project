@@ -23,10 +23,11 @@ dispatch(getReviewsBySpotId(spotId))
 
 },[])
 
-const spot = useSelector(state=>{return(state.singleSpot)})
+const spot = useSelector(state=>{return(state.singleSpot[spotId])})
 console.log(spot)
+
 const reviews = useSelector(state=>state.reviews.Reviews)
-console.log(reviews)
+// console.log(reviews)
 if(reviews === undefined) return null
 if(!Object.values(reviews).length) return null;
 // console.log(spot)

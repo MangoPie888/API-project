@@ -15,7 +15,7 @@ const loadOneSpot = (spot)=>{
 export const displaySpotWithId =(spotId)=> async(dispatch)=> {
     const response = await csrfFetch(`api/spots/${spotId}`)
     const data = await response.json();
-    // console.log(data)
+    console.log(data)
     dispatch(loadOneSpot(data))
     return response;
 }
@@ -26,11 +26,12 @@ export const displaySpotWithId =(spotId)=> async(dispatch)=> {
 //reducer
 const intialState = {}
 const singleSpotReducer = (state=intialState, action) =>{
-    let newState ={...state};
     switch(action.type) {
         case LOAD_ONE_SPOT:
-            newState = action.payload
-            return newState; 
+           return {
+            ...state,
+            [action.payload.id]: action.payload
+           }
         default:
             return state;
         }

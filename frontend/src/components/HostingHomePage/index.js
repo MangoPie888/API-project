@@ -27,8 +27,10 @@ function HostingHomePage(){
     useEffect(()=>{
         dispatch(spotActions.getSpotsOfCurrentUser())
     },[])
-    const spots = useSelector((state)=>{return(state.spots.Spots)})
-    // console.log(spots)
+    const spots = useSelector((state)=>{return(state.allSpots)})
+    console.log(spots)
+    const spotsArray = Object.values(spots);
+    // console.log(spotsArray)
 
 
     const removeSpot = ()=>{
@@ -41,7 +43,7 @@ function HostingHomePage(){
         setClicked({ [id]: !clicked[id] });
     }
 
-    if(spots) {
+    if(Object.keys(spots).length > 0) {
     return(
         <div className="hosting-container">
         <button onClick={() => setShowModal(true)}>Create a New Spot</button>
@@ -50,10 +52,10 @@ function HostingHomePage(){
         <CreateNewSpot setShowModal={setShowModal}/>
         </Modal>
       )}
-            {spots.map(spot=>{return(
+            {spotsArray.map(spot=>{return(
                 <div key={spot.id}>
                 <h3>{spot.name}</h3>
-                <img src={spot.prevewImage}></img>
+                <img src={spot.previewImage}></img>
                 <p>{spot.address}</p>
                 <p>{spot.city}</p>
                 <p>{spot.country}</p>
