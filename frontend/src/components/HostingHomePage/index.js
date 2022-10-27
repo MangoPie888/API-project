@@ -24,13 +24,18 @@ function HostingHomePage(){
     
 
 
-    useEffect(()=>{
-        dispatch(spotActions.getSpotsOfCurrentUser())
-    },[])
+    // useEffect(()=>{
+    //     dispatch(spotActions.getSpotsOfCurrentUser())
+    // },[])
+    const currentUserId = useSelector((state)=>{return(state.session.user.id)})
+    // console.log("currentUserId",currentUserId)
     const spots = useSelector((state)=>{return(state.allSpots)})
-    console.log(spots)
+    // console.log(spots)
     const spotsArray = Object.values(spots);
     // console.log(spotsArray)
+
+    const currentUserSpots = spotsArray.filter((spot)=>{return(spot.ownerId == currentUserId)})
+    // console.log("currentUserSpots",currentUserSpots)
 
 
     const removeSpot = ()=>{
@@ -52,7 +57,7 @@ function HostingHomePage(){
         <CreateNewSpot setShowModal={setShowModal}/>
         </Modal>
       )}
-            {spotsArray.map(spot=>{return(
+            {currentUserSpots.map(spot=>{return(
                 <div key={spot.id}>
                 <h3>{spot.name}</h3>
                 <img src={spot.previewImage}></img>
