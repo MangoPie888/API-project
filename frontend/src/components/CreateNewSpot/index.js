@@ -1,6 +1,7 @@
 import React,{useEffect, useState} from "react";
 import {useDispatch} from 'react-redux'
 import * as spotActions from '../../store/spots'
+import {useHistory} from 'react-router-dom';
 
 
 
@@ -17,13 +18,15 @@ function CreateNewSpot({setShowModal}){
     const [description, setDescription] = useState('')
     const [price, setPrice] = useState('')
     const [url, setUrl] = useState('')
+    const [preview, setPreview] = useState(true)
 
     
     const dispatch = useDispatch()
+    const history = useHistory()
 const handleSubmit = (e) => {
     // e.preventDefault();
-    return dispatch(spotActions.createNewSpot({address,city,state,country,lat,lng,name,description,price,url}))
-
+    dispatch(spotActions.createNewSpot({address,city,state,country,lat,lng,name,description,price,url,preview}))
+    history.push('/current')
 }
 
     return (

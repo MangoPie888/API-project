@@ -5,6 +5,7 @@ import * as spotActions from '../../store/spots'
 import EditFormModal from "../EditFormModal";
 import CreateNewSpot from "../CreateNewSpot";
 import { Modal } from '../../context/Modal';
+import { getSpotsOfCurrentUser } from "../../store/currentSpot";
 
 import "./index.css"
 
@@ -24,17 +25,24 @@ function HostingHomePage(){
     
 
 
-    // useEffect(()=>{
-    //     dispatch(spotActions.getSpotsOfCurrentUser())
-    // },[])
-    const currentUserId = useSelector((state)=>{return(state.session.user.id)})
+    useEffect(()=>{
+        console.log('useEffect hitted')
+        dispatch(getSpotsOfCurrentUser())
+    },[])
+
+        const currentSpots = useSelector((state)=>{return(state.currentSpots)})
+        console.log(currentSpots)
+        const spotsArray = Object.values(currentSpots);
+        console.log(spotsArray)
+
+    // const currentUserId = useSelector((state)=>{return(state.session.user.id)})
     // console.log("currentUserId",currentUserId)
-    const spots = useSelector((state)=>{return(state.allSpots)})
+    // const spots = useSelector((state)=>{return(state.allSpots)})
     // console.log(spots)
-    const spotsArray = Object.values(spots);
+    // const spotsArray = Object.values(spots);
     // console.log(spotsArray)
 
-    const currentUserSpots = spotsArray.filter((spot)=>{return(spot.ownerId == currentUserId)})
+    // const currentUserSpots = spotsArray.filter((spot)=>{return(spot.ownerId == currentUserId)})
     // console.log("currentUserSpots",currentUserSpots)
 
 
@@ -48,7 +56,11 @@ function HostingHomePage(){
         setClicked({ [id]: !clicked[id] });
     }
 
-    if(Object.keys(spots).length > 0) {
+    // return (
+    //     <div>This is current spot page</div>
+    // )
+
+    if(spotsArray.length > 0) {
     return(
         <div className="hosting-container">
         <button onClick={() => setShowModal(true)}>Create a New Spot</button>
@@ -57,7 +69,7 @@ function HostingHomePage(){
         <CreateNewSpot setShowModal={setShowModal}/>
         </Modal>
       )}
-            {currentUserSpots.map(spot=>{return(
+            {spotsArray.map(spot=>{return(
                 <div key={spot.id}>
                 <h3>{spot.name}</h3>
                 <img src={spot.previewImage}></img>

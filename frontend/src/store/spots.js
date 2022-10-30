@@ -22,7 +22,7 @@ const ADD_ONE_SPOT= 'spot/ADD_ONE_SPOT'
 const addOneSpot = (spot) =>{
     return{
         type:ADD_ONE_SPOT,
-        payload:spot
+        spot
     }
 }
 
@@ -57,12 +57,12 @@ export const displaySpot = () => async (dispatch) =>{
     return response
 }
 
-export const getSpotsOfCurrentUser=()=>async(dispatch)=>{
-    const response = await csrfFetch('api/spots/current');
-    const data = await response.json();
-    console.log(data.Spots)
-    dispatch(loadSpot(data.Spots))
-}
+// export const getSpotsOfCurrentUser=()=>async(dispatch)=>{
+//     const response = await csrfFetch('api/spots/current');
+//     const data = await response.json();
+//     console.log(data.Spots)
+//     dispatch(loadSpot(data.Spots))
+// }
 
 
 // export const displaySpotWithId =(spotId)=> async(dispatch)=> {
@@ -93,6 +93,7 @@ export const createNewSpot = (info)=> async(dispatch)=>{
 
     const newSpot = await response.json();
     console.log("This is newSpot",newSpot)
+    console.log("newSpot Id", newSpot.id)
 
     const imageResponse = await csrfFetch(`/api/spots/${newSpot.id}/images`, {
                 method:'post',
@@ -103,7 +104,10 @@ export const createNewSpot = (info)=> async(dispatch)=>{
             }); 
 
     const newImage = await imageResponse.json();
-    dispatch(loadSpot());
+    console.log("newImage",newImage)
+    newSpot.previewImage = newImage.url
+    console.log(newSpot)
+    dispatch(addOneSpot(newSpot));
 }
 
 
@@ -141,12 +145,21 @@ const spotsReducer = (state=intialState, action) =>{
                 newState[element.id] = element
             })
             // newState = action.payload
+            // console.log("newState", newState)
+            
             return newState; 
         case ADD_ONE_SPOT:
-            // newState={...state, {action.payload}}
-            // newState
-            newState=action.payload
-            return newState;
+            // console.log('state',state)
+                newState = {
+                    ...state,
+                    [action.spot.id]:action.spot,
+                };
+            return newState
+            // newState = {...state}
+            // newState.allSpots[action.spot.id] = action.spot
+            // newState[action.payload.spot.id] = action.payload.spot;
+            // action.payload.spot.previewImage = action.payload.newImage.url
+            // return newState;
         case UPDATE_SPOT:
             newState= {...state}
             newState[action.payload.id] = action.payload
