@@ -27,14 +27,16 @@ const currentSpotsReducer = (state=intialState, action) =>{
     let newState;
     switch(action.type) {
         case LOAD_CURRENT_SPOTS:
-            newState = Object.assign({},state);
+            newState = {};
             action.payload.forEach((element) =>{
                 newState[element.id] = element
             })
             // newState = action.payload
             // console.log("newState", newState)
             
-            return newState; 
+            return {...state,
+                ...newState
+            }; 
         default:
             return state }
         }
