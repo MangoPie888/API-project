@@ -4,7 +4,7 @@ import thunk from 'redux-thunk';
 
 import sessionReducer from './session';
 import spotsReducer from './spots';
-import reviewsReducer from './reviews';
+import reviewsReducer from './spotReviews'
 import singleSpotReducer from './singleSpot';
 import currentSpotsReducer from './currentSpot';
 
@@ -13,7 +13,7 @@ const rootReducer = combineReducers({
     allSpots: spotsReducer,
     currentSpots:currentSpotsReducer,
     singleSpot:singleSpotReducer,
-    reviews:reviewsReducer,
+    spotReviews:reviewsReducer,
 
 });
 

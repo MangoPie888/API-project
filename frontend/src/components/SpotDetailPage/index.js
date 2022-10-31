@@ -1,10 +1,10 @@
 import React, {useEffect,useState,useMemo}from "react";
 import {useSelector,useDispatch} from 'react-redux';
 import {useParams} from 'react-router-dom';
-import { getReviewsBySpotId } from "../../store/reviews";
+import { getReviewsBySpotId } from "../../store/spotReviews";
 import { displaySpotWithId } from "../../store/singleSpot";
 
-import {createNewReview} from '../../store/reviews'
+import ReviewForm from "./ReviewForm";
 
 
 
@@ -32,26 +32,27 @@ dispatch(getReviewsBySpotId(spotId))
 
 },[])
 
-const sessionUserId = useSelector(state=>state.session.user.id)
+const sessionUser= useSelector(state=>state.session.user)
 
 
 const spot = useSelector(state=>{return(state.singleSpot[spotId])})
 console.log(spot)
 
-const reviews = useSelector(state=>state.reviews.Reviews)
+const reviews = useSelector(state=>state.spotReviews)
 console.log("reviews", reviews)
+const reviewsArray = Object.values(reviews)
 if(reviews === undefined) return null
 // if(!Object.values(reviews).length) return null;
 // console.log(spot)
 
 
 
-const handleSubmission = (e)=>{
-    e.preventDefault();
+// const handleSubmission = (e)=>{
+//     e.preventDefault();
     
 
-    dispatch(createNewReview({review,stars,spotId}))
-}
+//     dispatch(createNewReview({review,stars,spotId}))
+// }
 
 
 
@@ -81,14 +82,14 @@ const handleSubmission = (e)=>{
         </div>}
         <div>
             <h4>Reviews</h4>
-            {reviews.length === 0 ? <p>there is no review for this spot</p> : reviews.map(review=>{return(<div key={review.id}>
+            {reviewsArray.length === 0 ? <p>there is no review for this spot</p> : reviewsArray.map(review=>{return(<div key={review.id}>
             <p>{review.User.firstName} {review.User.lastName}</p>
             <p>{review.review}</p>
             </div> 
             )})}
         </div>
-            {sessionUserId !== spot.ownerId &&
-                <form onSubmit={handleSubmission} hidden="" id="review-form">
+                {(sessionUser && (sessionUser.id !== spot.ownerId)) && <ReviewForm spotId={spotId}/>}
+            {/* <form onSubmit={handleSubmission} hidden="" id="review-form">
                 <label htmlFor="star">star</label>
                 <select name="star" id="star" onChange={(e)=>{setStar(e.target.value)}}>
                 <option value="1">1</option>
@@ -99,9 +100,8 @@ const handleSubmission = (e)=>{
                 </select>
         <textarea placeholder="new review" onChange={(e)=>{setReview(e.target.value)}}></textarea>
         <button>Create a Review</button>
-        </form>
+        </form> */}
 
-             }
             
         </div>
     )} 

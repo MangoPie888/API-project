@@ -6,7 +6,7 @@ const LOAD_REVIEWS = 'reviews/LOAD_REVIEWS';
 const displayReview = (reviews)=>{
     return{
         type:LOAD_REVIEWS,
-        payload:reviews
+        reviews
     }
 }
 
@@ -25,11 +25,11 @@ const addReview = (newReview)=>{
 
 //thunk
 export const getReviewsBySpotId=(data)=>async(dispatch)=>{
-    console.log(data)
+    console.log("data",data)
     const response = await csrfFetch(`/api/spots/${data}/reviews`)
     const reviews = await response.json();
-    console.log(reviews)
-    dispatch(displayReview(reviews))
+    console.log("thunkreviews",reviews.Reviews)
+    dispatch(displayReview(reviews.Reviews))
     return response;
 
 } 
@@ -61,12 +61,16 @@ const reviewsReducer = (state=intialState, action) =>{
     let newState;
     switch(action.type) {
         case LOAD_REVIEWS:
-            newState = Object.assign({},state);
-            newState = action.payload
-            return newState; 
+            const allReviews = {};
+            action.reviews.forEach((review)=>{
+                allReviews[review.id] = review
+            });
+            return {
+                ...allReviews,
+            };
         case ADD_NEW_REVIEW:
             newState = {...state};
-            newState.reviews.Reviews.push(action.newReview) 
+            newState.reviews.Reviews.push(action.newReview)
             return newState
         default:
             return state
