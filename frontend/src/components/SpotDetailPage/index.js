@@ -4,9 +4,18 @@ import {useParams} from 'react-router-dom';
 import { getReviewsBySpotId } from "../../store/reviews";
 import { displaySpotWithId } from "../../store/singleSpot";
 
+import {createNewReview} from '../../store/reviews'
+
 
 
 function SpotDetailPage(){
+    const [ostar, setStar] = useState('');
+    const [review,setReview] = useState('');
+    const [formDisplay, setFormDisplay] = useState(false)
+
+    const stars = parseInt(ostar)
+    console.log("type of star", typeof(stars),stars)
+
 
  console.log(1)
 
@@ -23,6 +32,9 @@ dispatch(getReviewsBySpotId(spotId))
 
 },[])
 
+const sessionUserId = useSelector(state=>state.session.user.id)
+
+
 const spot = useSelector(state=>{return(state.singleSpot[spotId])})
 console.log(spot)
 
@@ -31,6 +43,17 @@ console.log("reviews", reviews)
 if(reviews === undefined) return null
 // if(!Object.values(reviews).length) return null;
 // console.log(spot)
+
+
+
+const handleSubmission = (e)=>{
+    e.preventDefault();
+    
+
+    dispatch(createNewReview({review,stars,spotId}))
+}
+
+
 
 
     console.log(6)
@@ -64,6 +87,22 @@ if(reviews === undefined) return null
             </div> 
             )})}
         </div>
+            {sessionUserId !== spot.ownerId &&
+                <form onSubmit={handleSubmission} hidden="" id="review-form">
+                <label htmlFor="star">star</label>
+                <select name="star" id="star" onChange={(e)=>{setStar(e.target.value)}}>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                </select>
+        <textarea placeholder="new review" onChange={(e)=>{setReview(e.target.value)}}></textarea>
+        <button>Create a Review</button>
+        </form>
+
+             }
+            
         </div>
     )} 
 

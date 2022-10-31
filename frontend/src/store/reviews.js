@@ -11,6 +11,15 @@ const displayReview = (reviews)=>{
 }
 
 
+const ADD_NEW_REVIEW = 'reviews/ADD_NEW_REVIEW';
+const addReview = (newReview)=>{
+    return {
+        type:ADD_NEW_REVIEW,
+        newReview
+    }
+
+}
+
 
 
 
@@ -27,6 +36,24 @@ export const getReviewsBySpotId=(data)=>async(dispatch)=>{
 
 
 
+export const createNewReview =(data) => async(dispatch) =>{
+    console.log("hit createNewReview Thunk")
+    const response = await csrfFetch(`/api/spots/${data.spotId}/reviews`, {
+        method:"post",
+        headers:{
+            'Content-Type':'application/json'
+        },
+        body: JSON.stringify(data)
+    }); 
+
+    const newReview = await response.json();
+    console.log("newReview", newReview)
+    dispatch(addReview(newReview));
+    return newReview;
+}
+
+
+
 
 //reducer
 const intialState = {}
@@ -37,6 +64,10 @@ const reviewsReducer = (state=intialState, action) =>{
             newState = Object.assign({},state);
             newState = action.payload
             return newState; 
+        case ADD_NEW_REVIEW:
+            newState = {...state};
+            newState.reviews.Reviews.push(action.newReview) 
+            return newState
         default:
             return state
     }
