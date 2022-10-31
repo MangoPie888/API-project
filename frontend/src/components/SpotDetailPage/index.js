@@ -27,8 +27,8 @@ const spot = useSelector(state=>{return(state.singleSpot[spotId])})
 console.log(spot)
 
 const reviews = useSelector(state=>state.reviews.Reviews)
-console.log(reviews)
-// if(reviews === undefined) return null
+console.log("reviews", reviews)
+if(reviews === undefined) return null
 // if(!Object.values(reviews).length) return null;
 // console.log(spot)
 
