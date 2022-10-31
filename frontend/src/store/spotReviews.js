@@ -1,4 +1,5 @@
 import { csrfFetch } from './csrf';
+import { ValidationError } from '../utils/validationError';
 
 
 //action
@@ -37,6 +38,7 @@ export const getReviewsBySpotId=(data)=>async(dispatch)=>{
 
 
 export const createNewReview =(data) => async(dispatch) =>{
+
     console.log("hit createNewReview Thunk")
     const response = await csrfFetch(`/api/spots/${data.spotId}/reviews`, {
         method:"post",
@@ -44,12 +46,22 @@ export const createNewReview =(data) => async(dispatch) =>{
             'Content-Type':'application/json'
         },
         body: JSON.stringify(data)
-    }); 
-
+    });
+    console.log("beforeIFthunk")
+    if(!response.ok) {
+        let error;
+        if(response.status === 403) {
+            error = await response.json();
+            console.log("thunkerror",error)
+            throw new ValidationError(error.message);
+        }
+    }
     const newReview = await response.json();
     console.log("newReview", newReview)
     dispatch(addReview(newReview));
     return newReview;
+  
+
 }
 
 
@@ -69,9 +81,13 @@ const reviewsReducer = (state=intialState, action) =>{
                 ...allReviews,
             };
         case ADD_NEW_REVIEW:
-            newState = {...state};
-            newState.reviews.Reviews.push(action.newReview)
-            return newState
+           if(!state.spotReviews[action.newReview.id]) {
+            const newState = {
+                ...state,
+                [action.newReview.id]:action.newReview
+            };
+           }
+           return newState
         default:
             return state
     }
