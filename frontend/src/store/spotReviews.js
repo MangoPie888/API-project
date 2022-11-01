@@ -22,6 +22,15 @@ const addReview = (newReview)=>{
 }
 
 
+const REMOVE_REVIEW = 'reviews/REMOVE_REVIEW';
+const removeReview = (reviewId) =>{
+    return ({
+        type:REMOVE_REVIEW,
+        reviewId
+    })
+}
+
+
 
 
 //thunk
@@ -60,9 +69,17 @@ export const createNewReview =(data) => async(dispatch) =>{
     console.log("newReview", newReview)
     dispatch(addReview(newReview));
     return newReview;
-  
 
 }
+
+
+export const deleteReview = (reviewId) => async dispatch =>{
+    const response = await csrfFetch(`/api/reviews/${reviewId}`,{
+        method:'delete',
+    });
+    dispatch(removeReview(reviewId));
+    return response;
+} 
 
 
 
@@ -88,6 +105,10 @@ const reviewsReducer = (state=intialState, action) =>{
             ...state,
             ...newState
         } 
+        case REMOVE_REVIEW:
+            newState = Object.assign({},state);
+            newState.spotReviews[action.spotId] = null;
+            return newState
         default:
             return state
     }

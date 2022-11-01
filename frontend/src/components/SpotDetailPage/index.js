@@ -3,16 +3,19 @@ import {useSelector,useDispatch} from 'react-redux';
 import {useParams} from 'react-router-dom';
 import { getReviewsBySpotId } from "../../store/spotReviews";
 import { displaySpotWithId } from "../../store/singleSpot";
+import { deleteReview } from "../../store/spotReviews";
 
 import ReviewForm from "./ReviewForm";
 import "./SpotDetailPage.css"
 
 
 
+
+
 function SpotDetailPage(){
     const [ostar, setStar] = useState('');
-    const [review,setReview] = useState('');
-    const [formDisplay, setFormDisplay] = useState(false)
+    const [reviewId,setReviewId] = useState('');
+    
 
     const stars = parseInt(ostar)
     console.log("type of star", typeof(stars),stars)
@@ -49,6 +52,9 @@ console.log("reviewsArray",reviewsArray)
 // console.log(spot)
 
 
+const handleDeleteButton =()=>{
+    dispatch(deleteReview(reviewId))
+}
 
 // const handleSubmission = (e)=>{
 //     e.preventDefault();
@@ -87,6 +93,11 @@ console.log("reviewsArray",reviewsArray)
             {reviewsArray.length === 0 ? <p>there is no review for this spot</p> : reviewsArray.map(review=>{return(<div className="reviewBox" key={review.id}>
             <p>{review.User.firstName}</p>
             <p>{review.review}</p>
+            {sessionUser.id === review.userId && 
+            <form onSubmit={handleDeleteButton}>
+            <button type='submit' id={review.id} onClick={(e)=>{setReviewId(e.target.id)}}>Delete</button>
+            </form>
+            }
             </div> 
             )})}
         </div>
