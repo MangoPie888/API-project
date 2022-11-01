@@ -81,13 +81,13 @@ const reviewsReducer = (state=intialState, action) =>{
                 ...allReviews,
             };
         case ADD_NEW_REVIEW:
-           if(!state.spotReviews[action.newReview.id]) {
-            const newState = {
-                ...state,
-                [action.newReview.id]:action.newReview
-            };
-           }
-           return newState
+            newState = Object.assign({},state);
+            console.log("newState",newState)
+            newState[action.newReview.id] = action.newReview
+        return {
+            ...state,
+            ...newState
+        } 
         default:
             return state
     }

@@ -34,7 +34,7 @@ const currentSpotsReducer = (state=intialState, action) =>{
             // newState = action.payload
             // console.log("newState", newState)
             
-            return {...state,
+            return {
                 ...newState
             }; 
         default:

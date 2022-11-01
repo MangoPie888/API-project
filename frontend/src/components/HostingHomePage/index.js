@@ -60,7 +60,7 @@ function HostingHomePage(){
     //     <div>This is current spot page</div>
     // )
 
-    if(spotsArray.length > 0) {
+    
     return(
         <div className="hosting-container">
         <button onClick={() => setShowModal(true)}>Create a New Spot</button>
@@ -69,7 +69,8 @@ function HostingHomePage(){
         <CreateNewSpot setShowModal={setShowModal}/>
         </Modal>
       )}
-            {spotsArray.map(spot=>{return(
+      {spotsArray.length > 0 && 
+        spotsArray.map(spot=>{return(
                 <div key={spot.id}>
                 <h3>{spot.name}</h3>
                 <img src={spot.previewImage}></img>
@@ -87,13 +88,15 @@ function HostingHomePage(){
                 </span>
                 
                 </div>
-            )})}
+            )})
+      }
+            
 
             
 
         </div> 
     )}
-}
+
 
 
 

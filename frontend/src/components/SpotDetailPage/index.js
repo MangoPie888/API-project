@@ -5,6 +5,7 @@ import { getReviewsBySpotId } from "../../store/spotReviews";
 import { displaySpotWithId } from "../../store/singleSpot";
 
 import ReviewForm from "./ReviewForm";
+import "./SpotDetailPage.css"
 
 
 
@@ -39,9 +40,11 @@ const spot = useSelector(state=>{return(state.singleSpot[spotId])})
 console.log(spot)
 
 const reviews = useSelector(state=>state.spotReviews)
-console.log("reviews", reviews)
+
 const reviewsArray = Object.values(reviews)
-if(reviews === undefined) return null
+console.log("reviewsArray",reviewsArray)
+// if(reviews === undefined) return null
+// if(reviewsArray.length === 0) return null
 // if(!Object.values(reviews).length) return null;
 // console.log(spot)
 
@@ -60,15 +63,13 @@ if(reviews === undefined) return null
     console.log(6)
     if(spot) {
     return (
-        <div>
+        <div className="detailspot-container">
         <div>
             <h1>{spot.name}</h1>
         </div>
-        <div>
-            <p>⭐ {spot.avgStarRating}</p>
-            <p>{spot.city}</p>
-            <p>{spot.state}</p>
-            <p>{spot.country}</p>
+        <div className="title-info">
+            <p><span>&#9733;</span> {spot.avgStarRating}</p>
+            <p>{spot.city},{spot.state},{spot.country}</p>
         </div>
         {spot.SpotImages && <div>
         {spot.SpotImages.map((image)=>{return(
@@ -76,14 +77,15 @@ if(reviews === undefined) return null
         )})}
         </div> }
         {spot.Owner &&  <div>
-            {spot.Owner.firstName} {
+            hosted by {spot.Owner.firstName} {
                 spot.Owner.lastName
             }
         </div>}
-        <div>
+        <hr className="dotted"></hr>
+        <div >
             <h4>Reviews</h4>
-            {reviewsArray.length === 0 ? <p>there is no review for this spot</p> : reviewsArray.map(review=>{return(<div key={review.id}>
-            <p>{review.User.firstName} {review.User.lastName}</p>
+            {reviewsArray.length === 0 ? <p>there is no review for this spot</p> : reviewsArray.map(review=>{return(<div className="reviewBox" key={review.id}>
+            <p>{review.User.firstName}</p>
             <p>{review.review}</p>
             </div> 
             )})}

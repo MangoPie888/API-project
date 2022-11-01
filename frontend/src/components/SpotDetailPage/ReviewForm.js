@@ -11,6 +11,7 @@ const ReviewForm = ({spotId})=>{
     const [ostar, setStar] = useState('');
     const stars = parseInt(ostar)
     const [review,setReview] = useState('');
+    const [allowSubmit, setAllowSubmit] = useState(false)
 
    
 
@@ -20,35 +21,20 @@ const ReviewForm = ({spotId})=>{
 
     const sessionUserId = useSelector(state => state.session.user.id)
 
-    const checkOverWriteReivew = ()=>{
-        for(let i = 0; i <spotReviewArray.length; i++) {
-            let item = spotReviewArray[i];
-            if(item.userId === sessionUserId) {
-                return true
-            }
-            return false;
-        }
-    }
-    
 
-   
-    const handleSubmission = async(e)=>{
-        e.preventDefault();
-        
-        let createdReview;
-        try{
-            createdReview = await dispatch(createNewReview({review,stars,spotId}));
-        } catch (error) {
-           console.log("catchedError",error)
-           if(error.status === 403) {
-            alert("User already has a review for this spot")
-            const form = document.getElementById('review-form')
-            form.style.display = "none"
-           }
+
+    const checkReview = ()=>{
+        for(let i = 0 ; i <spotReviewArray.length; i++) {
+            let review = spotReviewArray[i];
+            if(review.userId === sessionUserId) {
+                return false
+            }
         }
-        if(createdReview) {
-            history.push(`/${spotId}`)
-        }    
+        return true;
+    }
+
+    const handleSubmission = async(e)=>{
+       dispatch(createNewReview({stars,review,spotId}))
     }
 
 
@@ -57,7 +43,7 @@ const ReviewForm = ({spotId})=>{
 
     return (
         <>
-            <form onSubmit={handleSubmission} hidden="" id="review-form">
+         {checkReview() === true && <form onSubmit={handleSubmission} hidden="" id="review-form">
                 <label htmlFor="star">star</label>
                 <select name="star" id="star" onChange={(e)=>{setStar(e.target.value)}}>
                 <option value="1">1</option>
@@ -66,9 +52,9 @@ const ReviewForm = ({spotId})=>{
                 <option value="4">4</option>
                 <option value="5">5</option>
                 </select>
-        <textarea placeholder="new review" onChange={(e)=>{setReview(e.target.value)}}></textarea>
+        <textarea placeholder="new review" onChange={(e)=>{setReview(e.target.value)}} required></textarea>
         <button >Create a Review</button>
-        </form>
+        </form> }      
 
         </>
     )

@@ -13,11 +13,12 @@ function Card({spot}){
             <img src={spot.previewImage} alt="house photo" />
         
             <div className="info">
-            <h3>{spot.name}</h3>
-            <p>${spot.price} night</p>
+            <h3>{spot.name},{spot.state}</h3>
+            <p><span>&#9733;</span> {spot.avgRating}</p>
+           
             </div>
-            <div className="rating"  key={spot.name}>
-                <p>⭐ {spot.avgRating}</p>
+            <div className="price"  key={spot.name}>
+                <p>${spot.price} night</p>
             </div>
             {/* </div> */}
             </Link>

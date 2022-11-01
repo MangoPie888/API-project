@@ -9,3 +9,16 @@ img {
     border-radius: 15px;
 
 }
+
+
+.info {
+    display: flex;
+    justify-content: space-between;
+    font-family:'Playfair Display', serif;
+    font-size: 14px;
+}
+
+.price {
+    font-family:'Playfair Display', serif;
+    font-size: 14px;
+}
