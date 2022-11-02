@@ -40,7 +40,7 @@ function LoginForm() {
         <input
           type="text"
           value={credential}
-          placeholder='Username or Email'
+          placeholder='Enter Username or Email'
           onChange={(e) => setCredential(e.target.value)}
           required
         />
@@ -50,7 +50,7 @@ function LoginForm() {
         <input
           type="password"
           value={password}
-          placeholder='Password'
+          placeholder='Enter Password'
           onChange={(e) => setPassword(e.target.value)}
           required
         />
