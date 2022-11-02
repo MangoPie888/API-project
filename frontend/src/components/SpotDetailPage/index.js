@@ -93,7 +93,7 @@ const handleDeleteButton =()=>{
             {reviewsArray.length === 0 ? <p>there is no review for this spot</p> : reviewsArray.map(review=>{return(<div className="reviewBox" key={review.id}>
             <p>{review.User.firstName}</p>
             <p>{review.review}</p>
-            {sessionUser.id === review.userId && 
+            {sessionUser !==null && sessionUser.id === review.userId && 
             <form onSubmit={handleDeleteButton}>
             <button type='submit' id={review.id} onClick={(e)=>{setReviewId(e.target.id)}}>Delete</button>
             </form>
