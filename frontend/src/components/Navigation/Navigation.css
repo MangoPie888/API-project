@@ -39,24 +39,56 @@
     font-family: 'Playfair Display', serif;
     position: absolute;
     background-color:white;
-    right: 20%;
-    top:50px ;
+    right: 3%;
+    top:28px ;
     padding: .75rem;
     border-radius: .25rem;
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .3);
     border-radius: 15px;
     display: none;
     z-index: 1;
+    pointer-events: auto;
+    width:250px;
    
 }
 
-.dropdown:hover .dropdown-menu {display: block;}
+ .dropdown:hover .dropdown-menu {
+    display: block;
+  box-shadow:2px 2px 2px 1px rgba(0, 0, 0, 0.2); 
+        border-radius: 15px;} 
 
 .dropdown-button {
-    background-color: white;
-    color: #ff5a60;
-    padding: 16px;
+    background-color:white;
+    color: #666F7A;
+    padding: 3px 6px 3px 10px;
     font-size: 16px;
-    border: none;
+    border: solid;
+    border-radius: 15px;
+    border-width: thin
 
 }
+
+
+#line-icon {
+    padding-right: 10px;
+}
+
+
+ul {
+    list-style-type: none;  
+}
+
+.logout-button {
+    margin-top: 10px;
+    background-color:white;
+    border-radius: 15px;
+    border-color: #666F7A;
+    border-width: thin
+
+}
+
+.logout-button:hover {
+    background-color: #ff5a60;
+}
+
+

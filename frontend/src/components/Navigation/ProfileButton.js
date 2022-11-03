@@ -9,11 +9,11 @@ function ProfileButton({ user }) {
   const dispatch = useDispatch();
   const [showMenu, setShowMenu] = useState(false);
   
-  const openMenu = () => {
-    // debugger
-    if (showMenu) return;
-    setShowMenu(!showMenu);
-  };
+  // const openMenu = () => {
+  //   // debugger
+  //   if (showMenu) return;
+  //   setShowMenu(!showMenu);
+  // };
   
 
 
@@ -41,23 +41,24 @@ function ProfileButton({ user }) {
   return (
     <>
     <div className="dropdown">
-    <div>
-      <button className="dropdown-button" >
+    <div className="user-button">
+      <button className="dropdown-button">
+        <i className="fa-solid fa-bars" id="line-icon"></i>
         <i className="fas fa-user-circle" />
       </button>
     </div>
   
-        <div className="dropdown-menu">
+          <div className="dropdown-menu">
         <ul className="profile-dropdown">
-          <li>{user.username}</li>
-          <li>{user.email}</li>
-          <li><Link to='/current'>Host your home</Link></li>     {/*need a <link> tage */}
+          <li>username: {user.username}</li>
+          <li>useremail: {user.email}</li>
+          <li><Link to='/current'>Clike here to host your home</Link></li>     {/*need a <link> tage */}
           <li>
-            <button onClick={logout}>Log Out</button>
+            <button onClick={logout} className="logout-button">Log Out</button>
           </li>
         </ul>
         </div>
-
+    
       </div>
     </>
   );

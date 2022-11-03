@@ -60,6 +60,7 @@ module.exports = {
         description:'this house has a great mounatin view',
         price:338
       },
+      
     ])
   },
 

@@ -14,7 +14,8 @@ function Card({spot}){
         
             <div className="info">
             <h3>{spot.name},{spot.state}</h3>
-            <p><span>&#9733;</span> {spot.avgRating}</p>
+            {spot.avgRating && <p><span>&#9733;</span> {spot.avgRating}</p>}
+            {!spot.avgRating && <p><span>&#9733;</span>New</p>}
            
             </div>
             <div className="price"  key={spot.name}>
