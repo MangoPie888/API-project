@@ -2,4 +2,21 @@
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
+    padding-left: 20%;
+    padding-right: 20%;
+   
+}
+
+.create-button{
+    height: 200px;
+    width: 300px;
+    border-radius: 15px;
+    position: relative;
+    margin-top: 4%;
+}
+
+img {
+    height: 200px;
+    border-radius: 15px;
+
 }

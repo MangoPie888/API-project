@@ -63,7 +63,7 @@ function HostingHomePage(){
     
     return(
         <div className="hosting-container">
-        <button onClick={() => setShowModal(true)}>Create a New Spot</button>
+        <button className="create-button" onClick={() => setShowModal(true)}>Create a New Spot</button>
         {showModal && (
         <Modal >
         <CreateNewSpot setShowModal={setShowModal}/>

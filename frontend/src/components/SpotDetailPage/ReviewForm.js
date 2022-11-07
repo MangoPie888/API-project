@@ -3,13 +3,15 @@ import {useHistory} from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
 import { createNewReview } from "../../store/spotReviews";
 
+import './ReviewForm.css'
+
 
 const ReviewForm = ({spotId})=>{
     const dispatch = useDispatch();
     const history = useHistory();
 
-    const [ostar, setStar] = useState('');
-    const stars = parseInt(ostar)
+    const [stars, setStar] = useState('');
+    // const stars = parseInt(ostar)
     const [review,setReview] = useState('');
     const [allowSubmit, setAllowSubmit] = useState(false)
 
@@ -37,26 +39,50 @@ const ReviewForm = ({spotId})=>{
        dispatch(createNewReview({stars,review,spotId}))
     }
 
+    const starDiv = document.querySelector('.stars')
+   const starsEmoji = document.querySelectorAll('.stars a')
 
+   starsEmoji.forEach((star,clicledIdx)=>{
+    star.addEventListener('click', ()=>{
+        starDiv.classList.add("disabled")
+        starsEmoji.forEach((otherStars,otherIdx)=>{
+            if(otherIdx <= clicledIdx) {
+                otherStars.classList.add("active")
+
+            }
+        })
+        // console.log(`The ${clicledIdx+1} star is clicked`)
+        setStar(clicledIdx+1)
+    })
+   })
+
+  
 
 
 
     return (
-        <>
+        <div className="reviewForm">
          {checkReview() === true && <form onSubmit={handleSubmission} hidden="" id="review-form">
-                <label htmlFor="star">star</label>
+                {/* <label htmlFor="star">star</label>
                 <select name="star" id="star" onChange={(e)=>{setStar(e.target.value)}}>
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
                 <option value="4">4</option>
                 <option value="5">5</option>
-                </select>
+                </select> */}
+                <div className="stars">
+                <a>⭐</a>
+                <a>⭐</a>
+                <a>⭐</a>
+                <a>⭐</a>
+                <a>⭐</a>
+                </div>
         <textarea placeholder="new review" onChange={(e)=>{setReview(e.target.value)}} required></textarea>
-        <button >Create a Review</button>
+        <button className="create-review-button">Create a Review</button>
         </form> }      
 
-        </>
+        </div>
     )
 
 };

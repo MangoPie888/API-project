@@ -1,0 +1,32 @@
+form {
+    margin-top: 10px;
+}
+.create-house-input{
+    width: 80%;
+    padding: 12px 20px;
+    margin: 2px ;
+    display: inline-block;
+    position: relative;
+    left: 10%;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-sizing: border-box;
+    height: 10px;
+}
+
+.modal-button{
+        background-color: #FF385C;
+        color: white;
+        margin: 4px 0;
+        border: none;
+        cursor: pointer;
+        width: 100%;
+        border-radius: 10px;
+        width: 80%;
+        display: inline-block;
+        position: relative;
+        left: 10%;
+        height: 25px;
+        text-align: center;
+    
+}

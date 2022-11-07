@@ -99,7 +99,7 @@ router.get('/', queryValidation, async(req,res,next) =>{
             raw:true
         });
 
-        let previewImage = null;
+        let previewImage;
         
         const image = await SpotImage.findOne({
             where:{spotId:spot.id, preview:true},
@@ -278,14 +278,14 @@ const validationCheck = [
     check('country')
     .exists({ checkFalsy: true })
     .withMessage("Country is required"),
-    check('lat')
-    .exists({ checkFalsy: true })
-    .isDecimal({})
-    .withMessage("Latitude is not valid"),
-    check('lng')
-    .exists({ checkFalsy: true })
-    .isDecimal({})
-    .withMessage("Longitude is not valid"),
+    // check('lat')
+    // .exists({ checkFalsy: true })
+    // .isDecimal({})
+    // .withMessage("Latitude is not valid"),
+    // check('lng')
+    // .exists({ checkFalsy: true })
+    // .isDecimal({})
+    // .withMessage("Longitude is not valid"),
     check('name')
     .exists({ checkFalsy: true })
     .isLength({max:50})
@@ -303,9 +303,9 @@ const validationCheck = [
 router.post('/', restoreUser,requireAuth,validationCheck, async (req, res)=>{
     const {user} = req;
     if(user){
-        const {address,city,state,country,lat,lng,name,description,price} = req.body;
+        const {address,city,state,country,name,description,price} = req.body;
         const ownerId = user.id
-        const newSpot = await Spot.create({ownerId,address,city,state,country,lat,lng,name,description,price});
+        const newSpot = await Spot.create({ownerId,address,city,state,country,name,description,price});
 
         return (res.status(201),
             res.json(newSpot))

@@ -37,7 +37,7 @@ function LoginForm() {
       {/* <label>
         Username or Email */}
         <div className="login">
-        <input
+        <input className="login-input"
           type="text"
           value={credential}
           placeholder='Enter Username or Email'
@@ -47,7 +47,7 @@ function LoginForm() {
       {/* </label> */}
       {/* <label>
         Password */}
-        <input
+        <input className="login-input"
           type="password"
           value={password}
           placeholder='Enter Password'
@@ -55,10 +55,10 @@ function LoginForm() {
           required
         />
       {/* </label> */}
-      <button type="submit">Log In</button>
+      <button className="login-buttons" type="submit">Log In</button>
       </div>
     </form>
-    <button className="demoUser" onClick={demoUser} type="submit">Demo User</button>
+    <button className="login-buttons" onClick={demoUser} type="submit">Demo User</button>
     
     </>
   );

@@ -19,10 +19,10 @@ const loadSpot = (spot)=>{
 // }
 
 const ADD_ONE_SPOT= 'spot/ADD_ONE_SPOT'
-const addOneSpot = (spot) =>{
+const addOneSpot = (spot,newImage) =>{
     return{
         type:ADD_ONE_SPOT,
-        spot
+        spot,newImage
     }
 }
 
@@ -107,7 +107,7 @@ export const createNewSpot = (info)=> async(dispatch)=>{
     console.log("newImage",newImage)
     newSpot.previewImage = newImage.url
     console.log(newSpot)
-    dispatch(addOneSpot(newSpot));
+    dispatch(addOneSpot(newSpot,newImage));
 }
 
 
@@ -153,7 +153,9 @@ const spotsReducer = (state=intialState, action) =>{
                 newState = {
                     ...state,
                     [action.spot.id]:action.spot,
+                    [action.spot.id.previewImage]:action.newImage.url
                 };
+            
             return newState
             // newState = {...state}
             // newState.allSpots[action.spot.id] = action.spot
