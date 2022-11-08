@@ -1,22 +1,23 @@
 .content-container{
     display: flex;
     margin-top: 50px;
-    justify-content: space-around;
     flex-wrap: wrap;
     padding-left: 20%;
     padding-right: 20%;
+    justify-content:flex-start;
+
     
     
 }
 
-@media screen and (min-width: 800px) {
+/* @media screen and (min-width: 900px) {
     .homeContainer {
         width: 100%;
     }
 }
 
-@media screen and (min-width: 800px) {
+@media screen and (min-width: 900px) {
     .homeContainer {
-        width: 500px;
+        width: 600px;
     }
-}
+} */

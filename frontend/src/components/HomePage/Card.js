@@ -8,6 +8,7 @@ function Card({spot}){
 
 
     return(
+            <div className='card-div'>
             <Link to ={`/${spot.id}`} style={{ color: 'inherit', textDecoration: 'inherit'}} >
             {/* <div className="container" > */}
             <img src={spot.previewImage} alt="house photo" />
@@ -23,6 +24,7 @@ function Card({spot}){
             </div>
             {/* </div> */}
             </Link>
+            </div>
 
 
 

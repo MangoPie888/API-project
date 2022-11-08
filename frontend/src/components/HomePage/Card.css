@@ -1,12 +1,16 @@
 .container {
     display: flex;
     justify-content:end;
+
 }
 
 
 img {
     height: 200px;
     border-radius: 15px;
+    width: 300px;
+
+
 
 }
 
@@ -21,4 +25,8 @@ img {
 .price {
     font-family:'Playfair Display', serif;
     font-size: 14px;
+}
+
+.card-div {
+ margin-right: 26px;
 }

@@ -109,7 +109,6 @@ export const createNewSpot = (info)=> async(dispatch)=>{
     newSpot.previewImage = newImage.url
     console.log(newSpot)
     dispatch(addOneSpot(newSpot,newImage));
-    
     dispatch(getSpotsOfCurrentUser());
 }
 
@@ -152,7 +151,6 @@ const spotsReducer = (state=intialState, action) =>{
             
             return newState; 
         case ADD_ONE_SPOT:
-            debugger;
             console.log('action',action)
             console.log('state',state)
                 newState = {
