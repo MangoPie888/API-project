@@ -4,6 +4,8 @@ import * as spotActions from '../../store/spots'
 import {useHistory} from 'react-router-dom';
 
 
+
+
 import './index.css'
 
 
@@ -25,12 +27,17 @@ function CreateNewSpot({setShowModal}){
     const history = useHistory()
 const handleSubmit = (e) => {
     e.preventDefault();
+    
     dispatch(spotActions.createNewSpot({address,city,state,country,name,description,price,url,preview}))
-    history.push('/current')
+    // history.push('/current')
+    // window.location.reload
+    setShowModal(false)
+
 }
 
+
     return (
-        <form onSubmit={handleSubmit} >
+        <form id="first" onSubmit={handleSubmit} >
         <input className="create-house-input" type="text" placeholder="address" value={address} onChange={(e)=>{setAddress(e.target.value)}} required></input>
       
         <input className="create-house-input" type="text" placeholder="city" value={city} onChange={(e)=>{setCity(e.target.value)}} required ></input>
@@ -56,10 +63,12 @@ const handleSubmit = (e) => {
       
         <input className="create-house-input" type="text" placeholder="price" pattern='[0-9]+(\\.[0-9][0-9]?)?' value={price} onChange={(e)=>{setPrice(e.target.value)}} ></input>
      
-        <input className="create-house-input" type='url'  placeholder="image url" value={url} onChange={(e)=>{setUrl(e.target.value)}}></input>
+        <input className="create-house-input" type='url'  placeholder="image url" value={url} onChange={(e)=>{
+               console.log('e',e.target.value);
+        setUrl(e.target.value)}}></input>
      <div>
         <button className="modal-button" onClick={()=>{setShowModal(false)}} >Cancel</button>
-        <button  className="modal-button" type="submit">Create</button>
+        <button className="modal-button" type="submit">Create</button>
     </div>
         </form>
     )

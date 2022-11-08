@@ -7,7 +7,7 @@ import Navigation from "./components/Navigation";
 import HomePage from "./components/HomePage";
 import SpotDetailPage from "./components/SpotDetailPage";
 import HostingHomePage from "./components/HostingHomePage";
-
+import NotFound from "./components/NotFound";
 
 function App() {
   const dispatch = useDispatch();
@@ -33,6 +33,9 @@ function App() {
           <Route path='/:spotId' >
             <SpotDetailPage />
           </Route>
+          <Route component={NotFound} />
+      
+    
         </Switch>
       )}
     </>

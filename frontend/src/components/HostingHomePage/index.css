@@ -20,3 +20,32 @@ img {
     border-radius: 15px;
 
 }
+
+.delete-button {
+    margin-top: 10px;
+    background-color:white;
+    border-radius: 15px;
+    border-color: #666F7A;
+    border-width: thin;
+    width: 60px;
+
+}
+
+.edit-button {
+    position: relative;
+    left: 50%;
+    bottom:4%;
+    background-color:white;
+    border-radius: 15px;
+    border-color: #666F7A;
+    border-width: thin;
+    width: 60px;
+}
+
+.delete-button:hover {
+    background-color: #ff5a60;
+}
+
+.edit-button:hover {
+    background-color: #ff5a60;
+}

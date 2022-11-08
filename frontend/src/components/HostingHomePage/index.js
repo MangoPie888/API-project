@@ -27,8 +27,11 @@ function HostingHomePage(){
 
     useEffect(()=>{
         console.log('useEffect hitted')
+        
         dispatch(getSpotsOfCurrentUser())
     },[])
+
+
 
         const currentSpots = useSelector((state)=>{return(state.currentSpots)})
         console.log(currentSpots)
@@ -80,10 +83,10 @@ function HostingHomePage(){
                 <p>{spot.price}</p>
                 <p>{spot.aveRating}</p>
                 <form onSubmit={removeSpot}>
-                <button type="submit" id={spot.id} onClick={e=>setSpotId(e.target.id)}>Delete</button>
+                <button className="delete-button" type="submit" id={spot.id} onClick={e=>setSpotId(e.target.id)}>Delete</button>
                 </form>
                 <span>
-                    <button onClick={() => handleEditClick(spot.id)}>Edit</button>
+                    <button className="edit-button" onClick={() => handleEditClick(spot.id)}>Edit</button>
                     {clicked[spot.id] === true && <EditFormModal closeModal={() => setClicked({ ...clicked, [spot.id]: false })} spot={spot}/>}
                 </span>
                 

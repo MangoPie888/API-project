@@ -1,4 +1,5 @@
 import { csrfFetch } from './csrf';
+import { getSpotsOfCurrentUser } from './currentSpot';
 
 
 //action
@@ -108,6 +109,8 @@ export const createNewSpot = (info)=> async(dispatch)=>{
     newSpot.previewImage = newImage.url
     console.log(newSpot)
     dispatch(addOneSpot(newSpot,newImage));
+    
+    dispatch(getSpotsOfCurrentUser());
 }
 
 
@@ -145,16 +148,19 @@ const spotsReducer = (state=intialState, action) =>{
                 newState[element.id] = element
             })
             // newState = action.payload
-            // console.log("newState", newState)
+            console.log("newState", newState)
             
             return newState; 
         case ADD_ONE_SPOT:
-            // console.log('state',state)
+            debugger;
+            console.log('action',action)
+            console.log('state',state)
                 newState = {
                     ...state,
                     [action.spot.id]:action.spot,
-                    [action.spot.id.previewImage]:action.newImage.url
+                    // [action.spot.id.previewImage]:action.newImage.url
                 };
+                console.log("newState",newState)
             
             return newState
             // newState = {...state}
