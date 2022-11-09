@@ -67,8 +67,8 @@ const handleSubmit = (e) => {
                console.log('e',e.target.value);
         setUrl(e.target.value)}}></input>
      <div>
-        <button className="modal-button" onClick={()=>{setShowModal(false)}} >Cancel</button>
-        <button className="modal-button" type="submit">Create</button>
+        {/* <button className="modal-button" onClick={()=>{setShowModal(false)}} >Cancel</button> */}
+        <button className="modal-button" type="submit" >Create</button>
     </div>
         </form>
     )

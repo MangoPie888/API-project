@@ -66,28 +66,38 @@ function HostingHomePage(){
     
     return(
         <div className="hosting-container">
+        
         <button className="create-button" onClick={() => setShowModal(true)}>Create a New Spot</button>
+      
         {showModal && (
-        <Modal >
+        <Modal onClose={() => setShowModal(false)}>
         <CreateNewSpot setShowModal={setShowModal}/>
         </Modal>
       )}
       {spotsArray.length > 0 && 
         spotsArray.map(spot=>{return(
-                <div key={spot.id}>
+                <div key={spot.id} className='spot-card'>
                 <h3>{spot.name}</h3>
                 <img src={spot.previewImage}></img>
                 <p>{spot.address}</p>
                 <p>{spot.city}</p>
                 <p>{spot.country}</p>
                 <p>{spot.price}</p>
-                <p>{spot.aveRating}</p>
+                {(!spot.aveRating && <p><span>&#9733;</span>New</p>) || (spot.aveRating && <p><span>&#9733;</span>{spot.aveRating}</p>) }
+                
                 <form onSubmit={removeSpot}>
                 <button className="delete-button" type="submit" id={spot.id} onClick={e=>setSpotId(e.target.id)}>Delete</button>
                 </form>
                 <span>
                     <button className="edit-button" onClick={() => handleEditClick(spot.id)}>Edit</button>
-                    {clicked[spot.id] === true && <EditFormModal closeModal={() => setClicked({ ...clicked, [spot.id]: false })} spot={spot}/>}
+                    {/* {clicked[spot.id] === true && 
+                    <Modal>
+                        <EditFormModal />
+                    </Modal> } */}
+                    {clicked[spot.id] === true && 
+                    <Modal >
+                    <EditFormModal closeModal={() => setClicked({ ...clicked, [spot.id]: false })} spot={spot}/>
+                    </Modal>}
                 </span>
                 
                 </div>

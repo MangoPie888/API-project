@@ -20,6 +20,7 @@ function App() {
     <>
       <Navigation isLoaded={isLoaded} />
       {isLoaded && (
+    
         <Switch>
         <Route path='/' exact>
           <HomePage />
@@ -33,10 +34,9 @@ function App() {
           <Route path='/:spotId' >
             <SpotDetailPage />
           </Route>
-          <Route component={NotFound} />
-      
-    
         </Switch>
+    
+    
       )}
     </>
   );

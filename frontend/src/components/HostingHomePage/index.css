@@ -1,6 +1,6 @@
 .hosting-container {
     display: flex;
-    justify-content: space-around;
+    justify-content: flex-start;
     flex-wrap: wrap;
     padding-left: 20%;
     padding-right: 20%;
@@ -12,7 +12,8 @@
     width: 300px;
     border-radius: 15px;
     position: relative;
-    margin-top: 4%;
+    margin-top: 4.5%;
+    margin-right: 25px;
 }
 
 img {
@@ -20,14 +21,18 @@ img {
     border-radius: 15px;
 
 }
+.spot-card {
+    margin-right: 25px;
+}
 
 .delete-button {
+    background-color: gray;
     margin-top: 10px;
-    background-color:white;
     border-radius: 15px;
     border-color: #666F7A;
     border-width: thin;
     width: 60px;
+ 
 
 }
 
@@ -35,17 +40,18 @@ img {
     position: relative;
     left: 50%;
     bottom:4%;
-    background-color:white;
+    background-color: #ff5a60;
     border-radius: 15px;
     border-color: #666F7A;
     border-width: thin;
     width: 60px;
+
 }
 
 .delete-button:hover {
-    background-color: #ff5a60;
+    background-color:grey
 }
 
 .edit-button:hover {
-    background-color: #ff5a60;
+    background-color:palevioletred
 }

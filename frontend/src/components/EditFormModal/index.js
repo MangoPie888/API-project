@@ -2,6 +2,8 @@ import React,{useState} from "react";
 import {useDispatch} from 'react-redux';
 import { editSpot } from "../../store/spots";
 
+import "./index.css"
+
 
 
 
@@ -32,36 +34,55 @@ const handleSubmition=(e)=>{
     return (
         <>
         {console.log(3)}
-        <form onSubmit={handleSubmition}>
-        <label>address
-        <input type="text" value={address} onChange={(e)=>{setAddress(e.target.value)}} placeholder={address}></input>
-        </label>
-        <label>city
-        <input type="text" value={city} onChange={(e)=>{setCity(e.target.value)}} placeholder={city}></input>
-        </label>
-        <label>state
-        <input type="text" value={state} onChange={(e)=>{setState(e.target.value)}} placeholder={state} ></input>
-        </label>
-        <label>country
-        <input type="text" value={country} onChange={(e)=>{setCountry(e.target.value)}} placeholder={country}></input>
-        </label>
-        <label>lat
-        <input type="text" value={lat} onChange={(e)=>{setLat(e.target.value)}} placeholder={lat}></input>
+        <form className="edit-form" onSubmit={handleSubmition}>
+        <div>
+        <label>address</label>
+        <input type="text" className="edit-input" placeholder="address" value={address} onChange={(e)=>{setAddress(e.target.value)}} placeholder={address}></input>
+        
+        </div>
+        <div>
+        <label>city </label>
+        <input type="text" className="edit-input" placeholder="city" value={city} onChange={(e)=>{setCity(e.target.value)}} placeholder={city}></input>
+       
+        </div>
+        <div>
+        <label>state</label>
+        <input type="text" className="edit-input" placeholder="state" value={state} onChange={(e)=>{setState(e.target.value)}} placeholder={state} ></input>
+        
+        </div>
+        <div>
+        <label>country</label>
+        <input type="text" className="edit-input" placeholder="country" value={country} onChange={(e)=>{setCountry(e.target.value)}} placeholder={country}></input>
+        
+        </div>
+    
+        {/* <input type="text" value={lat} onChange={(e)=>{setLat(e.target.value)}} placeholder={lat}></input>
         </label>
         <label>lng
-        <input type="text" value={lng} onChange={(e)=>{setLng(e.target.value)}} placeholder={lng}></input>
-        </label>
-        <label>name
-        <input type="text" value={name} onChange={(e)=>{setName(e.target.value)}} placeholder={name}></input>
-        </label>
-        <label>description
-        <input type="text" value={description} onChange={(e)=>{setDescription(e.target.value)}} placeholder={description}></input>
-        </label>
-        <label>price
-        <input type="text" value={price} onChange={(e)=>{setPrice(e.target.value)}} placeholder={price}></input>
-        </label>
-        <button onClick={()=>{closeModal(false)}}>Cancel</button>
-        <button type="submit">Submit</button>
+        <input type="text" value={lng} onChange={(e)=>{setLng(e.target.value)}} placeholder={lng}></input> */}
+        <div>
+        <label>name</label>
+        <input type="text" className="edit-input" placeholder="name" value={name} onChange={(e)=>{setName(e.target.value)}} placeholder={name}></input>
+        
+        </div>
+        <div>
+        <label>description</label>
+        <input type="text" className="edit-input" placeholder="description" value={description} onChange={(e)=>{setDescription(e.target.value)}} placeholder={description}></input>
+        
+        </div>
+        <div>
+        <label>price </label>
+        <input type="text" className="edit-input" placeholder="price" value={price} onChange={(e)=>{setPrice(e.target.value)}} placeholder={price}></input>
+       
+        </div>
+        <div className="cancel-submit-button">
+        <div  >
+        <button  className="cancel-button" onClick={()=>{closeModal(false)}}>Cancel</button>
+        </div>
+        <div >
+        <button className="submit-button" type="submit">Submit</button>
+        </div>
+        </div>
         </form>
         </>
     )

@@ -1,0 +1,53 @@
+/* .edit-form {
+    display: flex;
+
+ 
+    
+} */
+
+label {
+    display: inline-block;
+    width: 100px;
+    text-align: right;
+    margin-right: 10px;
+    margin-bottom: 15px;
+ 
+
+}
+
+.cancel-submit-button {
+    display: flex;
+    justify-content: space-around
+    
+}
+
+.cancel-button{
+    background-color:grey;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 10px;
+    padding: 10px 10px 10px 10px;
+
+}
+
+.submit-button {
+    background-color: #FF385C;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 10px;
+    padding: 10px 10px 10px 10px;
+}
+
+/* .edit-input {
+    width: 50%;
+    padding: 12px 30px;
+    margin: 5px 20px;
+    left: 10%;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-sizing: border-box;
+    height: 10px;
+} */
+
