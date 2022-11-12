@@ -1,19 +1,6 @@
-
-let state = {
-    allSpots:{},
-    currentSpots:{},
-    spotReviews: {
-        1:{},
-        2:{},
-    }
-}
-
-let newState = Object.assign({},state);
-
-console.log("spreadNewState", newState)
-
-newState.spotReviews[3]= {1:"apple"}
-
-console.log(newState)
+let number = 1.3333
+console.log(number.toFixed(1))
 
 
+let number1 = 2
+console.log(number1.toFixed(2))

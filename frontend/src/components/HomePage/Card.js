@@ -15,7 +15,7 @@ function Card({spot}){
         
             <div className="info">
             <h3>{spot.name},{spot.state}</h3>
-            {spot.avgRating && <p><span>&#9733;</span> {spot.avgRating}</p>}
+            {spot.avgRating && <p><span>&#9733;</span> {(spot.avgRating).toFixed(1)}</p>}
             {!spot.avgRating && <p><span>&#9733;</span>New</p>}
            
             </div>

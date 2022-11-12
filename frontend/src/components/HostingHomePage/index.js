@@ -83,7 +83,7 @@ function HostingHomePage(){
                 <p>{spot.city}</p>
                 <p>{spot.country}</p>
                 <p>{spot.price}</p>
-                {(!spot.aveRating && <p><span>&#9733;</span>New</p>) || (spot.aveRating && <p><span>&#9733;</span>{spot.aveRating}</p>) }
+                {(!spot.aveRating && <p><span>&#9733;</span>New</p>) || (spot.aveRating && <p><span>&#9733;</span>{(spot.aveRating).toFixed(1)}</p>) }
                 
                 <form onSubmit={removeSpot}>
                 <button className="delete-button" type="submit" id={spot.id} onClick={e=>setSpotId(e.target.id)}>Delete</button>
