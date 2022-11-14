@@ -5,7 +5,8 @@ import * as spotActions from '../../store/spots'
 import EditFormModal from "../EditFormModal";
 import CreateNewSpot from "../CreateNewSpot";
 import { Modal } from '../../context/Modal';
-import { getSpotsOfCurrentUser } from "../../store/currentSpot";
+// import { getSpotsOfCurrentUser } from "../../store/currentSpot";
+import { getSpotsOfCurrentUser } from "../../store/spots";
 
 import "./index.css"
 
@@ -32,28 +33,34 @@ function HostingHomePage(){
     },[])
 
 
-
-        const currentSpots = useSelector((state)=>{return(state.currentSpots)})
-        console.log(currentSpots)
-        const spotsArray = Object.values(currentSpots);
-        console.log(spotsArray)
-
-    // const currentUserId = useSelector((state)=>{return(state.session.user.id)})
-    // console.log("currentUserId",currentUserId)
-    // const spots = useSelector((state)=>{return(state.allSpots)})
-    // console.log(spots)
-    // const spotsArray = Object.values(spots);
-    // console.log(spotsArray)
-
-    // const currentUserSpots = spotsArray.filter((spot)=>{return(spot.ownerId == currentUserId)})
-    // console.log("currentUserSpots",currentUserSpots)
-
-
-    const removeSpot = ()=>{
-        dispatch(spotActions.deleteSpot(spotId))
+    const removeSpot = (e)=>{
+        e.preventDefault()
+        console.log("type of spotID",typeof(spotId))
+        console.log("remove dispatched")
+        dispatch(spotActions.deleteSpot(Number(spotId)))
+        console.log("after hosting page dispatch")
 
     }
 
+        // const spots = useSelector((state)=>{return(state.allSpots)})
+        // const currentSpots = useSelector((state)=>{return(state.allSpots)})
+        // // console.log(currentSpots)
+        // const spotsArray = Object.values(currentSpots);
+        // // console.log(spotsArray)
+
+    const currentUserId = useSelector((state)=>{return(state.session.user.id)})
+    console.log("currentUserId",currentUserId)
+    const spots = useSelector((state)=>{return(state.allSpots)})
+    console.log("all spots",spots)
+    const spotsArray = Object.values(spots);
+    console.log("spotsArray",spotsArray)
+
+    
+    const currentUserSpots = spotsArray.filter((spot)=>{return(console.log("owernId",spot.ownerId),spot.ownerId == currentUserId)})
+    console.log("currentUserSpots",currentUserSpots)
+
+
+    
     const handleEditClick = (id) => {
         console.log('id:', id);
         setClicked({ [id]: !clicked[id] });
@@ -74,15 +81,15 @@ function HostingHomePage(){
         <CreateNewSpot setShowModal={setShowModal}/>
         </Modal>
       )}
-      {spotsArray.length > 0 && 
-        spotsArray.map(spot=>{return(
+      {currentUserSpots.length > 0 && 
+        currentUserSpots.map(spot=>{return(
                 <div key={spot.id} className='spot-card'>
-                <h3>{spot.name}</h3>
+                <h4>{spot.name}</h4>
                 <img src={spot.previewImage}></img>
                 <p>{spot.address}</p>
                 <p>{spot.city}</p>
                 <p>{spot.country}</p>
-                <p>{spot.price}</p>
+                <p>${spot.price} night</p>
                 {(!spot.aveRating && <p><span>&#9733;</span>New</p>) || (spot.aveRating && <p><span>&#9733;</span>{Number(spot.aveRating).toFixed(1)}</p>) }
                 
                 <form onSubmit={removeSpot}>

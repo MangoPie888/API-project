@@ -37,22 +37,22 @@ const handleSubmition=(e)=>{
         <form className="edit-form" onSubmit={handleSubmition}>
         <div>
         <label>address</label>
-        <input type="text" className="edit-input" placeholder="address" value={address} onChange={(e)=>{setAddress(e.target.value)}} placeholder={address}></input>
+        <input type="text" className="edit-input"  value={address} onChange={(e)=>{setAddress(e.target.value)}} placeholder={address}></input>
         
         </div>
         <div>
         <label>city </label>
-        <input type="text" className="edit-input" placeholder="city" value={city} onChange={(e)=>{setCity(e.target.value)}} placeholder={city}></input>
+        <input type="text" className="edit-input"  value={city} onChange={(e)=>{setCity(e.target.value)}} placeholder={city}></input>
        
         </div>
         <div>
         <label>state</label>
-        <input type="text" className="edit-input" placeholder="state" value={state} onChange={(e)=>{setState(e.target.value)}} placeholder={state} ></input>
+        <input type="text" className="edit-input"  value={state} onChange={(e)=>{setState(e.target.value)}} placeholder={state} ></input>
         
         </div>
         <div>
         <label>country</label>
-        <input type="text" className="edit-input" placeholder="country" value={country} onChange={(e)=>{setCountry(e.target.value)}} placeholder={country}></input>
+        <input type="text" className="edit-input"  value={country} onChange={(e)=>{setCountry(e.target.value)}} placeholder={country}></input>
         
         </div>
     
@@ -62,17 +62,17 @@ const handleSubmition=(e)=>{
         <input type="text" value={lng} onChange={(e)=>{setLng(e.target.value)}} placeholder={lng}></input> */}
         <div>
         <label>name</label>
-        <input type="text" className="edit-input" placeholder="name" value={name} onChange={(e)=>{setName(e.target.value)}} placeholder={name}></input>
+        <input type="text" className="edit-input"  value={name} onChange={(e)=>{setName(e.target.value)}} placeholder={name}></input>
         
         </div>
         <div>
         <label>description</label>
-        <input type="text" className="edit-input" placeholder="description" value={description} onChange={(e)=>{setDescription(e.target.value)}} placeholder={description}></input>
+        <input type="text" className="edit-input"  value={description} onChange={(e)=>{setDescription(e.target.value)}} placeholder={description}></input>
         
         </div>
         <div>
         <label>price </label>
-        <input type="text" className="edit-input" placeholder="price" value={price} onChange={(e)=>{setPrice(e.target.value)}} placeholder={price}></input>
+        <input type="text" className="edit-input"  value={price} onChange={(e)=>{setPrice(e.target.value)}} placeholder={price}></input>
        
         </div>
         <div className="cancel-submit-button">

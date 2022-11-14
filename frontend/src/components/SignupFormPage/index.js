@@ -20,6 +20,8 @@ function SignupFormPage() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    // const form = document.getElementsByClassName("signup-form")
+    // form.style.display = "none";
     if (password === confirmPassword) {
       setErrors([]);
       return dispatch(sessionActions.signup({ firstName, lastName,email, username, password }))
@@ -32,7 +34,7 @@ function SignupFormPage() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="signup-form">
       <ul className="error-list" >
         {errors.map((error, idx) => <li className="error-message"  key={idx}>{error}</li>)}
       </ul>

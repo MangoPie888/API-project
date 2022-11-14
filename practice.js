@@ -1,19 +1,6 @@
+let obj = {1:'a',2:"b"}
 
-let state = {
-    allSpots:{},
-    currentSpots:{},
-    spotReviews: {
-        1:{},
-        2:{},
-    }
-}
-
-let newState = Object.assign({},state);
-
-console.log("spreadNewState", newState)
-
-newState.spotReviews[3]= {1:"apple"}
-
-console.log(newState)
+delete obj[1]
+console.log(obj)
 
 
