@@ -43,6 +43,7 @@ const ReviewForm = ({spotId})=>{
             // e.preventDefault()
            return alert("You need to rate the spot by clicking the stars")
         }
+        console.log("button clicked")
        dispatch(createNewReview({stars,review,spotId}))
     }
 

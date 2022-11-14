@@ -67,8 +67,16 @@ export const createNewReview =(data) => async(dispatch) =>{
     }
     const newReview = await response.json();
     console.log("newReview", newReview)
-    dispatch(addReview(newReview));
-    return newReview;
+    const review = await csrfFetch(`/api/spots/${newReview.spotId}/reviews`)
+    const fullReview =await review.json()
+    console.log("full review",fullReview)
+    const reviewArry =Object.values(fullReview.Reviews) 
+    console.log("reviewArray",reviewArry)
+    const createdReview = reviewArry.filter((review)=>{return(review.id == newReview.id)})
+    const finalReview = createdReview[0]
+    console.log("final one",finalReview)
+    dispatch(addReview(finalReview))
+    // return newReview;
 
 }
 
@@ -100,13 +108,9 @@ const reviewsReducer = (state=intialState, action) =>{
                 ...allReviews,
             };
         case ADD_NEW_REVIEW:
-            newState = Object.assign({},state);
-            console.log("newState",newState)
-            newState[action.newReview.id] = action.newReview
-        return {
-            ...state,
-            ...newState
-        } 
+            console.log("old state at reducer",state)
+            newState = {...state,[action.newReview.id]:action.newReview}
+            return newState
         case REMOVE_REVIEW:
             newState = Object.assign({},state);
             console.log("newState at reducer", newState)
