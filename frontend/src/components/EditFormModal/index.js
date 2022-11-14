@@ -11,7 +11,7 @@ import "./index.css"
 function EditFormModal(props){
     console.log(1)
     const {closeModal, spot} = props
-    // console.log(spot)
+    console.log("spot",spot)
     const [address, setAddress] = useState(spot.address)
     const [city, setCity] = useState(spot.city)
     const [state, setState] = useState(spot.state)
@@ -21,14 +21,16 @@ function EditFormModal(props){
     const [name, setName] = useState(spot.name)
     const [description, setDescription] = useState(spot.description)
     const [price, setPrice] = useState(spot.price)
-
+    const [previewImage,setPreviewImage] = useState(spot.previewImage)
+    console.log("previewImage",previewImage)
 
     const dispatch = useDispatch()
     console.log(2)
 const handleSubmition=(e)=>{
+    e.preventDefault()
     console.log('checked')
-    return dispatch(editSpot({address,city,state,country,lat,lng,name,description,price,spot}))
-
+    dispatch(editSpot({address,city,state,country,lat,lng,name,description,price,spot,previewImage}))
+    closeModal(false)
 }
     
     return (
@@ -73,14 +75,19 @@ const handleSubmition=(e)=>{
         <div>
         <label>price </label>
         <input type="text" className="edit-input"  value={price} onChange={(e)=>{setPrice(e.target.value)}} placeholder={price}></input>
-       
         </div>
+
+        {/* <div>
+        <label>image url </label>
+        <input type="url" className="edit-input"  value={previewImage} onChange={(e)=>{setPreviewImage(e.target.value)}} placeholder={previewImage}></input>
+        </div> */}
+
         <div className="cancel-submit-button">
         <div  >
         <button  className="cancel-button" onClick={()=>{closeModal(false)}}>Cancel</button>
         </div>
         <div >
-        <button className="submit-button" type="submit">Submit</button>
+        <button className="submit-button" type="submit" >Submit</button>
         </div>
         </div>
         </form>

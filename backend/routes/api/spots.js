@@ -389,6 +389,7 @@ router.put('/:spotId', restoreUser,requireAuth,validationCheck, async(req,res)=>
         if(spot.ownerId === user.id) {
             const{address,city,state,country,lat,lng,name,description,price} = req.body;
             spot.update({address,city,state,country,lat,lng,name,description,price});
+            // console.log("backend response",res.json(spot))
             return res.json(spot)
         }else{
             return (

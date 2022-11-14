@@ -1,6 +1,15 @@
-let obj = {1:'a',2:"b"}
+const person = {
+    name:"Dom",
+    hobbies:[
+        "web development",
+        "swimimng",
+        "eating"
+    ]
+}
 
-delete obj[1]
-console.log(obj)
 
+const person1 = {...person}
+const person2 = Object.assign({},person)
 
+console.log("person1",person1)
+console.log("person2",person2)

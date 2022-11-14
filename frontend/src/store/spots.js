@@ -117,6 +117,8 @@ export const createNewSpot = (info)=> async(dispatch)=>{
 export const editSpot = (data) => async(dispatch) => {
     // console.log("checked")
     // console.log(data)
+    const {previewImage} = data
+    console.log("previewImage at thunk", previewImage)
     const response = await csrfFetch(`/api/spots/${data.spot.id}`, {
         method:'put',
         headers:{
@@ -125,9 +127,10 @@ export const editSpot = (data) => async(dispatch) => {
         body:JSON.stringify(data)
     });
 
-
+   
     const updatedSpot = await response.json();
-    console.log(updatedSpot)
+    console.log("updatedSpot on thunk", updatedSpot)
+    updatedSpot.previewImage = previewImage
     dispatch(updateSpot(updatedSpot))
     return response
 }
@@ -186,7 +189,9 @@ const spotsReducer = (state=intialState, action) =>{
             // action.payload.spot.previewImage = action.payload.newImage.url
             // return newState;
         case UPDATE_SPOT:
-            newState= {...state}
+            console.log("old state",state)
+            newState= structuredClone(state)
+            console.log("update part new state",newState)
             newState[action.payload.id] = action.payload
             return newState
 
