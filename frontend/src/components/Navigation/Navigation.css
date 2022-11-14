@@ -40,8 +40,8 @@
 .dropdown-menu {
     position: absolute;
     background-color:white;
-    right: 3%;
-    top:28px ;
+    right: 2%;
+    top: 25.5px;
     padding: .75rem;
     border-radius: .25rem;
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .3);
