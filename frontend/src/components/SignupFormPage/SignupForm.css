@@ -1,14 +1,14 @@
 .sign-up-input{
     width: 80%;
     padding: 12px 20px;
-    margin: 2px 0;
+    margin-bottom: 5px;
     display: inline-block;
     position: relative;
     left: 10%;
     border: 1px solid #ccc;
     border-radius: 10px;
     box-sizing: border-box;
-    height: 35px;
+    height: 30px;
 }
 
 .sign-up-botton{
@@ -26,4 +26,17 @@
     position: relative;
     left: 10%;
 
+}
+
+.error-message{
+    font-size: 7px;
+    
+}
+
+.error-list {
+    padding: 0;
+    text-align: left;
+    margin-bottom: 2%;
+    padding-left: 30px;
+    color: #FF385C;
 }
