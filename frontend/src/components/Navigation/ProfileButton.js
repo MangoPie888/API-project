@@ -52,7 +52,7 @@ function ProfileButton({ user }) {
         <ul className="profile-dropdown">
           <li>username: {user.username}</li>
           <li>useremail: {user.email}</li>
-          <li><Link to='/current'>Clike here to host your home</Link></li>     {/*need a <link> tage */}
+          <li ><Link to='/current' className="to-host-page">Clike here to host your home</Link></li>     {/*need a <link> tage */}
           <li>
             <button onClick={logout} className="logout-button">Log Out</button>
           </li>

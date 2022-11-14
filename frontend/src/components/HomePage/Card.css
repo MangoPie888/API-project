@@ -1,14 +1,14 @@
-.container {
+/* .container {
     display: flex;
-    justify-content:end;
+    
 
-}
+} */
 
 
 img {
-    height: 200px;
+    height:250px;
     border-radius: 15px;
-    width: 300px;
+    width: 250px;
 
 
 
@@ -18,15 +18,26 @@ img {
 .info {
     display: flex;
     justify-content: space-between;
-    font-family:'Playfair Display', serif;
-    font-size: 14px;
+    
+    
+
 }
 
-.price {
-    font-family:'Playfair Display', serif;
-    font-size: 14px;
+.info > p {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    font-size: 12px;
+}
+
+.price > p {
+  
+    margin-top: 0px;
+    margin-bottom: 30px;
+    font-size: 11px;
+    font-style: normal;
 }
 
 .card-div {
- margin-right: 26px;
+ margin-right: 10px;
+ margin-left: 30px;
 }

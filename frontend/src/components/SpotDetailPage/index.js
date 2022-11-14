@@ -93,10 +93,10 @@ const imageerrorHandler3 =(error) =>{
             <h1>{spot.name}</h1>
         </div>
         <div className="title-info">
-            {spot.avgStarRating && <p><span>&#9733;</span>{spot.avgStarRating} <span>&#183; </span></p> }
+            {spot.avgStarRating && <p><span>&#9733;</span>{Number(spot.avgStarRating).toFixed(1)} <span>&#183; </span></p> }
             {!spot.avgStarRating && <p><span>&#9733;</span> New </p>}
             
-            <p className="state-country-info"><span> {reviewsArray.length} reviews</span> {spot.city},{spot.state},{spot.country}</p>
+            <p className="state-country-info"><span> {reviewsArray.length} review(s),</span> {spot.city},{spot.state},{spot.country}</p>
         </div>
         {spot.SpotImages && <div>
         {spot.SpotImages.map((image)=>{return(
@@ -116,7 +116,7 @@ const imageerrorHandler3 =(error) =>{
         </div>}
         <div class="divider-1"></div>
         <div className="review-section">
-            <h5><span>&#9733;</span> {spot.avgStarRating} <span>&#183;</span> {reviewsArray.length} reviews</h5>
+            <h5><span>&#9733;</span> {Number(spot.avgStarRating).toFixed(1)} <span>&#183;</span> {reviewsArray.length} review(s)</h5>
             {reviewsArray.length === 0 ? <p>there is no review for this spot</p> : reviewsArray.map(review=>{return(<div className="reviewBox" key={review.id}>
             <p>{review.User.firstName}</p>
             <p>{review.review}</p>

@@ -14,8 +14,8 @@ function Card({spot}){
             <img src={spot.previewImage} alt="house photo" />
         
             <div className="info">
-            <h3>{spot.name},{spot.state}</h3>
-            {spot.avgRating && <p><span>&#9733;</span> {spot.avgRating}</p>}
+            <p>{spot.city},{spot.state}</p>
+            {spot.avgRating && <p><span>&#9733;</span> {Number(spot.avgRating).toFixed(1)}</p>}
             {!spot.avgRating && <p><span>&#9733;</span>New</p>}
            
             </div>
