@@ -1,6 +1,6 @@
 import React, {useEffect,useState,useMemo}from "react";
 import {useSelector,useDispatch} from 'react-redux';
-import {useParams} from 'react-router-dom';
+import {useHistory, useParams} from 'react-router-dom';
 import { getReviewsBySpotId } from "../../store/spotReviews";
 import { displaySpotWithId } from "../../store/singleSpot";
 import { deleteReview } from "../../store/spotReviews";
@@ -13,6 +13,7 @@ import "./SpotDetailPage.css"
 
 
 function SpotDetailPage(){
+    const history = useHistory()
     const [ostar, setStar] = useState('');
     const [reviewId,setReviewId] = useState('');
     
@@ -33,6 +34,9 @@ useEffect(()=>{
 dispatch(displaySpotWithId(spotId))
 dispatch(getReviewsBySpotId(spotId))
     console.log(5)
+    if(typeof parseInt(spotId) =='string' || isNaN(spotId)) {
+        history.push('/notfound')
+    }
 
 },[])
 

@@ -31,8 +31,14 @@ function App() {
           <Route path='/current' exact>
             <HostingHomePage />
           </Route>
+          <Route path='/notfound'>
+            <NotFound/>
+          </Route>
           <Route path='/:spotId' >
             <SpotDetailPage />
+          </Route>
+          <Route path='*'>
+            <NotFound/>
           </Route>
         </Switch>
     
