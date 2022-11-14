@@ -1,6 +1,7 @@
 .stars {
     display: flex;
-    padding-bottom: 3%;
+    padding-bottom: 4px;
+    
 }
 
 .stars.disabled{
@@ -33,11 +34,12 @@
     display: flex;
     align-self: flex-start;
     padding-left: 20%;
+    padding-bottom: 0;
+    margin-bottom: 0;
 }
 
 .create-review-button {
     position: relative;
-    right: 50%;
     top: 30%;
     border-radius: 15px;
     border-width: thin;
@@ -47,4 +49,14 @@
 
 .create-review-button:hover {
     background-color:#FF385C;
+}
+
+.reviewbox{
+    border-radius: 10px;
+    height: 50px;
+    width: 280px;
+}
+
+fieldset {
+    border-style: dotted;
 }

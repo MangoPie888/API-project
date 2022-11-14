@@ -69,9 +69,9 @@ const ReviewForm = ({spotId})=>{
 
     return (
         <div className="reviewForm">
-         {checkReview() === true && <form onSubmit={handleSubmission} hidden="" id="review-form">
+         {checkReview() === true &&<fieldset><form onSubmit={handleSubmission} hidden="" id="review-form">
                 
-        <textarea placeholder="new review" onChange={(e)=>{setReview(e.target.value)}} required></textarea>
+        <textarea className="reviewbox" placeholder="please write your review here" onChange={(e)=>{setReview(e.target.value)}} required></textarea>
         <div className="stars">
                 <a>⭐</a>
                 <a>⭐</a>
@@ -80,7 +80,7 @@ const ReviewForm = ({spotId})=>{
                 <a>⭐</a>
                 </div>
         <button className="create-review-button">Create a Review</button>
-        </form> }      
+        </form></fieldset>  }      
 
         </div>
     )
