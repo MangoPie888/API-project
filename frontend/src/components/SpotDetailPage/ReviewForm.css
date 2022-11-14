@@ -55,6 +55,7 @@
     border-radius: 10px;
     height: 50px;
     width: 280px;
+    resize: none;
 }
 
 fieldset {
