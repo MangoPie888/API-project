@@ -19,7 +19,7 @@ function SpotDetailPage(){
     
 
     const stars = parseInt(ostar)
-    console.log("type of star", typeof(stars),stars)
+
 
 
  console.log(1)
@@ -30,13 +30,15 @@ function SpotDetailPage(){
     
 
 useEffect(()=>{
-    console.log(4)
-dispatch(displaySpotWithId(spotId))
-dispatch(getReviewsBySpotId(spotId))
-    console.log(5)
     if(typeof parseInt(spotId) =='string' || isNaN(spotId)) {
         history.push('/notfound')
     }
+    const spot = dispatch(displaySpotWithId(spotId))
+    spot.catch((error)=>{console.log("promise error",error);if(error.status == 404){
+        history.push('/notfound')
+    }})
+    
+    dispatch(getReviewsBySpotId(spotId))
 
 },[])
 
@@ -50,22 +52,13 @@ const reviews = useSelector(state=>state.spotReviews)
 
 const reviewsArray = Object.values(reviews)
 console.log("reviewsArray",reviewsArray)
-// if(reviews === undefined) return null
-// if(reviewsArray.length === 0) return null
-// if(!Object.values(reviews).length) return null;
-// console.log(spot)
+
 
 
 const handleDeleteButton =()=>{
     dispatch(deleteReview(reviewId))
 }
 
-// const handleSubmission = (e)=>{
-//     e.preventDefault();
-    
-
-//     dispatch(createNewReview({review,stars,spotId}))
-// }
 
 
 const imageerrorHandler =(error) =>{
