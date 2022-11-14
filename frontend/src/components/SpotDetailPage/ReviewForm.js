@@ -36,11 +36,11 @@ const ReviewForm = ({spotId})=>{
     }
 
     const handleSubmission = async(e)=>{
-        // e.preventDefault()
+        e.preventDefault()
         // console.log(stars)
 
         if(!stars) {
-            e.preventDefault()
+            // e.preventDefault()
            return alert("You need to rate the spot by clicking the stars")
         }
        dispatch(createNewReview({stars,review,spotId}))

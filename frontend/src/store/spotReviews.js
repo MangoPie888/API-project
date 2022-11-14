@@ -77,7 +77,9 @@ export const deleteReview = (reviewId) => async dispatch =>{
     const response = await csrfFetch(`/api/reviews/${reviewId}`,{
         method:'delete',
     });
+    console.log("delet thunk")
     dispatch(removeReview(reviewId));
+    console.log("delet thunk end")
     return response;
 } 
 
@@ -107,7 +109,9 @@ const reviewsReducer = (state=intialState, action) =>{
         } 
         case REMOVE_REVIEW:
             newState = Object.assign({},state);
-            newState.spotReviews[action.spotId] = null;
+            console.log("newState at reducer", newState)
+            console.log("that review",newState[action.reviewId])
+            delete newState[action.reviewId];
             return newState
         default:
             return state

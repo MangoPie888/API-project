@@ -55,7 +55,10 @@ console.log("reviewsArray",reviewsArray)
 
 
 
-const handleDeleteButton =()=>{
+const handleDeleteButton =(e)=>{
+    e.preventDefault()
+    setReviewId(e.target.id)
+    console.log("review Id", reviewId)
     dispatch(deleteReview(reviewId))
 }
 
