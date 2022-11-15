@@ -22,9 +22,10 @@ function SignupFormPage({setSignUpClicked}) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setSignUpClicked(false)
     // const form = document.getElementsByClassName("signup-form")
     // form.style.display = "none";
-    if (password === confirmPassword) {
+    if (password === confirmPassword) {   
       setErrors([]);
       return dispatch(sessionActions.signup({ firstName, lastName,email, username, password }))
         .catch(async (res) => {
@@ -39,7 +40,7 @@ function SignupFormPage({setSignUpClicked}) {
         });
     }
     setErrors(['Confirm Password field must be the same as the Password field']);
-    setSignUpClicked(false)
+   
   };
 
   return (
