@@ -15,4 +15,4 @@ Aircnc is a simple full-stack clone project that originally cloned from airbnb. 
 7. Change directory to frontend folder.
 8. Start the frentend server by runing: npm start
 ## Project Showcase
-![Home page](https://zw-airbnb---project.herokuapp.com/)
+![Home page](./homepage.png)
