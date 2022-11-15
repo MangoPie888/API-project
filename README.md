@@ -4,7 +4,7 @@ Aircnc is a simple full-stack clone project that originally cloned from airbnb. 
 ## Languages of Development
 - Frontend: React, Redux
 - Backend: Express, Sequelize
-- Database: SOLight(local), PostgreSQL(Heroku)
+- Database: SQLight(local), PostgreSQL(Heroku)
 ## How to launch the full application locally
 1. Download entire application folder to local computer.
 2. Change directory to backend folder.
