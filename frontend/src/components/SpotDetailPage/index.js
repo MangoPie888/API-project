@@ -93,9 +93,9 @@ const imageerrorHandler3 =(error) =>{
             <h1>{spot.name}</h1>
         </div>
         <div className="title-info">
-            {spot.avgStarRating && <p><span>&#9733;</span>{Number(spot.avgStarRating).toFixed(1)} <span>&#183; </span></p> }
+            {spot.avgStarRating && <p><span>&#9733;</span>{Number(spot.avgStarRating).toFixed(1)} <span>&#183;</span> </p> }
             {!spot.avgStarRating && <p><span>&#9733;</span> New </p>}
-            <p className="state-country-info"><span> {reviewsArray.length} review(s)</span> {spot.city},{spot.state},{spot.country}</p>
+            <span> </span><p className="state-country-info"><span> {reviewsArray.length} review(s)</span> {spot.city},{spot.state},{spot.country}</p>
             
         </div>
         {spot.SpotImages && <div>
