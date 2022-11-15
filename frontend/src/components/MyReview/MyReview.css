@@ -1,0 +1,31 @@
+.my-review-info-div{
+    background-color:white;
+
+    padding: 20px;
+    margin: 20px;
+    border-radius: 20px;
+    border-style: solid;
+    border-color: #ebebeb;
+    padding-top: 0%;
+    padding-bottom: 5px;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    max-width:1800px;
+    
+}
+
+h2 {
+    text-align: center;
+}
+
+.review-delete-button {
+    border-radius: 10px;
+    border-color: #ebebeb;
+
+}
+
+.my-review-info-div > p {
+    margin-top: 1%;
+    margin-bottom: 1%;
+}

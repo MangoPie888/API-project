@@ -30,6 +30,13 @@ const removeReview = (reviewId) =>{
     })
 }
 
+// const LOAD_CURRENT ="reviews/LOAD_CURRENT"
+// const loadCurrentUserReview =(reviews) =>{
+//     return ({
+//         type:LOAD_CURRENT,
+//         reviews
+//     })
+// }
 
 
 
@@ -91,7 +98,12 @@ export const deleteReview = (reviewId) => async dispatch =>{
     return response;
 } 
 
-
+// export const getCurrentUserReview = (user) => async dispatch=>{
+//     const response = await csrfFetch('/api/reviews/current')
+//     const userReview = response.json()
+//     console.log("current user's review",userReview)
+//     dispatch(loadCurrentUserReview(userReview))
+// }
 
 
 //reducer
@@ -117,6 +129,16 @@ const reviewsReducer = (state=intialState, action) =>{
             console.log("that review",newState[action.reviewId])
             delete newState[action.reviewId];
             return newState
+        
+        // case LOAD_CURRENT:
+        //     const userReviews = {};
+        //     action.reviews.forEach((review)=>{
+        //         userReviews[review.id] = review
+        //     });
+        //     return {
+        //         ...userReviews,
+        //     };
+
         default:
             return state
     }
