@@ -119,11 +119,11 @@ const imageerrorHandler3 =(error) =>{
             {!spot.avgStarRating && <h5><span>&#9733;</span> New <span>&#183;</span> {reviewsArray.length} reviews</h5> }
             {spot.avgStarRating && <h5><span>&#9733;</span> {Number(spot.avgStarRating).toFixed(1)} <span>&#183;</span> {reviewsArray.length} reviews</h5>}
             {reviewsArray.length === 0 ? <p>there is no review for this spot yet</p> : reviewsArray.map(review=>{return(<div className="reviewBox" key={review.id}>
-            <p>{review.User.firstName}</p>
+            <p>{review.User.firstName}</p> <p><span>&#9733;</span>{review.stars}</p>
             <p>{review.review}</p>
             {sessionUser !==null && sessionUser.id === review.userId && 
             <form onSubmit={handleDeleteButton}>
-            <button type='submit' id={review.id} onClick={(e)=>{setReviewId(e.target.id)}}>Delete</button>
+            <button className="review-delete-button" type='submit' id={review.id} onClick={(e)=>{setReviewId(e.target.id)}}>Delete</button>
             </form>
             }
             </div> 
