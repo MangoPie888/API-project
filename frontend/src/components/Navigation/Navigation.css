@@ -71,6 +71,9 @@
     border-width: thin
 
 }
+.dropdown-button:hover {
+    cursor: pointer;
+}
 
 
 #line-icon {
@@ -90,6 +93,10 @@ ul {
     border-color: #666F7A;
     border-width: thin
 
+}
+
+.logout-button:hover{
+    cursor: pointer;
 }
 
 .logout-button:hover {
