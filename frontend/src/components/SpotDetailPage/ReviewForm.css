@@ -33,7 +33,7 @@
 .reviewForm {
     display: flex;
     align-self: flex-start;
-    padding-left: 20%;
+    /* padding-left: 20%; */
     padding-bottom: 0;
     margin-bottom: 0;
 }

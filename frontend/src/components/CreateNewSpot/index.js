@@ -32,6 +32,7 @@ const handleSubmit = (e) => {
     // history.push('/current')
     // window.location.reload
     setShowModal(false)
+    
 
 }
 

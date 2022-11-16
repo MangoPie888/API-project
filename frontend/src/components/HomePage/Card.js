@@ -20,7 +20,7 @@ function Card({spot}){
            
             </div>
             <div className="price"  key={spot.name}>
-                <p>${spot.price} night</p>
+                <p>${spot.price} <span className='night-span'>night</span></p>
             </div>
             {/* </div> */}
             </Link>

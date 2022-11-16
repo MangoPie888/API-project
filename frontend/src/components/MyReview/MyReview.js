@@ -32,7 +32,7 @@ export default function MyReview() {
 
     return (
         <div className="my-review">
-            <h2>My Review(s) List.</h2>
+            <h2>My Review List</h2>
             {(!reviewArray.length && <p>You haven't post any review yet</p>) || reviewArray.length && reviewArray.map(review=>(
                 <div className="my-review-info-div" key={review.id}>
                 <p>spot name: <Link to ={`/${review.spotId}`} >{review.Spot.name}</Link></p>

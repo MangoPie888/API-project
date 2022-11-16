@@ -93,9 +93,9 @@ const imageerrorHandler3 =(error) =>{
             <h1>{spot.name}</h1>
         </div>
         <div className="title-info">
-            {spot.avgStarRating && <p><span>&#9733;</span>{Number(spot.avgStarRating).toFixed(1)} <span>&#183;</span> </p> }
-            {!spot.avgStarRating && <p><span>&#9733;</span> New </p>}
-            <span> </span><p className="state-country-info"><span> {reviewsArray.length} review(s)</span> {spot.city},{spot.state},{spot.country}</p>
+            {spot.avgStarRating && <p className="star-rating"><span>&#9733;</span>{Number(spot.avgStarRating).toFixed(1)} <span>&#183;</span> </p> }
+            {!spot.avgStarRating && <p className="star-rating"><span>&#9733;</span> New &nbsp; </p>}
+            <p>&nbsp;{reviewsArray.length} review(s) <span>&#183;</span>{spot.city}, {spot.state}, {spot.country}</p>
             
         </div>
         {spot.SpotImages && <div>
@@ -115,12 +115,14 @@ const imageerrorHandler3 =(error) =>{
             }
         </div>}
         <div class="divider-1"></div>
+        <div className="desciption">desciption: {spot.description}</div>
+        <div className="divider-1"></div>
         <div className="review-section">
-            {!spot.avgStarRating && <h5><span>&#9733;</span> New <span>&#183;</span> {reviewsArray.length} reviews</h5> }
+            {!spot.avgStarRating && <h5><span>&#9733;</span> New &nbsp; <span>&#183;</span> {reviewsArray.length} reviews</h5> }
             {spot.avgStarRating && <h5><span>&#9733;</span> {Number(spot.avgStarRating).toFixed(1)} <span>&#183;</span> {reviewsArray.length} reviews</h5>}
             {reviewsArray.length === 0 ? <p>there is no review for this spot yet</p> : reviewsArray.map(review=>{return(<div className="reviewBox" key={review.id}>
-            <p>{review.User.firstName}</p> <p><span>&#9733;</span>{review.stars}</p>
-            <p>{review.review}</p>
+            <p className="person-name">{review.User.firstName}</p> <p className="review-star"><span>&#9733;</span>{review.stars}</p>
+            <p className="review-content">{review.review}</p>
             {sessionUser !==null && sessionUser.id === review.userId && 
             <form onSubmit={handleDeleteButton}>
             <button className="review-delete-button" type='submit' id={review.id} onClick={(e)=>{setReviewId(e.target.id)}}>Delete</button>

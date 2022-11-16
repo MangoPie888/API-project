@@ -24,9 +24,14 @@ useEffect(()=>{
 
 
     return(
+        <>
         <div className='content-container'>
         {!!Object.keys(allSpots).length && spotsArray.map(spot => <Card key={spot.id} spot={spot} />)}
         </div>
+        <footer>
+            <p className='copyright'>© {new Date().getFullYear()}  aircnc, Inc.</p>
+        </footer>
+        </>
 
     )
 }
