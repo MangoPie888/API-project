@@ -11,9 +11,9 @@ import './index.css'
 
 function HomePage(){
     const allSpots = useSelector(state=>(state.allSpots)) /*|| []*/
-    // console.log(allSpots)
+
     const spotsArray = Object.values(allSpots)
-    // console.log(spotsArray)
+
 
     const dispatch = useDispatch()
 

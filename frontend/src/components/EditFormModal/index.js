@@ -9,9 +9,8 @@ import "./index.css"
 
 
 function EditFormModal(props){
-    console.log(1)
+
     const {closeModal, spot} = props
-    console.log("spot",spot)
     const [address, setAddress] = useState(spot.address)
     const [city, setCity] = useState(spot.city)
     const [state, setState] = useState(spot.state)
@@ -22,20 +21,20 @@ function EditFormModal(props){
     const [description, setDescription] = useState(spot.description)
     const [price, setPrice] = useState(spot.price)
     const [previewImage,setPreviewImage] = useState(spot.previewImage)
-    console.log("previewImage",previewImage)
+
 
     const dispatch = useDispatch()
-    console.log(2)
+
 const handleSubmition=(e)=>{
     e.preventDefault()
-    console.log('checked')
+ 
     dispatch(editSpot({address,city,state,country,lat,lng,name,description,price,spot,previewImage}))
     closeModal(false)
 }
     
     return (
         <>
-        {console.log(3)}
+     
         <form className="edit-form" onSubmit={handleSubmition}>
         <div>
         <label>address</label>

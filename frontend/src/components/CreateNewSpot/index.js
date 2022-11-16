@@ -65,7 +65,7 @@ const handleSubmit = (e) => {
         <input className="create-house-input" type="text" placeholder="price" pattern='[0-9]+(\\.[0-9][0-9]?)?' value={price} onChange={(e)=>{setPrice(e.target.value)}} ></input>
      
         <input className="create-house-input" type='url'  placeholder="image url" value={url} onChange={(e)=>{
-               console.log('e',e.target.value);
+              
         setUrl(e.target.value)}}></input>
      <div>
         {/* <button className="modal-button" onClick={()=>{setShowModal(false)}} >Cancel</button> */}

@@ -332,13 +332,9 @@ const urlCheck = [
 
 router.post('/:spotId/images',restoreUser,requireAuth,urlCheck, async (req,res)=>{
     const{user} = req;
-    console.log("user",user)
-    console.log("request-url",req.body.url)
+  
     if(user) {
         const spot = await Spot.findByPk(req.params.spotId);
-        console.log("spot",spot)
-        console.log("spotID",req.params.spotId)
-        console.log("userId",user.id)
         if(!spot) {
             res.status(404);
             res.json({
@@ -350,7 +346,6 @@ router.post('/:spotId/images',restoreUser,requireAuth,urlCheck, async (req,res)=
             const{url, preview} = req.body;
             const spotId = req.params.spotId
             const newImage = await SpotImage.create({spotId,url,preview});
-            console.log("newImage",newImage)
             return res.json({
                 id:newImage.id,
                 url:newImage.url,
@@ -389,7 +384,6 @@ router.put('/:spotId', restoreUser,requireAuth,validationCheck, async(req,res)=>
         if(spot.ownerId === user.id) {
             const{address,city,state,country,lat,lng,name,description,price} = req.body;
             spot.update({address,city,state,country,lat,lng,name,description,price});
-            // console.log("backend response",res.json(spot))
             return res.json(spot)
         }else{
             return (

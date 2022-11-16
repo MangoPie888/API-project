@@ -7,7 +7,7 @@ import './SignupForm.css';
 
 function SignupFormPage({setSignUpClicked}) {
 
-  console.log("setSignUpClicked",setSignUpClicked)
+  
   const dispatch = useDispatch();
   const sessionUser = useSelector((state) => state.session.user);
   const [firstName, setFirstName] = useState("");
@@ -29,12 +29,11 @@ function SignupFormPage({setSignUpClicked}) {
       return dispatch(sessionActions.signup({ firstName, lastName,email, username, password }))
         .catch(async (res) => {
           const data = await res.json();
-          console.log("errordata",data)
-          console.log("errormessage",data.errors,"########",data.message)
+    
           if (data && data.message) { 
-            console.log("$$$$$$$",data.message)
+     
            setErrors(Object.values(data.errors));
-           console.log("errors",errors)
+       
             };
             // setSignUpClicked(false)
         });

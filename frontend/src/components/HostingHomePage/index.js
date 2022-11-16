@@ -27,7 +27,7 @@ function HostingHomePage(){
 
 
     useEffect(()=>{
-        console.log('useEffect hitted')
+     
         
         dispatch(getSpotsOfCurrentUser())
     },[])
@@ -35,34 +35,29 @@ function HostingHomePage(){
 
     const removeSpot = (e)=>{
         e.preventDefault()
-        console.log("type of spotID",typeof(spotId))
-        console.log("remove dispatched")
+   
         dispatch(spotActions.deleteSpot(Number(spotId)))
-        console.log("after hosting page dispatch")
+      
 
     }
 
-        // const spots = useSelector((state)=>{return(state.allSpots)})
-        // const currentSpots = useSelector((state)=>{return(state.allSpots)})
-        // // console.log(currentSpots)
-        // const spotsArray = Object.values(currentSpots);
-        // // console.log(spotsArray)
+
 
     const currentUserId = useSelector((state)=>{return(state.session.user.id)})
-    console.log("currentUserId",currentUserId)
+
     const spots = useSelector((state)=>{return(state.allSpots)})
-    console.log("all spots",spots)
+  
     const spotsArray = Object.values(spots);
-    console.log("spotsArray",spotsArray)
+ 
 
     
-    const currentUserSpots = spotsArray.filter((spot)=>{return(console.log("owernId",spot.ownerId),spot.ownerId == currentUserId)})
-    console.log("currentUserSpots",currentUserSpots)
+    const currentUserSpots = spotsArray.filter((spot)=>{return(spot.ownerId == currentUserId)})
+    
 
 
     
     const handleEditClick = (id) => {
-        console.log('id:', id);
+  
         setClicked({ [id]: !clicked[id] });
     }
 

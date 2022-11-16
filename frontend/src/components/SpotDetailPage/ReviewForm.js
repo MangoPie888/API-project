@@ -37,13 +37,12 @@ const ReviewForm = ({spotId})=>{
 
     const handleSubmission = async(e)=>{
         e.preventDefault()
-        // console.log(stars)
+
 
         if(!stars) {
-            // e.preventDefault()
            return alert("You need to rate the spot by clicking the stars")
         }
-        console.log("button clicked")
+       
        dispatch(createNewReview({stars,review,spotId}))
     }
 
@@ -59,7 +58,7 @@ const ReviewForm = ({spotId})=>{
 
             }
         })
-        console.log(`The ${clicledIdx+1} star is clicked`)
+
         setStar(clicledIdx+1)
     })
    })

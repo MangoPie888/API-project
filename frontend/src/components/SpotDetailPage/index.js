@@ -22,11 +22,11 @@ function SpotDetailPage(){
 
 
 
- console.log(1)
+
 
     const dispatch = useDispatch()
     const {spotId} = useParams();
-    // console.log("spotId",spotId)
+
     
 
 useEffect(()=>{
@@ -34,7 +34,7 @@ useEffect(()=>{
         history.push('/notfound')
     }
     const spot = dispatch(displaySpotWithId(spotId))
-    spot.catch((error)=>{console.log("promise error",error);if(error.status == 404){
+    spot.catch((error)=>{if(error.status == 404){
         history.push('/notfound')
     }})
     
@@ -46,19 +46,19 @@ const sessionUser= useSelector(state=>state.session.user)
 
 
 const spot = useSelector(state=>{return(state.singleSpot[spotId])})
-console.log(spot)
+
 
 const reviews = useSelector(state=>state.spotReviews)
 
 const reviewsArray = Object.values(reviews)
-console.log("reviewsArray",reviewsArray)
+
 
 
 
 const handleDeleteButton =(e)=>{
     e.preventDefault()
     setReviewId(e.target.id)
-    console.log("review Id", reviewId)
+
     dispatch(deleteReview({reviewId,spotId}))
 }
 
@@ -85,7 +85,7 @@ const imageerrorHandler3 =(error) =>{
 }
 
 
-    console.log(6)
+
     if(spot) {
     return (
         <div className="detailspot-container">
@@ -114,7 +114,7 @@ const imageerrorHandler3 =(error) =>{
                 spot.Owner.lastName
             }
         </div>}
-        <div class="divider-1"></div>
+        <div className="divider-1"></div>
         <div className="desciption">desciption: {spot.description}</div>
         <div className="divider-1"></div>
         <div className="review-section">

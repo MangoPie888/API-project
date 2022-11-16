@@ -11,7 +11,7 @@ import "./MyReview.css"
 
 export default function MyReview() {
     const [reviewId,setReviewId] = useState()
-    console.log("reviewId", reviewId)
+  
     const dispatch = useDispatch()
 
     useEffect(()=>{
@@ -19,9 +19,9 @@ export default function MyReview() {
 },[])
 
     const myReview = useSelector((state)=>state.userReviews)
-    console.log("my review from useSelector", myReview)
+
     const reviewArray = Object.values(myReview)
-    console.log("my review array",reviewArray)
+   
 
     const deleteUserReview=(e)=>{
         e.preventDefault()

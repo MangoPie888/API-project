@@ -15,10 +15,10 @@ const loadOneSpot = (spot)=>{
 export const displaySpotWithId =(spotId)=> async(dispatch)=> {
     try{const response = await csrfFetch(`api/spots/${spotId}`)
     const data = await response.json();
-    console.log(data)
+
     dispatch(loadOneSpot(data))}
     catch(error) {
-        console.log("this is singlespot error", error.status)
+
         throw error;
     }
     
