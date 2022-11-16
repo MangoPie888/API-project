@@ -1,5 +1,6 @@
 import { csrfFetch } from './csrf';
 import { ValidationError } from '../utils/validationError';
+import { displaySpotWithId } from './singleSpot';
 
 
 //action
@@ -30,15 +31,22 @@ const removeReview = (reviewId) =>{
     })
 }
 
+// const LOAD_CURRENT ="reviews/LOAD_CURRENT"
+// const loadCurrentUserReview =(reviews) =>{
+//     return ({
+//         type:LOAD_CURRENT,
+//         reviews
+//     })
+// }
 
 
 
 //thunk
 export const getReviewsBySpotId=(data)=>async(dispatch)=>{
-    console.log("data",data)
+
     const response = await csrfFetch(`/api/spots/${data}/reviews`)
     const reviews = await response.json();
-    console.log("thunkreviews",reviews.Reviews)
+
     dispatch(displayReview(reviews.Reviews))
     return response;
 
@@ -47,8 +55,8 @@ export const getReviewsBySpotId=(data)=>async(dispatch)=>{
 
 
 export const createNewReview =(data) => async(dispatch) =>{
-
-    console.log("hit createNewReview Thunk")
+    const {spotId} = data;
+   
     const response = await csrfFetch(`/api/spots/${data.spotId}/reviews`, {
         method:"post",
         headers:{
@@ -56,31 +64,43 @@ export const createNewReview =(data) => async(dispatch) =>{
         },
         body: JSON.stringify(data)
     });
-    console.log("beforeIFthunk")
+ 
     if(!response.ok) {
         let error;
         if(response.status === 403) {
             error = await response.json();
-            console.log("thunkerror",error)
+           
             throw new ValidationError(error.message);
         }
     }
     const newReview = await response.json();
-    console.log("newReview", newReview)
-    dispatch(addReview(newReview));
-    return newReview;
+
+    const review = await csrfFetch(`/api/spots/${newReview.spotId}/reviews`)
+    const fullReview =await review.json()
+   
+    const reviewArry =Object.values(fullReview.Reviews) 
+
+    const createdReview = reviewArry.filter((review)=>{return(review.id == newReview.id)})
+    const finalReview = createdReview[0]
+   
+    dispatch(addReview(finalReview))
+    dispatch(displaySpotWithId(spotId))
+    // return newReview;
 
 }
 
 
-export const deleteReview = (reviewId) => async dispatch =>{
+export const deleteReview = (data) => async dispatch =>{
+    const {reviewId,spotId} = data
     const response = await csrfFetch(`/api/reviews/${reviewId}`,{
         method:'delete',
     });
+
     dispatch(removeReview(reviewId));
+    dispatch(displaySpotWithId(spotId))
+
     return response;
 } 
-
 
 
 
@@ -98,17 +118,24 @@ const reviewsReducer = (state=intialState, action) =>{
                 ...allReviews,
             };
         case ADD_NEW_REVIEW:
-            newState = Object.assign({},state);
-            console.log("newState",newState)
-            newState[action.newReview.id] = action.newReview
-        return {
-            ...state,
-            ...newState
-        } 
+        
+            newState = {...state,[action.newReview.id]:action.newReview}
+            return newState
         case REMOVE_REVIEW:
             newState = Object.assign({},state);
-            newState.spotReviews[action.spotId] = null;
+    
+            delete newState[action.reviewId];
             return newState
+        
+        // case LOAD_CURRENT:
+        //     const userReviews = {};
+        //     action.reviews.forEach((review)=>{
+        //         userReviews[review.id] = review
+        //     });
+        //     return {
+        //         ...userReviews,
+        //     };
+
         default:
             return state
     }

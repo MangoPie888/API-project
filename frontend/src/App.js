@@ -8,6 +8,7 @@ import HomePage from "./components/HomePage";
 import SpotDetailPage from "./components/SpotDetailPage";
 import HostingHomePage from "./components/HostingHomePage";
 import NotFound from "./components/NotFound";
+import MyReview from "./components/MyReview/MyReview";
 
 function App() {
   const dispatch = useDispatch();
@@ -31,8 +32,17 @@ function App() {
           <Route path='/current' exact>
             <HostingHomePage />
           </Route>
+          <Route path='/reviews/current'>
+            <MyReview/>
+          </Route>
+          <Route path='/notfound'>
+            <NotFound/>
+          </Route>
           <Route path='/:spotId' >
             <SpotDetailPage />
+          </Route>
+          <Route path='*'>
+            <NotFound/>
           </Route>
         </Switch>
     

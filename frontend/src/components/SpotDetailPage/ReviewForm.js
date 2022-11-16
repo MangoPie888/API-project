@@ -36,13 +36,13 @@ const ReviewForm = ({spotId})=>{
     }
 
     const handleSubmission = async(e)=>{
-        // e.preventDefault()
-        // console.log(stars)
+        e.preventDefault()
+
 
         if(!stars) {
-            e.preventDefault()
-           return alert("You need to rate the spot by clicking the starts")
+           return alert("You need to rate the spot by clicking the stars")
         }
+       
        dispatch(createNewReview({stars,review,spotId}))
     }
 
@@ -58,7 +58,7 @@ const ReviewForm = ({spotId})=>{
 
             }
         })
-        console.log(`The ${clicledIdx+1} star is clicked`)
+
         setStar(clicledIdx+1)
     })
    })
@@ -69,25 +69,18 @@ const ReviewForm = ({spotId})=>{
 
     return (
         <div className="reviewForm">
-         {checkReview() === true && <form onSubmit={handleSubmission} hidden="" id="review-form">
-                {/* <label htmlFor="star">star</label>
-                <select name="star" id="star" onChange={(e)=>{setStar(e.target.value)}}>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                </select> */}
-                <div className="stars">
+         {checkReview() === true &&<fieldset><form onSubmit={handleSubmission} hidden="" id="review-form">
+                
+        <textarea className="reviewbox" placeholder="please write your review here" onChange={(e)=>{setReview(e.target.value)}} required></textarea>
+        <div className="stars">
                 <a>⭐</a>
                 <a>⭐</a>
                 <a>⭐</a>
                 <a>⭐</a>
                 <a>⭐</a>
                 </div>
-        <textarea placeholder="new review" onChange={(e)=>{setReview(e.target.value)}} required></textarea>
         <button className="create-review-button">Create a Review</button>
-        </form> }      
+        </form></fieldset>  }      
 
         </div>
     )

@@ -1,11 +1,14 @@
 .navigation-container {
+    /* position: fixed; */
     display: flex;
     justify-content: space-between;
     align-items: center;
     border-bottom: solid;
     border-color: #ebebeb;
-    padding-left: 20%;
-    padding-right: 20%;
+    padding-left: 12%;
+    padding-right: 13%;
+    padding-bottom: 15px;
+    padding-top: 15px;
 }
 
 
@@ -15,7 +18,7 @@
 }
 
 .signup-button {
-    font-family: 'Playfair Display', serif;
+   
     border: solid;
     border-color: #ebebeb;
     margin-right: 20px;
@@ -36,11 +39,10 @@
 }
 
 .dropdown-menu {
-    font-family: 'Playfair Display', serif;
     position: absolute;
     background-color:white;
-    right: 3%;
-    top:28px ;
+    right: 2%;
+    top: 25.5px;
     padding: .75rem;
     border-radius: .25rem;
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .3);
@@ -49,6 +51,8 @@
     z-index: 1;
     pointer-events: auto;
     width:250px;
+    font-size: 12-px;
+    text-align: left;
    
 }
 
@@ -75,7 +79,8 @@
 
 
 ul {
-    list-style-type: none;  
+    list-style-type: none;
+    text-align: left;  
 }
 
 .logout-button {
@@ -91,4 +96,30 @@ ul {
     background-color: #ff5a60;
 }
 
+.to-host-page {
+    color: black;
+    font-size: 14px;
+}
 
+.to-host-page:hover {
+    color:#ff5a60
+}
+
+
+.myreview-click{
+    color: black;
+    font-size: 14px;
+    padding-top: 3px;
+}
+
+.myreview-click:hover {
+    color:#ff5a60
+}
+
+hr {
+    color: #ebebeb;
+}
+
+.username-email{
+    font-size: 12px;
+}

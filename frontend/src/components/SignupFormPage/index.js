@@ -5,7 +5,9 @@ import * as sessionActions from "../../store/session";
 
 import './SignupForm.css';
 
-function SignupFormPage() {
+function SignupFormPage({setSignUpClicked}) {
+
+  
   const dispatch = useDispatch();
   const sessionUser = useSelector((state) => state.session.user);
   const [firstName, setFirstName] = useState("");
@@ -20,21 +22,30 @@ function SignupFormPage() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (password === confirmPassword) {
+    // const form = document.getElementsByClassName("signup-form")
+    // form.style.display = "none";
+    if (password === confirmPassword) {   
       setErrors([]);
       return dispatch(sessionActions.signup({ firstName, lastName,email, username, password }))
         .catch(async (res) => {
           const data = await res.json();
-          if (data && data.errors) setErrors(data.errors);
+    
+          if (data && data.message) { 
+     
+           setErrors(Object.values(data.errors));
+       
+            };
+            // setSignUpClicked(false)
         });
     }
-    return setErrors(['Confirm Password field must be the same as the Password field']);
+    else{setErrors(['Confirm Password field must be the same as the Password field']);}
+    // setSignUpClicked(false)
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <ul>
-        {errors.map((error, idx) => <li key={idx}>{error}</li>)}
+    <form onSubmit={handleSubmit} className="signup-form">
+      <ul className="error-list" >
+        {errors.map((error, idx) => <li className="error-message"  key={idx}>{error}</li>)}
       </ul>
         <input className="sign-up-input"
           placeholder="FirstName"

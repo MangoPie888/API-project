@@ -41,13 +41,13 @@ router.get('/current',restoreUser,async(req,res)=>{
                 },
             ]
         });
-        // console.log(reviews)
+       
 
         let reviewList = [];
         reviews.forEach(review => {
             reviewList.push(review.toJSON())
         });
-        // console.log("这是reviewList",reviewList)
+       
         reviewList.forEach(review=>{
             review.Spot.SpotImages.forEach(img =>{
                 if(img.preview === true && !review.Spot.previewImage) {

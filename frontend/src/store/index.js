@@ -7,6 +7,8 @@ import spotsReducer from './spots';
 import reviewsReducer from './spotReviews'
 import singleSpotReducer from './singleSpot';
 import currentSpotsReducer from './currentSpot';
+import userReviewsReducer from './userReview';
+
 
 const rootReducer = combineReducers({
     session: sessionReducer,
@@ -14,6 +16,7 @@ const rootReducer = combineReducers({
     currentSpots:currentSpotsReducer,
     singleSpot:singleSpotReducer,
     spotReviews:reviewsReducer,
+    userReviews:userReviewsReducer,
 
 });
 

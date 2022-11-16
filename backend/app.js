@@ -74,7 +74,7 @@ app.use((err, _req, res, _next)=>{
   res.status(err.status || 500);
   console.error(err);
   res.json({
-    "messgae":err.title || 'Invalid input syntax for type integer:{{null}}',
+    "message":err.title || 'Invalid input syntax for type integer:{{null}}',
     "statusCode": err.status || 500,
     "errors":err.errors,
 

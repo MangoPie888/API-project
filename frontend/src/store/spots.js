@@ -1,5 +1,5 @@
 import { csrfFetch } from './csrf';
-import { getSpotsOfCurrentUser } from './currentSpot';
+// import { getSpotsOfCurrentUser } from './currentSpot';
 
 
 //action
@@ -11,13 +11,13 @@ const loadSpot = (spot)=>{
     }
 }
 
-// const LOAD_CURRENT_SPOTS = 'spots/LOAD_CURRENT_SPOTS'
-// const loadCurrentSpots = (spot) =>{
-//     return {
-//         type:LOAD_CURRENT_SPOTS,
-//         payload:spot
-//     }
-// }
+const LOAD_CURRENT_SPOTS = 'spots/LOAD_CURRENT_SPOTS'
+const loadCurrentSpots = (spot) =>{
+    return {
+        type:LOAD_CURRENT_SPOTS,
+        payload:spot
+    }
+}
 
 const ADD_ONE_SPOT= 'spot/ADD_ONE_SPOT'
 const addOneSpot = (spot,newImage) =>{
@@ -42,7 +42,7 @@ const REMOVE_SPOT = "spot/REMOVE_SPOT"
 const removeSpot = (spotId)=>{
     return({
         type:REMOVE_SPOT,
-        payload:spotId
+        spotId
     })
 }
 
@@ -53,26 +53,20 @@ const removeSpot = (spotId)=>{
 export const displaySpot = () => async (dispatch) =>{
     const response = await csrfFetch('/api/spots')
     const data = await response.json();
-    // console.log(data)
+  
     dispatch(loadSpot(data.Spots));
     return response
 }
 
-// export const getSpotsOfCurrentUser=()=>async(dispatch)=>{
-//     const response = await csrfFetch('api/spots/current');
-//     const data = await response.json();
-//     console.log(data.Spots)
-//     dispatch(loadSpot(data.Spots))
-// }
+export const getSpotsOfCurrentUser=()=>async(dispatch)=>{
+    const response = await csrfFetch('api/spots/current');
+    const data = await response.json();
+
+    dispatch(loadCurrentSpots(data.Spots))
+}
 
 
-// export const displaySpotWithId =(spotId)=> async(dispatch)=> {
-//     const response = await csrfFetch(`api/spots/${spotId}`)
-//     const data = await response.json();
-//     // console.log(data)
-//     dispatch(loadSpot(data))
-//     return response;
-// }
+
 
 export const deleteSpot = (id)=> async (dispatch) =>{
     const response = await csrfFetch(`/api/spots/${id}`, {
@@ -83,7 +77,7 @@ export const deleteSpot = (id)=> async (dispatch) =>{
 }
 
 export const createNewSpot = (info)=> async(dispatch)=>{
-    console.log('hited createNewSpot')
+ 
     const response = await csrfFetch('/api/spots', {
         method:"post",
         headers:{
@@ -93,8 +87,7 @@ export const createNewSpot = (info)=> async(dispatch)=>{
     });
 
     const newSpot = await response.json();
-    console.log("This is newSpot",newSpot)
-    console.log("newSpot Id", newSpot.id)
+ 
 
     const imageResponse = await csrfFetch(`/api/spots/${newSpot.id}/images`, {
                 method:'post',
@@ -105,9 +98,9 @@ export const createNewSpot = (info)=> async(dispatch)=>{
             }); 
 
     const newImage = await imageResponse.json();
-    console.log("newImage",newImage)
+  
     newSpot.previewImage = newImage.url
-    console.log(newSpot)
+   
     dispatch(addOneSpot(newSpot,newImage));
     dispatch(getSpotsOfCurrentUser());
 }
@@ -115,8 +108,9 @@ export const createNewSpot = (info)=> async(dispatch)=>{
 
 
 export const editSpot = (data) => async(dispatch) => {
-    // console.log("checked")
-    // console.log(data)
+
+    const {previewImage} = data
+   
     const response = await csrfFetch(`/api/spots/${data.spot.id}`, {
         method:'put',
         headers:{
@@ -125,9 +119,10 @@ export const editSpot = (data) => async(dispatch) => {
         body:JSON.stringify(data)
     });
 
-
+   
     const updatedSpot = await response.json();
-    console.log(updatedSpot)
+   
+    updatedSpot.previewImage = previewImage
     dispatch(updateSpot(updatedSpot))
     return response
 }
@@ -146,19 +141,26 @@ const spotsReducer = (state=intialState, action) =>{
             action.payload.forEach((element) =>{
                 newState[element.id] = element
             })
-            // newState = action.payload
-            console.log("newState", newState)
+       
             
             return newState; 
+        case LOAD_CURRENT_SPOTS:
+            newState = Object.assign({},state);
+            action.payload.forEach((element) =>{
+                newState[element.id] = element
+            })
+         
+            
+            return newState;
+
         case ADD_ONE_SPOT:
-            console.log('action',action)
-            console.log('state',state)
+           
                 newState = {
                     ...state,
                     [action.spot.id]:action.spot,
                     // [action.spot.id.previewImage]:action.newImage.url
                 };
-                console.log("newState",newState)
+               
             
             return newState
             // newState = {...state}
@@ -167,11 +169,18 @@ const spotsReducer = (state=intialState, action) =>{
             // action.payload.spot.previewImage = action.payload.newImage.url
             // return newState;
         case UPDATE_SPOT:
-            newState= {...state}
+            
+            newState= structuredClone(state)
+          
             newState[action.payload.id] = action.payload
+            return newState
+
         case REMOVE_SPOT:
-            newState = Object.assign({},state);
-            newState.spots[action.payload] = null;
+           
+            newState = {...state};
+           
+            delete newState[action.spotId];
+            
             return newState;
         default:
             return state

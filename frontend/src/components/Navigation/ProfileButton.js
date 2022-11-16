@@ -50,9 +50,11 @@ function ProfileButton({ user }) {
   
           <div className="dropdown-menu">
         <ul className="profile-dropdown">
-          <li>username: {user.username}</li>
-          <li>useremail: {user.email}</li>
-          <li><Link to='/current'>Clike here to host your home</Link></li>     {/*need a <link> tage */}
+          <li className="username-email">username: {user.username}</li>
+          <li className="username-email">userEmail: {user.email}</li>
+          <hr></hr>
+          <li ><Link to='/current' className="to-host-page">Become a Host</Link></li> 
+          <li><Link  to='/reviews/current' className="myreview-click">My Reviews</Link></li>
           <li>
             <button onClick={logout} className="logout-button">Log Out</button>
           </li>

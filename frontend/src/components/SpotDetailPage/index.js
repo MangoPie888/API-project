@@ -1,6 +1,6 @@
 import React, {useEffect,useState,useMemo}from "react";
 import {useSelector,useDispatch} from 'react-redux';
-import {useParams} from 'react-router-dom';
+import {useHistory, useParams} from 'react-router-dom';
 import { getReviewsBySpotId } from "../../store/spotReviews";
 import { displaySpotWithId } from "../../store/singleSpot";
 import { deleteReview } from "../../store/spotReviews";
@@ -13,26 +13,32 @@ import "./SpotDetailPage.css"
 
 
 function SpotDetailPage(){
+    const history = useHistory()
     const [ostar, setStar] = useState('');
     const [reviewId,setReviewId] = useState('');
     
 
     const stars = parseInt(ostar)
-    console.log("type of star", typeof(stars),stars)
 
 
- console.log(1)
+
+
 
     const dispatch = useDispatch()
     const {spotId} = useParams();
-    // console.log("spotId",spotId)
+
     
 
 useEffect(()=>{
-    console.log(4)
-dispatch(displaySpotWithId(spotId))
-dispatch(getReviewsBySpotId(spotId))
-    console.log(5)
+    if(typeof parseInt(spotId) =='string' || isNaN(spotId)) {
+        history.push('/notfound')
+    }
+    const spot = dispatch(displaySpotWithId(spotId))
+    spot.catch((error)=>{if(error.status == 404){
+        history.push('/notfound')
+    }})
+    
+    dispatch(getReviewsBySpotId(spotId))
 
 },[])
 
@@ -40,28 +46,22 @@ const sessionUser= useSelector(state=>state.session.user)
 
 
 const spot = useSelector(state=>{return(state.singleSpot[spotId])})
-console.log(spot)
+
 
 const reviews = useSelector(state=>state.spotReviews)
 
 const reviewsArray = Object.values(reviews)
-console.log("reviewsArray",reviewsArray)
-// if(reviews === undefined) return null
-// if(reviewsArray.length === 0) return null
-// if(!Object.values(reviews).length) return null;
-// console.log(spot)
 
 
-const handleDeleteButton =()=>{
-    dispatch(deleteReview(reviewId))
+
+
+const handleDeleteButton =(e)=>{
+    e.preventDefault()
+    setReviewId(e.target.id)
+
+    dispatch(deleteReview({reviewId,spotId}))
 }
 
-// const handleSubmission = (e)=>{
-//     e.preventDefault();
-    
-
-//     dispatch(createNewReview({review,stars,spotId}))
-// }
 
 
 const imageerrorHandler =(error) =>{
@@ -85,7 +85,7 @@ const imageerrorHandler3 =(error) =>{
 }
 
 
-    console.log(6)
+
     if(spot) {
     return (
         <div className="detailspot-container">
@@ -93,10 +93,10 @@ const imageerrorHandler3 =(error) =>{
             <h1>{spot.name}</h1>
         </div>
         <div className="title-info">
-            {spot.avgStarRating && <p><span>&#9733;</span>{spot.avgStarRating} <span>&#183; </span></p> }
-            {!spot.avgStarRating && <p><span>&#9733;</span> New </p>}
+            {spot.avgStarRating && <p className="star-rating"><span>&#9733;</span>{Number(spot.avgStarRating).toFixed(1)} <span>&#183;</span> </p> }
+            {!spot.avgStarRating && <p className="star-rating"><span>&#9733;</span> New &nbsp; </p>}
+            <p>&nbsp;{reviewsArray.length} review(s) <span>&#183;</span>{spot.city}, {spot.state}, {spot.country}</p>
             
-            <p className="state-country-info"><span> {reviewsArray.length} reviews</span> {spot.city},{spot.state},{spot.country}</p>
         </div>
         {spot.SpotImages && <div>
         {spot.SpotImages.map((image)=>{return(
@@ -114,15 +114,18 @@ const imageerrorHandler3 =(error) =>{
                 spot.Owner.lastName
             }
         </div>}
-        <div class="divider-1"></div>
+        <div className="divider-1"></div>
+        <div className="desciption">desciption: {spot.description}</div>
+        <div className="divider-1"></div>
         <div className="review-section">
-            <h5><span>&#9733;</span> {spot.avgStarRating} <span>&#183;</span> {reviewsArray.length} reviews</h5>
-            {reviewsArray.length === 0 ? <p>there is no review for this spot</p> : reviewsArray.map(review=>{return(<div className="reviewBox" key={review.id}>
-            <p>{review.User.firstName}</p>
-            <p>{review.review}</p>
+            {!spot.avgStarRating && <h5><span>&#9733;</span> New &nbsp; <span>&#183;</span> {reviewsArray.length} reviews</h5> }
+            {spot.avgStarRating && <h5><span>&#9733;</span> {Number(spot.avgStarRating).toFixed(1)} <span>&#183;</span> {reviewsArray.length} reviews</h5>}
+            {reviewsArray.length === 0 ? <p>there is no review for this spot yet</p> : reviewsArray.map(review=>{return(<div className="reviewBox" key={review.id}>
+            <p className="person-name">{review.User.firstName}</p> <p className="review-star"><span>&#9733;</span>{review.stars}</p>
+            <p className="review-content">{review.review}</p>
             {sessionUser !==null && sessionUser.id === review.userId && 
             <form onSubmit={handleDeleteButton}>
-            <button type='submit' id={review.id} onClick={(e)=>{setReviewId(e.target.id)}}>Delete</button>
+            <button className="review-delete-button" type='submit' id={review.id} onClick={(e)=>{setReviewId(e.target.id)}}>Delete</button>
             </form>
             }
             </div> 
