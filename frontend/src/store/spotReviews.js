@@ -1,5 +1,6 @@
 import { csrfFetch } from './csrf';
 import { ValidationError } from '../utils/validationError';
+import { displaySpotWithId } from './singleSpot';
 
 
 //action
@@ -54,7 +55,7 @@ export const getReviewsBySpotId=(data)=>async(dispatch)=>{
 
 
 export const createNewReview =(data) => async(dispatch) =>{
-
+    const {spotId} = data;
     console.log("hit createNewReview Thunk")
     const response = await csrfFetch(`/api/spots/${data.spotId}/reviews`, {
         method:"post",
@@ -83,17 +84,20 @@ export const createNewReview =(data) => async(dispatch) =>{
     const finalReview = createdReview[0]
     console.log("final one",finalReview)
     dispatch(addReview(finalReview))
+    dispatch(displaySpotWithId(spotId))
     // return newReview;
 
 }
 
 
-export const deleteReview = (reviewId) => async dispatch =>{
+export const deleteReview = (data) => async dispatch =>{
+    const {reviewId,spotId} = data
     const response = await csrfFetch(`/api/reviews/${reviewId}`,{
         method:'delete',
     });
     console.log("delet thunk")
     dispatch(removeReview(reviewId));
+    dispatch(displaySpotWithId(spotId))
     console.log("delet thunk end")
     return response;
 } 

@@ -59,7 +59,7 @@ const handleDeleteButton =(e)=>{
     e.preventDefault()
     setReviewId(e.target.id)
     console.log("review Id", reviewId)
-    dispatch(deleteReview(reviewId))
+    dispatch(deleteReview({reviewId,spotId}))
 }
 
 

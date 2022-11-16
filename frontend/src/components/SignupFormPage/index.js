@@ -22,7 +22,6 @@ function SignupFormPage({setSignUpClicked}) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setSignUpClicked(false)
     // const form = document.getElementsByClassName("signup-form")
     // form.style.display = "none";
     if (password === confirmPassword) {   
@@ -37,10 +36,11 @@ function SignupFormPage({setSignUpClicked}) {
            setErrors(Object.values(data.errors));
            console.log("errors",errors)
             };
+            // setSignUpClicked(false)
         });
     }
-    setErrors(['Confirm Password field must be the same as the Password field']);
-   
+    else{setErrors(['Confirm Password field must be the same as the Password field']);}
+    // setSignUpClicked(false)
   };
 
   return (

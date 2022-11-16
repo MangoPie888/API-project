@@ -31,9 +31,10 @@
     padding: 10px;
 }
 
-/* .create-button:hover {
-    color: #ff5a60;
-} */
+.create-button:hover {
+    cursor: pointer;
+    
+}
 
 img {
     height: 200px;
@@ -72,6 +73,10 @@ img {
     height: 20px;
  
 
+}
+
+.edit-button,.delete-button:hover {
+    cursor: pointer;
 }
 
 .delete-button{
