@@ -30,9 +30,9 @@ function SignupFormPage({setSignUpClicked}) {
         .catch(async (res) => {
           const data = await res.json();
           console.log("errordata",data)
-          console.log("errormessage",data.errors)
+          console.log("errormessage",data.errors,"########",data.message)
           if (data && data.message) { 
-          
+            console.log("$$$$$$$",data.message)
            setErrors(Object.values(data.errors));
            console.log("errors",errors)
             };
