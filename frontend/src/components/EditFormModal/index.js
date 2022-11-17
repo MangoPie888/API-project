@@ -22,7 +22,7 @@ function EditFormModal(props){
     const [price, setPrice] = useState(spot.price)
     const [previewImage,setPreviewImage] = useState(spot.previewImage)
     const [aveRating,setAveRating] = useState(spot.aveRating)
-    console.log("=====aveRating",aveRating)
+
 
 
     const dispatch = useDispatch()
