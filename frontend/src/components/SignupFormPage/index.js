@@ -5,7 +5,7 @@ import * as sessionActions from "../../store/session";
 
 import './SignupForm.css';
 
-function SignupFormPage({setSignUpClicked}) {
+function SignupFormPage() {
 
   
   const dispatch = useDispatch();
@@ -22,25 +22,20 @@ function SignupFormPage({setSignUpClicked}) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // const form = document.getElementsByClassName("signup-form")
-    // form.style.display = "none";
     if (password === confirmPassword) {   
-      setErrors([]);
-      return dispatch(sessionActions.signup({ firstName, lastName,email, username, password }))
+      dispatch(sessionActions.signup({ firstName, lastName,email, username, password }))
         .catch(async (res) => {
           const data = await res.json();
-    
           if (data && data.message) { 
-     
-           setErrors(Object.values(data.errors));
-       
+            setErrors(Object.values(data.errors));
             };
-            // setSignUpClicked(false)
+      
         });
     }
-    else{setErrors(['Confirm Password field must be the same as the Password field']);}
+    else{setErrors(['Confirm Password must be the same as the Password']);}
     // setSignUpClicked(false)
   };
+
 
   return (
     <form onSubmit={handleSubmit} className="signup-form">

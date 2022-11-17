@@ -9,7 +9,7 @@ import {Modal} from '../../context/Modal'
 
 function Navigation({ isLoaded }){
   const sessionUser = useSelector(state => state.session.user);
-  // console.log(isLoaded)
+
 
   const [signUpClicked, setSignUpClicked] = useState(false)
 
@@ -19,6 +19,7 @@ function Navigation({ isLoaded }){
       <ProfileButton user={sessionUser} />
     );
   } else {
+
     sessionLinks = (
       <>
       <div>
@@ -26,7 +27,7 @@ function Navigation({ isLoaded }){
         <button className='signup-button' onClick={()=>{setSignUpClicked(true)}}>Sign Up</button>
         {signUpClicked && (
           <Modal onClose={()=>setSignUpClicked(false)}>
-            <SignupFormPage setSignUpClicked={setSignUpClicked}/>
+            <SignupFormPage/>
           </Modal>
         )
           }
@@ -34,6 +35,7 @@ function Navigation({ isLoaded }){
       </div>
       </>
     );
+ 
   }
 
   return (

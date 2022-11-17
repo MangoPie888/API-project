@@ -9,10 +9,10 @@ function LoginForm() {
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState([]);
 
-  const demoUser=()=>{
-    setCredential("demo@user.io")
-    setPassword("password")
-  }
+  // const demoUser=()=>{
+  //   setCredential("demo@user.io")
+  //   setPassword("password")
+  // }
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -25,6 +25,12 @@ function LoginForm() {
     );
   };
 
+  const demoUser=()=>{
+    setCredential("demo@user.io")
+    setPassword("password")
+
+  
+  }
 
   return (
     <>
@@ -54,9 +60,9 @@ function LoginForm() {
     
       <button className="login-buttons" type="submit">Log In</button>
       
-    </form>
-    <button className="login-buttons" onClick={demoUser} type="submit">Demo User</button>
     
+    <button className="login-buttons" onClick={demoUser} type="submit">Demo User</button>
+    </form>
     </>
   );
 }
