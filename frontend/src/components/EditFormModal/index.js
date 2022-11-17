@@ -21,6 +21,8 @@ function EditFormModal(props){
     const [description, setDescription] = useState(spot.description)
     const [price, setPrice] = useState(spot.price)
     const [previewImage,setPreviewImage] = useState(spot.previewImage)
+    const [aveRating,setAveRating] = useState(spot.aveRating)
+    console.log("=====aveRating",aveRating)
 
 
     const dispatch = useDispatch()
@@ -28,7 +30,7 @@ function EditFormModal(props){
 const handleSubmition=(e)=>{
     e.preventDefault()
  
-    dispatch(editSpot({address,city,state,country,lat,lng,name,description,price,spot,previewImage}))
+    dispatch(editSpot({address,city,state,country,lat,lng,name,description,price,spot,previewImage,aveRating}))
     closeModal(false)
 }
     
