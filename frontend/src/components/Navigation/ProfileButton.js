@@ -22,12 +22,12 @@ function ProfileButton({ user }) {
   
 
     const closeMenu = () => {
-      // debugger
+    
       document.addEventListener('click', closeMenu);
       setShowMenu(false);
     };
 
-    // document.addEventListener('click', closeMenu);
+
   
     return () => document.removeEventListener("click", closeMenu);
   }, [showMenu]);
@@ -35,7 +35,8 @@ function ProfileButton({ user }) {
   const logout = (e) => {
     e.preventDefault();
     dispatch(sessionActions.logout());
-    history.push('/')
+    history.push("/")
+   
   };
 
   return (
@@ -51,7 +52,7 @@ function ProfileButton({ user }) {
           <div className="dropdown-menu">
         <ul className="profile-dropdown">
           <li className="username-email">username: {user.username}</li>
-          <li className="username-email">userEmail: {user.email}</li>
+          <li className="username-email">Email: {user.email}</li>
           <hr></hr>
           <li ><Link to='/current' className="to-host-page">Become a Host</Link></li> 
           <li><Link  to='/reviews/current' className="myreview-click">My Reviews</Link></li>

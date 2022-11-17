@@ -56,17 +56,17 @@ const handleSubmit = (e) => {
         <input className="create-house-input" type="text" placeholder="lng" value={lng} onChange={(e)=>{setLng(e.target.value)}} required></input>
       */}
        
-        <input className="create-house-input" type="text" placeholder="name" value={name} onChange={(e)=>{setName(e.target.value)}} required ></input>
+        <input className="create-house-input" type="text" placeholder="name" value={name} onChange={(e)=>{setName(e.target.value)}}  required ></input>
         
    
-        <input className="create-house-input" type="text" placeholder="description" value={description} onChange={(e)=>{setDescription(e.target.value)}} required ></input>
+        <input className="create-house-input" type="text" placeholder="description" value={description} onChange={(e)=>{setDescription(e.target.value)}} required required></input>
        
       
-        <input className="create-house-input" type="text" placeholder="price" pattern='[0-9]+(\\.[0-9][0-9]?)?' value={price} onChange={(e)=>{setPrice(e.target.value)}} required></input>
+        <input className="create-house-input" type="number" min="1" placeholder="price" pattern='[0-9]+(\\.[0-9][0-9]?)?' value={price} onChange={(e)=>{setPrice(e.target.value)}} required required></input>
      
         <input className="create-house-input" type='url'  placeholder="image url" value={url} onChange={(e)=>{
               
-        setUrl(e.target.value)}} required></input>
+        setUrl(e.target.value)}} required required></input>
      <div>
         {/* <button className="modal-button" onClick={()=>{setShowModal(false)}} >Cancel</button> */}
         <button className="modal-button" type="submit" >Create</button>

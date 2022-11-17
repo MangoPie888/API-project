@@ -109,7 +109,7 @@ export const createNewSpot = (info)=> async(dispatch)=>{
 
 export const editSpot = (data) => async(dispatch) => {
 
-    const {previewImage} = data
+    const {previewImage,aveRating} = data
    
     const response = await csrfFetch(`/api/spots/${data.spot.id}`, {
         method:'put',
@@ -122,7 +122,10 @@ export const editSpot = (data) => async(dispatch) => {
    
     const updatedSpot = await response.json();
    
+
+    console.log("thunk aveRating",aveRating)
     updatedSpot.previewImage = previewImage
+    updatedSpot.aveRating = aveRating
     dispatch(updateSpot(updatedSpot))
     return response
 }

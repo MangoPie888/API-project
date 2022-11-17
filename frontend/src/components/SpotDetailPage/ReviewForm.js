@@ -11,7 +11,7 @@ const ReviewForm = ({spotId})=>{
     const history = useHistory();
 
     const [stars, setStar] = useState('');
-    // const stars = parseInt(ostar)
+   
     const [review,setReview] = useState('');
     const [allowSubmit, setAllowSubmit] = useState(false)
 
@@ -19,7 +19,7 @@ const ReviewForm = ({spotId})=>{
 
     const spotReviews = useSelector(state => state.spotReviews)
     const spotReviewArray = Object.values(spotReviews);
-    // console.log("spotReviewArray",spotReviewArray)
+    
 
     const sessionUserId = useSelector(state => state.session.user.id)
 
@@ -37,8 +37,6 @@ const ReviewForm = ({spotId})=>{
 
     const handleSubmission = async(e)=>{
         e.preventDefault()
-
-
         if(!stars) {
            return alert("You need to rate the spot by clicking the stars")
         }
@@ -46,22 +44,22 @@ const ReviewForm = ({spotId})=>{
        dispatch(createNewReview({stars,review,spotId}))
     }
 
-    const starDiv = document.querySelector('.stars')
-   const starsEmoji = document.querySelectorAll('.stars a')
+//     const starDiv = document.querySelector('.stars')
+//    const starsEmoji = document.querySelectorAll('.stars a')
 
-   starsEmoji.forEach((star,clicledIdx)=>{
-    star.addEventListener('click', ()=>{
-        starDiv.classList.add("disabled")
-        starsEmoji.forEach((otherStars,otherIdx)=>{
-            if(otherIdx <= clicledIdx) {
-                otherStars.classList.add("active")
+//    starsEmoji.forEach((star,clicledIdx)=>{
+//     star.addEventListener('click', ()=>{
+//         starDiv.classList.add("disabled")
+//         starsEmoji.forEach((otherStars,otherIdx)=>{
+//             if(otherIdx <= clicledIdx) {
+//                 otherStars.classList.add("active")
 
-            }
-        })
+//             }
+//         })
 
-        setStar(clicledIdx+1)
-    })
-   })
+//         setStar(clicledIdx+1)
+//     })
+//    })
 
   
 
@@ -69,18 +67,29 @@ const ReviewForm = ({spotId})=>{
 
     return (
         <div className="reviewForm">
-         {checkReview() === true &&<fieldset><form onSubmit={handleSubmission} hidden="" id="review-form">
+         {checkReview() === true &&<form  onSubmit={handleSubmission} hidden="" id="review-form">
                 
-        <textarea className="reviewbox" placeholder="please write your review here" onChange={(e)=>{setReview(e.target.value)}} required></textarea>
-        <div className="stars">
-                <a>⭐</a>
-                <a>⭐</a>
-                <a>⭐</a>
-                <a>⭐</a>
-                <a>⭐</a>
-                </div>
+        <div className="rating">
+        <input type="radio" id="star5" name="rating" value="5" onClick={(e)=>{setStar(e.target.value)}}/>
+        <label htmlFor="star5">5 stars</label>
+        <input type="radio" id="star4" name="rating" value="4" onClick={(e)=>{setStar(e.target.value)}} />
+        <label htmlFor="star4">4 stars</label>
+        <input type="radio" id="star3" name="rating" value="3" onClick={(e)=>{setStar(e.target.value)}} />
+        <label htmlFor="star3">3 stars</label>
+        <input type="radio" id="star2" name="rating" value="2" onClick={(e)=>{setStar(e.target.value)}} />
+        <label htmlFor="star2">2 stars</label>
+        <input type="radio" id="star1" name="rating" value="1" onClick={(e)=>{setStar(e.target.value)}} />
+        <label htmlFor="star1">1 star</label>
+        </div> 
+        <textarea className="reviewbox" placeholder="please write your review here" onChange={(e)=>{setReview(e.target.value)}} required></textarea>   
         <button className="create-review-button">Create a Review</button>
-        </form></fieldset>  }      
+        
+                {/* <a>⭐</a>
+                <a>⭐</a>
+                <a>⭐</a>
+                <a>⭐</a>
+                <a>⭐</a> */}
+        </form> }      
 
         </div>
     )
