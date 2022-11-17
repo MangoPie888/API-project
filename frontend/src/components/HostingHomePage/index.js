@@ -88,6 +88,7 @@ function HostingHomePage(){
                 <Link to={`/${spot.id}`}><img src={spot.previewImage}></img></Link>
                 <p>address: {spot.address}</p>
                 <p>city: {spot.city}</p>
+                <p>state: {spot.state}</p>
                 <p>country: {spot.country}</p>
                 <p>price: ${spot.price} night</p>
                 {/* <p>description: ${spot.description}</p> */}

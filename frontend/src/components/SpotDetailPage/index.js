@@ -118,7 +118,7 @@ const imageerrorHandler3 =(error) =>{
         <div className="desciption">desciption: {spot.description}</div>
         <div className="divider-1"></div>
         <div className="review-section">
-            {!spot.avgStarRating && <h5><span>&#9733;</span> New &nbsp; <span>&#183;</span> {reviewsArray.length} reviews</h5> }
+            {!spot.avgStarRating && <h5><span>&#9733;</span> New &nbsp; <span>&#183;</span> {reviewsArray.length} review</h5> }
             {spot.avgStarRating && <h5><span>&#9733;</span> {Number(spot.avgStarRating).toFixed(1)} <span>&#183;</span> {reviewsArray.length} reviews</h5>}
             {reviewsArray.length === 0 ? <p>there is no review for this spot yet</p> : reviewsArray.map(review=>{return(<div className="reviewBox" key={review.id}>
             <p className="person-name">{review.User.firstName}</p> <p className="review-star"><span>&#9733;</span>{review.stars}</p>

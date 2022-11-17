@@ -54,14 +54,14 @@ function SignupFormPage(props) {
         {errors.map((error, idx) => <li className="error-message" key={idx}>{error}</li>)}
       </ul>
       <input className="sign-up-input"
-        placeholder="FirstName"
+        placeholder="First Name"
         type="text"
         value={firstName}
         onChange={(e) => setFirstName(e.target.value)}
         required
       />
       <input className="sign-up-input"
-        placeholder="LastName"
+        placeholder="Last Name"
         type="text"
         value={lastName}
         onChange={(e) => setLastName(e.target.value)}
