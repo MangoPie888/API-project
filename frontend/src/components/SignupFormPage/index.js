@@ -5,9 +5,9 @@ import * as sessionActions from "../../store/session";
 
 import './SignupForm.css';
 
-function SignupFormPage() {
+function SignupFormPage(props) {
 
-  
+
   const dispatch = useDispatch();
   const sessionUser = useSelector((state) => state.session.user);
   const [firstName, setFirstName] = useState("");
@@ -22,17 +22,28 @@ function SignupFormPage() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (password === confirmPassword) {   
-      dispatch(sessionActions.signup({ firstName, lastName,email, username, password }))
+    if (password === confirmPassword) {
+      dispatch(sessionActions.signup({ firstName, lastName, email, username, password }))
+        .then((res) => {
+
+          if (res.status === 200) {
+            props.setSignUpClicked(false)
+          }
+        })
         .catch(async (res) => {
           const data = await res.json();
-          if (data && data.message) { 
+     
+          if (data && data.message) {
             setErrors(Object.values(data.errors));
-            };
-      
+            // props.setSignUpClicked(true)
+          };
+          // props.setSignUpClicked(false)
         });
     }
-    else{setErrors(['Confirm Password must be the same as the Password']);}
+    else {
+      props.setSignUpClicked(true)
+      setErrors(['Confirm Password must be the same as the Password']);
+    }
     // setSignUpClicked(false)
   };
 
@@ -40,50 +51,50 @@ function SignupFormPage() {
   return (
     <form onSubmit={handleSubmit} className="signup-form">
       <ul className="error-list" >
-        {errors.map((error, idx) => <li className="error-message"  key={idx}>{error}</li>)}
+        {errors.map((error, idx) => <li className="error-message" key={idx}>{error}</li>)}
       </ul>
-        <input className="sign-up-input"
-          placeholder="FirstName"
-          type="text"
-          value={firstName}
-          onChange={(e) => setFirstName(e.target.value)}
-          required
-        />
-        <input className="sign-up-input"
-          placeholder="LastName"
-          type="text"
-          value={lastName}
-          onChange={(e) => setLastName(e.target.value)}
-          required
-        />
-        <input className="sign-up-input"
-          placeholder="Email"
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-        <input className="sign-up-input"
-          placeholder="Username"
-          type="text"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          required
-        />
-        <input className="sign-up-input"
-          placeholder="Password"
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-        <input className="sign-up-input"
-          placeholder="Confirm Password"
-          type="password"
-          value={confirmPassword}
-          onChange={(e) => setConfirmPassword(e.target.value)}
-          required
-        />
+      <input className="sign-up-input"
+        placeholder="FirstName"
+        type="text"
+        value={firstName}
+        onChange={(e) => setFirstName(e.target.value)}
+        required
+      />
+      <input className="sign-up-input"
+        placeholder="LastName"
+        type="text"
+        value={lastName}
+        onChange={(e) => setLastName(e.target.value)}
+        required
+      />
+      <input className="sign-up-input"
+        placeholder="Email"
+        type="email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        required
+      />
+      <input className="sign-up-input"
+        placeholder="Username"
+        type="text"
+        value={username}
+        onChange={(e) => setUsername(e.target.value)}
+        required
+      />
+      <input className="sign-up-input"
+        placeholder="Password"
+        type="password"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+        required
+      />
+      <input className="sign-up-input"
+        placeholder="Confirm Password"
+        type="password"
+        value={confirmPassword}
+        onChange={(e) => setConfirmPassword(e.target.value)}
+        required
+      />
       <button className="sign-up-botton" type="submit">Sign Up</button>
     </form>
   );

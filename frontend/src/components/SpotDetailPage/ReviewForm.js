@@ -11,7 +11,7 @@ const ReviewForm = ({spotId})=>{
     const history = useHistory();
 
     const [stars, setStar] = useState('');
-    // const stars = parseInt(ostar)
+   
     const [review,setReview] = useState('');
     const [allowSubmit, setAllowSubmit] = useState(false)
 
@@ -19,7 +19,7 @@ const ReviewForm = ({spotId})=>{
 
     const spotReviews = useSelector(state => state.spotReviews)
     const spotReviewArray = Object.values(spotReviews);
-    // console.log("spotReviewArray",spotReviewArray)
+    
 
     const sessionUserId = useSelector(state => state.session.user.id)
 
