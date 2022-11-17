@@ -123,7 +123,7 @@ export const editSpot = (data) => async(dispatch) => {
     const updatedSpot = await response.json();
    
 
-    console.log("thunk aveRating",aveRating)
+
     updatedSpot.previewImage = previewImage
     updatedSpot.aveRating = aveRating
     dispatch(updateSpot(updatedSpot))
