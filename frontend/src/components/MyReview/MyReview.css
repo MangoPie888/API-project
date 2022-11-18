@@ -17,6 +17,7 @@
 
 h2 {
     text-align: center;
+   
 }
 
 .review-delete-button {
@@ -25,7 +26,16 @@ h2 {
 
 }
 
+.review-delete-button:hover{
+    cursor: pointer;
+}
+
 .my-review-info-div > p {
     margin-top: 1%;
     margin-bottom: 1%;
+}
+
+.not-post {
+   text-align: center;
+    
 }

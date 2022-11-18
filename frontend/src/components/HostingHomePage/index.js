@@ -79,6 +79,7 @@ function HostingHomePage(){
         <CreateNewSpot setShowModal={setShowModal}/>
         </Modal>
       )}
+      {currentUserSpots.length == 0 && <p className="no-hosting">You don't have any hosting property yet, please click the button to host your first property</p>}
       <div className="my-hosting">
       {currentUserSpots.length > 0 && 
         currentUserSpots.map(spot=>{return(

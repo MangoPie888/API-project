@@ -19,6 +19,14 @@ const removeReview = (reviewId) =>{
     })
 }
 
+const CLEAN_REVIEW = 'review/CLEAN_REVIEW'
+export const cleanupStore = ()=>{
+    return ({
+        type:CLEAN_REVIEW,
+
+    })
+} 
+
 
 //thunk
 export const getCurrentUserReview = () => async dispatch=>{
@@ -59,6 +67,8 @@ const userReviewsReducer = (state=intialState,action) =>{
       
                 delete newState[action.reviewId];
                 return newState
+            case CLEAN_REVIEW:
+                return intialState
 
     default:
         return state;
