@@ -7,4 +7,8 @@
     font-family: 'MontrealRegular';
     font-weight: lighter;
     font-style: normal;
+    /* max-width: 1024px; */
+    display: flex;
+    flex-direction: column;
+    align-content: center;
 }

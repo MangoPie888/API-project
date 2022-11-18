@@ -39,12 +39,14 @@ function Navigation({ isLoaded }){
   }
 
   return (
+    <div className='biggest-nav-container'>
     <div className='navigation-container'>
       <div className='home-link'>
         <NavLink exact to="/"><img className="home-icon" src='https://user-images.githubusercontent.com/26607023/66323837-52dbbf80-e91c-11e9-833b-a7ea66e2a9eb.png'></img></NavLink>
       </div>
         {isLoaded && sessionLinks}
    
+    </div>
     </div>
   );
 }

@@ -1,3 +1,8 @@
+/* .biggest-nav-containe{
+    max-width: 3423;
+    background-color: #ff5a60;
+} */
+
 .navigation-container {
     /* position: fixed; */
     display: flex;
@@ -9,6 +14,7 @@
     padding-right: 13%;
     padding-bottom: 15px;
     padding-top: 15px;
+    max-width: 2520px;
 }
 
 

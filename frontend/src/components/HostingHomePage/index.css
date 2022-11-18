@@ -11,7 +11,7 @@
     display: flex;
     justify-content: flex-start;
     flex-wrap: wrap;
-    padding-left: 15%;
+    padding-left: 12%;
     padding-right: 10%;
 
 }
@@ -47,7 +47,7 @@ img {
 
 }
 .spot-card {
-    margin-right: 25px;
+    margin-right: 1.5%;
    
 
 }
