@@ -115,7 +115,7 @@ const imageerrorHandler3 =(error) =>{
             }
         </div>}
         <div className="divider-1"></div>
-        <div className="desciption">desciption: {spot.description}</div>
+        <div className="desciption">description: {spot.description}</div>
         <div className="divider-1"></div>
         <div className="review-section">
             {!spot.avgStarRating && <h5><span>&#9733;</span> New &nbsp; <span>&#183;</span> {reviewsArray.length} review</h5> }
