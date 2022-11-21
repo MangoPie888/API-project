@@ -55,12 +55,12 @@ const reviewsArray = Object.values(reviews)
 
 
 
-const handleDeleteButton =(e)=>{
-    e.preventDefault()
-    setReviewId(e.target.id)
+// const handleDeleteButton =(e)=>{
+//     e.preventDefault()
+//     setReviewId(e.target.id)
 
-    dispatch(deleteReview({reviewId,spotId}))
-}
+//     dispatch(deleteReview({reviewId,spotId}))
+// }
 
 
 
@@ -123,11 +123,11 @@ const imageerrorHandler3 =(error) =>{
             {reviewsArray.length === 0 ? <p>there is no review for this spot yet</p> : reviewsArray.map(review=>{return(<div className="reviewBox" key={review.id}>
             <p className="person-name">{review.User.firstName}</p> <p className="review-star"><span>&#9733;</span>{review.stars}</p>
             <p className="review-content">{review.review}</p>
-            {sessionUser !==null && sessionUser.id === review.userId && 
+            {/* {sessionUser !==null && sessionUser.id === review.userId && 
             <form onSubmit={handleDeleteButton}>
             <button className="review-delete-button" type='submit' id={review.id} onClick={(e)=>{setReviewId(e.target.id)}}>Delete</button>
             </form>
-            }
+            } */}
             </div> 
             )})}
         </div>
