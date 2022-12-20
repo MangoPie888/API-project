@@ -1,7 +1,12 @@
 'use strict';
+let options = {};
+if (process.env.NODE_ENV === 'production') {
+  options.schema = process.env.SCHEMA;  // define your schema in options object
+}
 
 module.exports = {
   async up (queryInterface, Sequelize) {
+    options.tableName = 'SpotImages';
     /**
      * Add seed commands here.
      *
@@ -11,7 +16,7 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
     */
-  return queryInterface.bulkInsert("SpotImages", [
+  return queryInterface.bulkInsert(options, [
     {
       spotId:1,
       url:'https://a0.muscache.com/im/pictures/1f6c495e-b877-4a48-9f2c-d8012f640166.jpg?im_w=1200',
@@ -67,8 +72,9 @@ module.exports = {
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
+    options.tableName = 'SpotImages';
     const Op = Sequelize.Op;
-    return queryInterface.bulkDelete('SpotImages', {
+    return queryInterface.bulkDelete(options, {
       url: {[Op.in]:['dsda.png','dsdaasd.jpag','asdd.png']}
     })
   }
