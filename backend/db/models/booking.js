@@ -40,3 +40,7 @@ module.exports = (sequelize, DataTypes) => {
   });
   return Booking;
 };
+
+
+
+//start 2/8/2023
