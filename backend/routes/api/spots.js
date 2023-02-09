@@ -603,6 +603,10 @@ router.get("/:spotId/bookings", restoreUser,requireAuth, async(req,res)=>{
 //Create a Booking from a Spot based on the Spot's id
 function dateValidation(req,res,next) {
     const {startDate, endDate} = req.body;
+    console.log("startDate from backend********",startDate)
+    console.log("endDate from backend+++++++++",endDate)
+    console.log("^^^^^^^^^^^",Date.parse(startDate))
+    console.log("{{{{{{{{{{{{{{{{", Date.parse(endDate))
     if(Date.parse(startDate) >= Date.parse(endDate)) {
     return (
         res.status(403),
@@ -628,9 +632,12 @@ router.post('/:spotId/bookings', restoreUser,requireAuth,dateValidation,async (r
     };
 
     const {startDate,endDate} = req.body;
+    console.log("8*(*(*(*(*(*(*(*(",startDate)
     const bookings = await Booking.findAll({
         where:{spotId:req.params.spotId}
     });
+
+    console.log("BOOKINDDDDDDDDDDDDDDDD",bookings)
 
     for(let booking of bookings) {
         if(Date.parse(booking.startDate) === Date.parse(startDate )|| Date.parse(booking.endDate) === Date.parse(endDate)) {

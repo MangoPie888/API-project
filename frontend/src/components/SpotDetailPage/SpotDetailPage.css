@@ -38,7 +38,7 @@
     border-color: #bbb;
     margin-bottom: 10%;
     padding: 0px 90px 0px 40px;
-    width: 100%;
+    /* width: 100%; */
 }
 
 .reviewBox > p {
@@ -144,4 +144,30 @@ h5 {
 
 .review-content {
   font-family: Arial, Helvetica, sans-serif;
+}
+
+.review-booking-div{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+
+.booking-section{
+  border: 2px solid;
+  border-radius: 15px;
+  width: 50%;
+  height: 400px;
+}
+
+.date-picker-div{
+  display: flex; 
+  
+ gap: 18%;
+}
+
+.datepicker2 .datepicker1{
+  width: fit-content;
+  min-width: 100%;
+  max-width: 100%;
 }

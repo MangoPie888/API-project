@@ -4,6 +4,11 @@ import {useHistory, useParams} from 'react-router-dom';
 import { getReviewsBySpotId } from "../../store/spotReviews";
 import { displaySpotWithId } from "../../store/singleSpot";
 import { deleteReview } from "../../store/spotReviews";
+import { reserveSpot } from "../../store/booking";
+
+import DatePicker from 'react-datepicker'
+import 'react-datepicker/dist/react-datepicker.css'
+import { createPopper } from '@popperjs/core';
 
 import ReviewForm from "./ReviewForm";
 import "./SpotDetailPage.css"
@@ -16,7 +21,11 @@ function SpotDetailPage(){
     const history = useHistory()
     const [ostar, setStar] = useState('');
     const [reviewId,setReviewId] = useState('');
-    
+
+    const [startDate, setStartDate] = useState(null)
+    const [endDate, setEndDate] = useState(null)
+    console.log("startdate",startDate)
+    console.log("enddate",endDate)
 
     const stars = parseInt(ostar)
 
@@ -54,7 +63,9 @@ const reviewsArray = Object.values(reviews)
 
 
 
-
+const handleBooking=()=>{
+    dispatch(reserveSpot({spotId,startDate,endDate}))
+}
 // const handleDeleteButton =(e)=>{
 //     e.preventDefault()
 //     setReviewId(e.target.id)
@@ -117,6 +128,8 @@ const imageerrorHandler3 =(error) =>{
         <div className="divider-1"></div>
         <div className="desciption">description: {spot.description}</div>
         <div className="divider-1"></div>
+
+        <div className="review-booking-div">
         <div className="review-section">
             {!spot.avgStarRating && <h5><span>&#9733;</span> New &nbsp; <span>&#183;</span> {reviewsArray.length} review</h5> }
             {spot.avgStarRating && <h5><span>&#9733;</span> {Number(spot.avgStarRating).toFixed(1)} <span>&#183;</span> {reviewsArray.length} reviews</h5>}
@@ -145,7 +158,45 @@ const imageerrorHandler3 =(error) =>{
         <button>Create a Review</button>
         </form> */}
 
-            
+        <div className="booking-section">
+            <p>This is booking section</p>
+            <p>${spot.price} night</p>
+
+            <div className="date-picker-div">
+            <label>CHECK-IN
+            <DatePicker className="datepicker1"
+            showIcon
+            selected={startDate} 
+            onChange={date=>setStartDate(date)}
+            minDate={new Date()}
+            isClearable
+            showYearDropdown
+            scrollableYearDropdown
+            fixedHeight
+            />
+            </label>
+
+            <label>CHECKOUT
+            <DatePicker className="datepicker2"
+            showIcon
+            selected={endDate} 
+            onChange={date=>setEndDate(date)}
+            minDate={new Date()}
+            isClearable
+            showYearDropdown
+            scrollableYearDropdown
+            fixedHeight
+            />
+            </label>
+            </div>
+
+            <div>
+                <button onClick={handleBooking}>Reserve</button>
+            </div>
+
+        </div>
+        </div> 
+
         </div>
     )} 
 
