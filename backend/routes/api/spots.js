@@ -640,6 +640,7 @@ router.post('/:spotId/bookings', restoreUser,requireAuth,dateValidation,async (r
     console.log("BOOKINDDDDDDDDDDDDDDDD",bookings)
 
     for(let booking of bookings) {
+        console.log("iiiiiiiiiiiiiiiiii",booking[0])
         if(Date.parse(booking.startDate) === Date.parse(startDate )|| Date.parse(booking.endDate) === Date.parse(endDate)) {
             return (res.status(403),
                 res.json({
@@ -656,6 +657,7 @@ router.post('/:spotId/bookings', restoreUser,requireAuth,dateValidation,async (r
 
 
     const {user} = req;
+    console.log("after userrrrrrrrrrrrrrrr",user)
     if(user) {
         if(spot.ownerId !== user.id) {
             const spotId = req.params.spotId;

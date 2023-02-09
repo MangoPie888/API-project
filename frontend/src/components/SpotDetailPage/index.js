@@ -24,6 +24,7 @@ function SpotDetailPage(){
 
     const [startDate, setStartDate] = useState(null)
     const [endDate, setEndDate] = useState(null)
+    let hasError = false
     console.log("startdate",startDate)
     console.log("enddate",endDate)
 
@@ -63,8 +64,35 @@ const reviewsArray = Object.values(reviews)
 
 
 
-const handleBooking=()=>{
-    dispatch(reserveSpot({spotId,startDate,endDate}))
+const handleBooking= async()=>{
+    console.log("startdate",startDate)
+    console.log("enddate", endDate)
+    if(Date.parse(startDate) === Date.parse(endDate)) {
+        alert("The startDate can not be the same as the endDate")
+    }
+    else{
+        try
+   {const data = await dispatch(reserveSpot({spotId,startDate,endDate}))
+    }
+   catch(error){
+    
+    console.log("hasError",hasError)
+    if(error){
+        hasError = true
+        alert("**********")
+        console.log("error",hasError)
+    }
+    console.log("error",error)
+   }
+   finally{
+    console.log("error",hasError)
+    if(!hasError){
+        history.push('/mybookings')
+    }
+   }
+    }
+    
+   
 }
 // const handleDeleteButton =(e)=>{
 //     e.preventDefault()
@@ -181,7 +209,7 @@ const imageerrorHandler3 =(error) =>{
             showIcon
             selected={endDate} 
             onChange={date=>setEndDate(date)}
-            minDate={new Date()}
+            minDate={startDate}
             isClearable
             showYearDropdown
             scrollableYearDropdown

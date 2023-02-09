@@ -9,6 +9,7 @@ import SpotDetailPage from "./components/SpotDetailPage";
 import HostingHomePage from "./components/HostingHomePage";
 import NotFound from "./components/NotFound";
 import MyReview from "./components/MyReview/MyReview";
+import MyBooking from "./components/Booking/MyBooking";
 
 function App() {
   const dispatch = useDispatch();
@@ -34,6 +35,9 @@ function App() {
           </Route>
           <Route path='/reviews/current'>
             <MyReview/>
+          </Route>
+          <Route path='/mybookings'>
+            <MyBooking/>
           </Route>
           <Route path='/notfound'>
             <NotFound/>

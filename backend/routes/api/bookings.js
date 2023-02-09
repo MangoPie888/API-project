@@ -11,6 +11,7 @@ const router = express.Router();
 //Get all of the Current User's Bookings  
 router.get('/current', restoreUser,requireAuth, async(req,res)=>{
     const {user} = req;
+    console.log("userrrrrrrrrrrrrrrr))))))))",user)
     if(user) {
         let bookings = await Booking.findAll({
             where:{userId:user.id},
