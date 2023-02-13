@@ -126,3 +126,64 @@
 .rating > label:active {
     position:relative;
 }
+
+
+/* new review form */
+.star-rating button{
+    background-color: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+.on {
+    color: #000;
+  }
+  .off {
+    color: #ccc;
+  }
+
+  .review-content-div textarea{
+    resize: none;
+  }
+
+  .review-title{
+    text-align: center;
+    border-bottom: 1px dotted;
+    border-color: gray;
+    padding-bottom: 5%;
+  }
+
+  .review-pic-name{
+    display: flex;
+    border-bottom: 1px dotted;
+    border-color: gray;
+    padding-bottom: 5%;
+  }
+
+  .star{
+    font-size: 25px;
+  }
+
+  .star-rating{
+    margin-top: 5%;
+    text-align: center;
+  }
+  .review-content-div{
+    margin-top: 5%;
+    text-align: center;
+  }
+
+.review-btn-div{
+  display: flex;
+  justify-content: center;
+
+}
+  .review-submitbtn{
+   margin-top: 10%;
+   padding: 9px 25px;
+   background: rgba(241,100,30);
+   border: none;
+   border-radius: 50px;
+   cursor: pointer;
+   transition: all 03.s ease 0s;
+  }

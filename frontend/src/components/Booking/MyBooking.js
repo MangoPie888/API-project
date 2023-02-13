@@ -5,12 +5,14 @@ import { useSelector, useDispatch } from 'react-redux';
 import { deleteBooking } from '../../store/booking';
 import { Modal } from '../../context/Modal';
 import EditBooking from './EditBooking';
+import ReviewForm from '../SpotDetailPage/ReviewForm';
+import { getCurrentUserReview } from '../../store/userReview';
 
 import "./Mybooking.css"
 
 
 const MyBooking = () => {
-    const disptach = useDispatch()
+    const dispatch = useDispatch()
 
     const[openModal, setOpenModal] = useState(false)
     const[startDate, setStartDate] = useState("")
@@ -18,6 +20,11 @@ const MyBooking = () => {
     const[bookingId, setBookingId] = useState()
     const [spotImg, setSpotImg]= useState()
     const [spotName,setSpotName] = useState()
+    const [spotId, setSpotId] = useState()
+
+    const [modalOn, setModalOn] = useState(false)
+    const [hasReview, setHasReview] = useState(false)
+    
 
     console.log("spotImg",spotImg)
     console.log("spotName",spotName)
@@ -26,8 +33,22 @@ const MyBooking = () => {
 
 
     useEffect(()=>{
-        disptach(showBooking())
-    },[])
+        dispatch(showBooking())
+        dispatch(getCurrentUserReview())
+    },[dispatch])
+
+    const allReviews = useSelector(state=>state.userReviews)
+    console.log("allReviews",allReviews)
+    const reviewArray = Object.values(allReviews)
+    console.log("review array",reviewArray)
+    const spotReviewId = []
+    for(let i = 0; i < reviewArray.length; i++){
+        console.log("spotIddddddddd",reviewArray[i].spotId)
+        spotReviewId.push(reviewArray[i].spotId)
+    }
+    console.log("spotIdArray",spotReviewId)
+
+    
 
     const allBookings = useSelector(state=>state.userBookings)
     console.log("allBookings",allBookings)
@@ -47,11 +68,14 @@ const MyBooking = () => {
     console.log("upcoming",upcoming)
     console.log("passedTrip",passedTrip)
 
+  
+    
+
     const handleDelete=(e)=>{
        
         const bookingId = e.target.id
         console.log("bookingid",bookingId)
-        disptach(deleteBooking(bookingId))
+        dispatch(deleteBooking(bookingId))
     }
 
     const handleEditBooking=(e)=>{
@@ -70,6 +94,13 @@ const MyBooking = () => {
         setSpotName(arrayValue[2])
         setSpotImg(arrayValue[3])
         
+    }
+      
+  
+    const reviewing=(e)=>{
+        setSpotId(e.target.id)
+        console.log("spotId",spotId)
+        setModalOn(true)
     }
 
   return (
@@ -147,7 +178,15 @@ const MyBooking = () => {
                         </div>
                     </div>
 
-
+                    <div className='booking-reivew-div'>
+                    {spotReviewId.includes(booking.spotId) ? <p>Reviewed</p> : <button id={booking.spotId} className='booking-review-btn' onClick={reviewing}>Write a Review</button> }
+                    
+                    {modalOn &&
+                    <Modal onClose={()=>setModalOn(false)}>
+                        <ReviewForm spotId={spotId}/>
+                    </Modal>
+                    }
+                    </div>      
                 </div>
 
                 <div className='booking-image-div'>
@@ -155,7 +194,8 @@ const MyBooking = () => {
                     <p>{booking.Spot.city} {booking.Spot.state}</p>
                     <img src={booking.Spot.previewImage}/>
                 </div>
-
+                
+                
             </div>
             )
             

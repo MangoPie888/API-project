@@ -2,6 +2,7 @@ import React from 'react';
 import {useEffect} from 'react';
 import {useSelector, useDispatch} from "react-redux";
 
+
 import * as spotActions from '../../store/spots'
 import Card from './Card';
 import './index.css'
@@ -19,6 +20,7 @@ function HomePage(){
 
 useEffect(()=>{
     dispatch(spotActions.displaySpot())
+   
 },[])
 
 

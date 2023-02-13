@@ -80,3 +80,22 @@
     width: 120px;
     border-radius: 8px;
 }
+
+
+.booking-review-btn{
+    cursor: pointer;
+    text-align: center;
+    border-style: solid;
+    background-color: #E51E56;
+    color: white;
+    border-color:transparent ;
+    height: 35px;
+    width: 120px;
+    border-radius: 8px;
+}
+
+.booking-reivew-div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

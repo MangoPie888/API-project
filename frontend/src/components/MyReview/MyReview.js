@@ -4,6 +4,8 @@ import {useDispatch} from 'react-redux';
 import { useSelector } from "react-redux";
 import { deleteCurrentUserReview } from "../../store/userReview";
 import {Link} from "react-router-dom"
+import {Modal} from '../../context/Modal'
+import ReviewForm from "../SpotDetailPage/ReviewForm";
 
 
 import "./MyReview.css"
@@ -11,7 +13,7 @@ import "./MyReview.css"
 
 export default function MyReview() {
     const [reviewId,setReviewId] = useState()
-  
+    const [openModal, setOpenModal] = useState(false)
     const dispatch = useDispatch()
 
     useEffect(()=>{
@@ -29,6 +31,10 @@ export default function MyReview() {
 
     }
 
+    const updateReview=()=>{
+         setOpenModal(true)
+    }
+
 
     return (
         <div className="my-review">
@@ -42,6 +48,12 @@ export default function MyReview() {
                 <form onSubmit={deleteUserReview}>
                 <button className="review-delete-button" id={review.id} onClick={(e)=>(setReviewId(e.target.id))} >Delete</button>
                 </form>
+                <button onClick={updateReview}>Update</button>
+                {openModal && 
+                <Modal onClose={()=>{setOpenModal(false)}}>
+                    <ReviewForm />
+                </Modal>}
+
                 </div>
                 
                 ))}
