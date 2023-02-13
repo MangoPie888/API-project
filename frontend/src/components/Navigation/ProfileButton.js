@@ -58,6 +58,7 @@ function ProfileButton({ user }) {
           <hr></hr>
           <li ><Link to='/current' className="to-host-page">Become a Host</Link></li> 
           <li><Link  to='/reviews/current' className="myreview-click">My Reviews</Link></li>
+          <li><Link  to='/mybookings' className="myreview-click">My Trips</Link></li>
           <li>
             <button onClick={logout} className="logout-button">Log Out</button>
           </li>

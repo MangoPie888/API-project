@@ -8,7 +8,7 @@ import { reserveSpot } from "../../store/booking";
 
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
-import { createPopper } from '@popperjs/core';
+
 
 import ReviewForm from "./ReviewForm";
 import "./SpotDetailPage.css"
@@ -22,8 +22,8 @@ function SpotDetailPage(){
     const [ostar, setStar] = useState('');
     const [reviewId,setReviewId] = useState('');
 
-    const [startDate, setStartDate] = useState(null)
-    const [endDate, setEndDate] = useState(null)
+    const [startDate, setStartDate] = useState(new Date())
+    const [endDate, setEndDate] = useState((new Date()).setDate((new Date()).getDate() +1))
     let hasError = false
     console.log("startdate",startDate)
     console.log("enddate",endDate)
@@ -148,69 +148,82 @@ const imageerrorHandler3 =(error) =>{
             </div>
         )})}
         </div> }
-        {spot.Owner &&  <div className="host-name">
-            hosted by {spot.Owner.firstName} {
+        
+        <div className="infor-booking-div">
+
+        <div className="infor-div">
+
+            {spot.Owner &&  <div className="host-name">
+            <p>hosted by {spot.Owner.firstName} {
                 spot.Owner.lastName
-            }
-        </div>}
-        <div className="divider-1"></div>
-        <div className="desciption">description: {spot.description}</div>
-        <div className="divider-1"></div>
+            }</p>
+            <img src="https://i.pinimg.com/originals/a6/58/32/a65832155622ac173337874f02b218fb.png" />
+            </div>}
+            <div className="divider-1"></div>
 
-        <div className="review-booking-div">
-        <div className="review-section">
-            {!spot.avgStarRating && <h5><span>&#9733;</span> New &nbsp; <span>&#183;</span> {reviewsArray.length} review</h5> }
-            {spot.avgStarRating && <h5><span>&#9733;</span> {Number(spot.avgStarRating).toFixed(1)} <span>&#183;</span> {reviewsArray.length} reviews</h5>}
-            {reviewsArray.length === 0 ? <p>there is no review for this spot yet</p> : reviewsArray.map(review=>{return(<div className="reviewBox" key={review.id}>
-            <p className="person-name">{review.User.firstName}</p> <p className="review-star"><span>&#9733;</span>{review.stars}</p>
-            <p className="review-content">{review.review}</p>
-            {/* {sessionUser !==null && sessionUser.id === review.userId && 
-            <form onSubmit={handleDeleteButton}>
-            <button className="review-delete-button" type='submit' id={review.id} onClick={(e)=>{setReviewId(e.target.id)}}>Delete</button>
-            </form>
-            } */}
-            </div> 
-            )})}
+            <div className="three-infor">
+                <i class="fa-solid fa-door-open"></i>
+                <div className="title-infor-div">
+                    <p><strong>Self check-in</strong></p>
+                    <p className="second">Check yourself in with the lockbox.</p>
+                </div>
+            </div>
+
+            <div className="three-infor">
+                <i class="fa-solid fa-award"></i>
+                <div className="title-infor-div">
+                    <p><strong>{spot.Owner.firstName} is a Superhost</strong></p>
+                    <p className="second">Superhosts are experienced, highly rated hosts who are committed to providing great stays for guests.</p>
+                </div>
+            </div>
+
+            <div className="three-infor">
+                <i class="fa-solid fa-calendar"></i>
+                <div className="title-infor-div">
+                    <p><strong>Free cancellation for 48 hours.</strong></p>
+                </div>
+            </div>
+            {/*  */}
+            <div className="divider-1"></div>
+
+            <div className="aircover">
+                <h2><span>air</span>cover</h2>
+                <p>Every booking includes free protection from Host cancellations, listing inaccuracies, and other issues like trouble checking in.</p>
+            </div>
+            <div className="divider-1"></div>
+
+            <div className="desciption">
+            <p><strong>Description</strong> </p>
+            <p className="second">{spot.description}</p>
+            </div>
+
         </div>
-                {(sessionUser && (sessionUser.id !== spot.ownerId)) && <ReviewForm spotId={spotId}/>}
-            {/* <form onSubmit={handleSubmission} hidden="" id="review-form">
-                <label htmlFor="star">star</label>
-                <select name="star" id="star" onChange={(e)=>{setStar(e.target.value)}}>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                </select>
-        <textarea placeholder="new review" onChange={(e)=>{setReview(e.target.value)}}></textarea>
-        <button>Create a Review</button>
-        </form> */}
 
-        <div className="booking-section">
-            <p>This is booking section</p>
-            <p>${spot.price} night</p>
+
+
+        <div className="booking-main-div">
+        
+            <p>${spot.price} <span>night</span></p>
 
             <div className="date-picker-div">
-            <label>CHECK-IN
-            <DatePicker className="datepicker1"
-            showIcon
+            <label>CHECK-IN&nbsp; 📅
+            <DatePicker ClassName="datepicker1"
             selected={startDate} 
             onChange={date=>setStartDate(date)}
             minDate={new Date()}
-            isClearable
             showYearDropdown
             scrollableYearDropdown
             fixedHeight
             />
-            </label>
+           </label>
+            
 
-            <label>CHECKOUT
-            <DatePicker className="datepicker2"
+            <label>CHECKOUT 📅
+            <DatePicker ClassName="datepicker2"
             showIcon
             selected={endDate} 
             onChange={date=>setEndDate(date)}
             minDate={startDate}
-            isClearable
             showYearDropdown
             scrollableYearDropdown
             fixedHeight
@@ -218,14 +231,59 @@ const imageerrorHandler3 =(error) =>{
             </label>
             </div>
 
-            <div>
-                <button onClick={handleBooking}>Reserve</button>
+            <div className="bookingReserveBtn-div">
+                <button className="bookingReserveBtn" onClick={handleBooking}>Reserve</button>
+            </div>
+
+            <div className="price-summary">
+                <p>Total nights: </p>
+                <p>Service fee:</p>
+                <div className="divider-1"></div>
+                <p>Total before taxes:</p>
+
             </div>
 
         </div>
-        </div> 
-
         </div>
+
+        
+        
+        
+        <div className="divider-1"></div>
+
+     
+        
+        <div className="review-main-div">
+        
+            <div className="review-title-div">
+            {!spot.avgStarRating && <h5><span>&#9733;</span> New &nbsp; <span>&#183;</span> {reviewsArray.length} review</h5> }
+            {spot.avgStarRating && <h5><span>&#9733;</span> {Number(spot.avgStarRating).toFixed(1)} <span>&#183;</span> {reviewsArray.length} reviews</h5>}
+            </div>
+            {reviewsArray.length === 0 ? <p>there is no review for this spot yet</p> : reviewsArray.map(review=>{return(<div className="reviewBox" key={review.id}>
+
+            <div className="review-content-div">
+            <div className="review-img-name">
+                <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" />
+                <div className="p-span-div">
+                <p className="person-name">{review.User.firstName}</p>
+                <span>{new Date(review.createdAt).toDateString()}</span>
+                </div>
+            </div>
+                <div className="content-detail-div">
+                <p className="review-content">{review.review}</p>
+                </div>
+            </div>
+            
+            </div> 
+            )})}
+        </div>
+                {(sessionUser && (sessionUser.id !== spot.ownerId)) && <ReviewForm spotId={spotId}/>}
+        </div>
+
+        
+   
+
+      
     )} 
 
 };

@@ -1,16 +1,33 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useEffect } from 'react'
 import { showBooking } from '../../store/booking'
 import { useSelector, useDispatch } from 'react-redux';
 import { deleteBooking } from '../../store/booking';
+import { Modal } from '../../context/Modal';
+import EditBooking from './EditBooking';
+
+import "./Mybooking.css"
 
 
 const MyBooking = () => {
     const disptach = useDispatch()
 
+    const[openModal, setOpenModal] = useState(false)
+    const[startDate, setStartDate] = useState("")
+    const[endDate,setEndDate] = useState("") 
+    const[bookingId, setBookingId] = useState()
+    const [spotImg, setSpotImg]= useState()
+    const [spotName,setSpotName] = useState()
+
+    console.log("spotImg",spotImg)
+    console.log("spotName",spotName)
+    
+    console.log("openModal",openModal)
+
+
     useEffect(()=>{
         disptach(showBooking())
-    },[disptach])
+    },[])
 
     const allBookings = useSelector(state=>state.userBookings)
     console.log("allBookings",allBookings)
@@ -31,53 +48,75 @@ const MyBooking = () => {
     console.log("passedTrip",passedTrip)
 
     const handleDelete=(e)=>{
+       
         const bookingId = e.target.id
         console.log("bookingid",bookingId)
         disptach(deleteBooking(bookingId))
     }
 
-    const handleEditBooking=()=>{
-
+    const handleEditBooking=(e)=>{
+        console.log(1)
+        setOpenModal(true)
+        console.log("shwoModal",openModal)
+        console.log("e",e)
+        console.log("value",e.target.value)
+        setBookingId(e.target.id)
+        let arrayValue = (e.target.value).split()
+        console.log("arrayValue",arrayValue)
+        setStartDate(arrayValue[0])
+        console.log("startDate",startDate)
+        setEndDate(arrayValue[1])
+        console.log("endDate",endDate)
+        setSpotName(arrayValue[2])
+        setSpotImg(arrayValue[3])
+        
     }
 
   return (
     <>
-        <h3>Upcoming trips</h3>
+        <h3 className='trip-title'>Upcoming trips</h3>
         {bookingArray && upcoming.map((booking)=>{
             return(
             <div className='trip-main-container'>
-
-                <div className='name-state-div'>
-                    <h3>{booking.Spot.name}</h3>
-                    <p>{booking.Spot.city} {booking.Spot.state}</p>
-                </div>
-                
+        
                 <div className='booingDate-function-div'>
                     <div className='booking-date-div'>
                         <div className='left-title'>
-                            <p>startDate</p>
-                            <p>endDate</p>
-                            <p>Sport.price</p>
+                            <p>CHECK-IN</p>
+                            <p>CHECKOUT</p>
+                            <p>price</p>
+                            <p>Total days</p>
                             <p>Total fee</p>
                         </div>
 
                         <div className='right-infor'>
-                            <p>{booking.startDate}</p>
-                            <p>{booking.endDate}</p>
+                            <p>{booking.startDate.substring(0,10)}</p>
+                            <p>{booking.endDate.substring(0,10)}</p>
                             <p>{booking.Spot.price}</p>
+                            <p>Total days</p>
                             <p>Total fee</p>
                         </div>
                     </div>
 
                     <div className='edit-delete-div'>
-                        <button id={booking.id} onClick={handleEditBooking}>Update Trip</button>
-                        <button id={booking.id} onClick={handleDelete}>Cancel Trip</button>
+                        <button className='booking-update-btn' value={[booking.startDate, booking.endDate,booking.Spot.name, booking.Spot.previewImage
+                        ]} id={booking.id} onClick={handleEditBooking}>Update Trip</button>
+                        
+                        {openModal && 
+                        <Modal onClose={()=>{setOpenModal(false)}}>
+                            <EditBooking bookingId = {bookingId} startDate ={startDate} endDate={endDate} spotImg={spotImg} spotName={spotName} />
+                        </Modal>}
+                        
+                        <button className='bookink-delet-btn' id={booking.id} onClick={handleDelete}>Cancel Trip</button>
                     </div>
 
                 </div>
+              
 
                 <div className='booking-image-div'>
-                <img src={booking.Spot.previewImage}/>
+                    <h5>{booking.Spot.name}</h5>
+                    <p>{booking.Spot.city} {booking.Spot.state}</p>
+                    <img src={booking.Spot.previewImage}/>
                 </div>
 
             </div>
@@ -86,15 +125,10 @@ const MyBooking = () => {
         }) }
 
 
-        <h3>Current and passed trips</h3>
+        <h3 className='trip-title'>Current and passed trips</h3>
         {bookingArray && passedTrip.map((booking)=>{
             return(
             <div className='trip-main-container'>
-
-                <div className='name-state-div'>
-                    <h3>{booking.Spot.name}</h3>
-                    <p>{booking.Spot.city} {booking.Spot.state}</p>
-                </div>
                 
                 <div className='booingDate-function-div'>
                     <div className='booking-date-div'>
@@ -106,22 +140,20 @@ const MyBooking = () => {
                         </div>
 
                         <div className='right-infor'>
-                            <p>{booking.startDate}</p>
-                            <p>{booking.endDate}</p>
+                            <p>{booking.startDate.substring(0,10)}</p>
+                            <p>{booking.endDate.substring(0,10)}</p>
                             <p>{booking.Spot.price}</p>
                             <p>Total fee</p>
                         </div>
                     </div>
 
-                    {/* <div className='edit-delete-div'>
-                        <button>Update Trip</button>
-                        <button>Cancel Trip</button>
-                    </div> */}
 
                 </div>
 
                 <div className='booking-image-div'>
-                <img src={booking.Spot.previewImage}/>
+                    <h5>{booking.Spot.name}</h5>
+                    <p>{booking.Spot.city} {booking.Spot.state}</p>
+                    <img src={booking.Spot.previewImage}/>
                 </div>
 
             </div>

@@ -1,0 +1,82 @@
+.trip-main-container{
+    border: 1px solid;
+    display: flex;
+    border-color: transparent;
+    margin-bottom: 5%;
+    margin-left: 20%;
+    margin-right: 20%;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.name-state-div{
+ border: 1px dotted;
+}
+
+.booingDate-function-div{
+    border-right: 1px solid;
+    flex-grow: 1;
+}
+
+.booking-date-div{
+    display: flex;
+    padding-left: 20px;
+}
+
+.booking-image-div{
+    margin: auto;
+    text-align: center;
+}
+.booking-image-div p{
+    font-size: 12px;
+}
+
+.booking-image-div img{
+    width: 250px;
+    height: 150px;
+}
+
+.trip-title{
+    text-align: center;
+}
+
+.right-infor{
+    margin-left: 5%;
+}
+
+.booking-date-div{
+    max-width: 100%;
+}
+
+
+.edit-delete-div{
+    display: flex;
+    gap:20px;
+    padding-left: 20px;
+}
+
+.booking-update-btn {
+    cursor: pointer;
+    text-align: center;
+    border-style: solid;
+    background-color: #E51E56;
+    color: white;
+    border-color:transparent ;
+  
+    height: 35px;
+    width: 120px;
+    border-radius: 8px;
+}
+
+.bookink-delet-btn{
+    cursor: pointer;
+    text-align: center;
+    border-style: solid;
+    background-color: gray;
+    color: white;
+    border-color:transparent ;
+  
+    height: 35px;
+    width: 120px;
+    border-radius: 8px;
+}

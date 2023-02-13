@@ -59,6 +59,8 @@ export const showBooking =()=> async(dispatch)=>{
     dispatch(displayBooking(data.Bookings))
 }
 
+//edit 
+
 //delete a booking
 export const deleteBooking = (id)=>async(dispatch)=>{
     const response = await csrfFetch(`api/bookings/${id}`,{
